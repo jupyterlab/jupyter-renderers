@@ -1,7 +1,7 @@
 {
   "scripts": {
     "build": "lerna run build",
-    "postinstall": "lerna bootstrap",
+    "postinstall": "lerna bootstrap --hoist",
     "publish": "lerna publish"
   },
   "devDependencies": {
