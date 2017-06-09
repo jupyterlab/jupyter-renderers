@@ -4,12 +4,12 @@
 */
 
 import {
-  JupyterLab, 
+  JupyterLab,
   JupyterLabPlugin
 } from '@jupyterlab/application';
 
 import {
-  ILayoutRestorer, 
+  ILayoutRestorer,
   InstanceTracker
 } from '@jupyterlab/apputils';
 
@@ -22,15 +22,22 @@ import {
 } from '@jupyterlab/rendermime';
 
 import {
-  GeoJSONViewer, 
+  GeoJSONRenderer,
+  GeoJSONViewer,
   GeoJSONViewerFactory
 } from '@jupyterlab/geojsonviewer';
 
 
 /**
+ * The mime type of GeoJSON.
+ */
+const MIME_TYPE = 'application/geo+json';
+
+
+/**
  * The name of the factory that creates geojson widgets.
  */
-const FACTORY = 'GeoJSON Preview';
+const FACTORY = 'GeoJSON';
 
 
 /**
@@ -60,44 +67,53 @@ const plugin: JupyterLabPlugin<void> = {
  * Activate the geojson plugin.
  */
 function activate(app: JupyterLab, registry: IDocumentRegistry, rendermime: IRenderMime, restorer: ILayoutRestorer) {
-    const factory = new GeoJSONViewerFactory({
-      name: FACTORY,
-      fileExtensions: ['.geojson', '.geo.json'],
-      readOnly: true,
-      rendermime
-    });
+  rendermime.addRenderer({
+    mimeType: MIME_TYPE,
+    renderer: new GeoJSONRenderer()
+  }, 0);
+  
+  const factory = new GeoJSONViewerFactory({
+    name: FACTORY,
+    fileExtensions: ['.geojson', '.geo.json'],
+    defaultFor: ['.geojson', '.geo.json'],
+    readOnly: true,
+    rendermime
+  });
 
-    const tracker = new InstanceTracker<GeoJSONViewer>({ namespace: NAMESPACE });
+  const tracker = new InstanceTracker<GeoJSONViewer>({
+    namespace: NAMESPACE,
+    shell: app.shell
+  });
 
-    // Handle state restoration.
-    restorer.restore(tracker, {
-      command: 'file-operations:open',
-      args: widget => ({ path: widget.context.path, factory: FACTORY }),
-      name: widget => widget.context.path
-    });
+  // Handle state restoration.
+  restorer.restore(tracker, {
+    command: 'file-operations:open',
+    args: widget => ({ path: widget.context.path, factory: FACTORY }),
+    name: widget => widget.context.path
+  });
 
-    factory.widgetCreated.connect((sender, widget) => {
-      widget.title.icon = ICON_CLASS;
-      // Notify the instance tracker if restore data needs to update.
-      widget.context.pathChanged.connect(() => { tracker.save(widget); });
-      tracker.add(widget);
-    });
+  factory.widgetCreated.connect((sender, widget) => {
+    widget.title.icon = ICON_CLASS;
+    // Notify the instance tracker if restore data needs to update.
+    widget.context.pathChanged.connect(() => { tracker.save(widget); });
+    tracker.add(widget);
+  });
 
-    registry.addWidgetFactory(factory);
+  registry.addWidgetFactory(factory);
 
-    // commands.addCommand(CommandIDs.preview, {
-    //   label: 'GeoJSON Preview',
-    //   execute: (args) => {
-    //     let path = args['path'];
-    //     if (typeof path !== 'string') {
-    //       return;
-    //     }
-    //     return commands.execute('file-operations:open', {
-    //       path, factory: FACTORY
-    //     });
-    //   }
-    // });
-  }
+  // commands.addCommand(CommandIDs.preview, {
+  //   label: 'GeoJSON Preview',
+  //   execute: (args) => {
+  //     let path = args['path'];
+  //     if (typeof path !== 'string') {
+  //       return;
+  //     }
+  //     return commands.execute('file-operations:open', {
+  //       path, factory: FACTORY
+  //     });
+  //   }
+  // });
+}
 
 
 /**

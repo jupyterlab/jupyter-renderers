@@ -57,7 +57,7 @@ const RENDER_TIMEOUT = 1000;
 /**
  * The mime type of GeoJSON.
  */
-const MIME_TYPE = 'application/geojson';
+const MIME_TYPE = 'application/geo+json';
 
 
 /**
@@ -85,7 +85,7 @@ const LAYER_OPTIONS: JSONObject = {
 
 
 /**
- * A widget for displaying Markdown with embeded latex.
+ * A widget for displaying GeoJSON.
  */
 export
 class RenderedGeoJSON extends Widget {
@@ -96,11 +96,12 @@ class RenderedGeoJSON extends Widget {
     super(options);
     this.addClass(RENDERED_GEOJSON_CLASS);
     let data = options.model.data.get(options.mimeType) as JSONObject | GeoJSON.GeoJsonObject;
-    let metadata = options.model.metadata.get(options.mimeType) as JSONObject;
-    let urlTemplate = metadata.url_template as string || URL_TEMPLATE;
-    let layerOptions = metadata.layer_options as JSONObject || LAYER_OPTIONS;
+    let metadata = options.model.metadata.get(options.mimeType) as JSONObject || {};
     this._map = leaflet.map(this.node).fitWorld();
-    leaflet.tileLayer(urlTemplate, layerOptions).addTo(this._map);
+    leaflet.tileLayer(
+      metadata.url_template as string || URL_TEMPLATE, 
+      metadata.layer_options as JSONObject || LAYER_OPTIONS
+    ).addTo(this._map);
     this._map.getSize = () => {
       let map: any = this._map;
       if (!map._size || map._sizeChanged) {
@@ -163,6 +164,38 @@ class RenderedGeoJSON extends Widget {
   private _sized = false;
   private _width = -1;
   private _height = -1;
+}
+
+/**
+ * A mime renderer for GeoJSON.
+ */
+export
+class GeoJSONRenderer implements RenderMime.IRenderer {
+  /**
+   * The mimeTypes this renderer accepts.
+   */
+  mimeTypes = ['application/geo+json'];
+
+  /**
+   * Whether the renderer can render given the render options.
+   */
+  canRender(options: RenderMime.IRenderOptions): boolean {
+    return this.mimeTypes.indexOf(options.mimeType) !== -1;
+  }
+
+  /**
+   * Render the transformed mime bundle.
+   */
+  render(options: RenderMime.IRenderOptions): Widget {
+    return new RenderedGeoJSON(options);
+  }
+
+  /**
+   * Whether the renderer will sanitize the data given the render options.
+   */
+  wouldSanitize(options: RenderMime.IRenderOptions): boolean {
+    return !options.model.trusted;
+  }
 }
 
 
