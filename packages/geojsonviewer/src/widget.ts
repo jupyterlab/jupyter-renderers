@@ -98,25 +98,14 @@ class RenderedGeoJSON extends Widget {
     let data = options.model.data.get(options.mimeType) as JSONObject | GeoJSON.GeoJsonObject;
     let metadata = options.model.metadata.get(options.mimeType) as JSONObject || {};
     this._map = leaflet.map(this.node).fitWorld();
+    this._map.scrollWheelZoom.disable();
     leaflet.tileLayer(
       metadata.url_template as string || URL_TEMPLATE, 
       metadata.layer_options as JSONObject || LAYER_OPTIONS
     ).addTo(this._map);
-    this._map.getSize = () => {
-      let map: any = this._map;
-      if (!map._size || map._sizeChanged) {
-        if (this._width < 0 || this._height < 0) {
-          return map.prototype.getSize.call(map);
-        }
-        map._size = leaflet.point(this._width, this._height);
-        map._sizeChanged = false;
-      }
-      return map._size.clone();
-    };
-    this._geojson = data as GeoJSON.GeoJsonObject;
-    this._geojsonLayer = leaflet.geoJSON(this._geojson, options);
-    this._map.addLayer(this._geojsonLayer);
-    this._fitLayerBounds();
+    this._geoJSONLayer = leaflet.geoJSON(data as GeoJSON.GeoJsonObject).addTo(this._map);
+    this._map.fitBounds(this._geoJSONLayer.getBounds());
+    this._map.invalidateSize();
   }
   
   /**
@@ -125,7 +114,7 @@ class RenderedGeoJSON extends Widget {
   dispose(): void {
     this._map.remove();
     this._map = null;
-    this._geojsonLayer = null;
+    // this._geoJSONLayer = null;
     super.dispose();
   }
 
@@ -133,35 +122,22 @@ class RenderedGeoJSON extends Widget {
    * A message handler invoked on an `'after-attach'` message.
    */
   onAfterAttach(msg: Message): void {
-    this.update();
+    this._map.fitBounds(this._geoJSONLayer.getBounds());
+    this._map.invalidateSize();
   }
   
   /**
    * A message handler invoked on a `'resize'` message.
    */
   protected onResize(msg: Widget.ResizeMessage) {
-    this._sized = true;
     this._width = msg.width;
     this._height = msg.height;
-    this._map.invalidateSize(true);
-    this._fitLayerBounds();
-  }
-  
-  /**
-   * Make the map fit the geojson layer bounds only once when all info is available.
-   */
-  private _fitLayerBounds() {
-    if (!this._fitted && this._sized && this._geojsonLayer) {
-      this._map.fitBounds(this._geojsonLayer.getBounds(), {});
-      this._fitted = true;
-    }
+    this._map.fitBounds(this._geoJSONLayer.getBounds());
+    this._map.invalidateSize();
   }
 
   private _map: leaflet.Map;
-  private _geojson: GeoJSON.GeoJsonObject;
-  private _geojsonLayer: leaflet.GeoJSON;
-  private _fitted = false;
-  private _sized = false;
+  private _geoJSONLayer: leaflet.GeoJSON;
   private _width = -1;
   private _height = -1;
 }
@@ -265,7 +241,16 @@ class GeoJSONViewer extends Widget {
   protected onUpdateRequest(msg: Message): void {
     let context = this._context;
     let model = context.model;
-    let data = { [MIME_TYPE]: model.toJSON() };
+    let data = {};
+    try {
+      data = {
+        [MIME_TYPE]: JSON.parse(model.toString())
+      };
+    } catch (error) {
+      data = {
+        'application/vnd.jupyter.stderr': error.message
+      };
+    }
     let mimeModel = new MimeModel({ data, trusted: false });
     let widget = this._rendermime.render(mimeModel);
     let layout = this.layout as PanelLayout;

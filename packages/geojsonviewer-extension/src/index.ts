@@ -35,6 +35,12 @@ const MIME_TYPE = 'application/geo+json';
 
 
 /**
+ * The file extensions of GeoJSON.
+ */
+const FILE_EXTENSIONS = ['.geojson', '.geo.json'];
+
+
+/**
  * The name of the factory that creates geojson widgets.
  */
 const FACTORY = 'GeoJSON';
@@ -74,8 +80,8 @@ function activate(app: JupyterLab, registry: IDocumentRegistry, rendermime: IRen
   
   const factory = new GeoJSONViewerFactory({
     name: FACTORY,
-    fileExtensions: ['.geojson', '.geo.json'],
-    defaultFor: ['.geojson', '.geo.json'],
+    fileExtensions: FILE_EXTENSIONS,
+    defaultFor: FILE_EXTENSIONS,
     readOnly: true,
     rendermime
   });
