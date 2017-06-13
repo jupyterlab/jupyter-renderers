@@ -1,0 +1,43 @@
+{
+  "name": "@jupyterlab/jsonviewer-extension",
+  "version": "0.6.0",
+  "description": "JupyterLab - JSON Renderer Extension",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/*.d.ts",
+    "lib/*.js"
+  ],
+  "directories": {
+    "lib": "lib/"
+  },
+  "dependencies": {
+    "@jupyterlab/application": "^0.6.0",
+    "@jupyterlab/apputils": "^0.6.0",
+    "@jupyterlab/docregistry": "^0.6.0",
+    "@jupyterlab/jsonviewer": "^0.6.0",
+    "@jupyterlab/rendermime": "^0.6.0"
+  },
+  "devDependencies": {
+    "rimraf": "^2.5.2",
+    "typescript": "^2.2.1"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf lib",
+    "watch": "tsc -w"
+  },
+  "jupyterlab": {
+    "extension": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jupyterlab/jsonviewer-extension.git"
+  },
+  "author": "Project Jupyter",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/jupyterlab/jsonviewer-extension/issues"
+  },
+  "homepage": "https://github.com/jupyterlab/jsonviewer-extension"
+}

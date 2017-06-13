@@ -1,0 +1,49 @@
+{
+  "name": "@jupyterlab/jsonviewer",
+  "version": "0.6.0",
+  "description": "JupyterLab - JSON Renderer",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib/*.d.ts",
+    "lib/*.js",
+    "style/*.css"
+  ],
+  "directories": {
+    "lib": "lib/"
+  },
+  "dependencies": {
+    "@jupyterlab/coreutils": "^0.6.0",
+    "@jupyterlab/docregistry": "^0.6.0",
+    "@jupyterlab/rendermime": "^0.6.0",
+    "@phosphor/messaging": "^1.2.0",
+    "@phosphor/widgets": "^1.2.0",
+    "leaflet": "^1.0.3",
+    "react-highlighter": "^0.4.0",
+    "react-json-tree": "^0.10.9"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.0.62",
+    "@types/react": "^15.0.27",
+    "@types/react-dom": "^15.5.0",
+    "@types/react-highlighter": "^0.3.1",
+    "@types/react-json-tree": "^0.6.3",
+    "rimraf": "^2.5.2",
+    "typescript": "^2.2.1"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf lib",
+    "watch": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jupyterlab/jsonviewer.git"
+  },
+  "author": "Project Jupyter",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/jupyterlab/jsonviewer/issues"
+  },
+  "homepage": "https://github.com/jupyterlab/jsonviewer"
+}
