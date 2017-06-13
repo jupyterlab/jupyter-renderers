@@ -1,6 +1,7 @@
 {
   "scripts": {
     "build": "lerna run build",
+    "install": "lerna exec -- npm install",
     "postinstall": "lerna bootstrap --hoist",
     "publish": "lerna publish"
   },

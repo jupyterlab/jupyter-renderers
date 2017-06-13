@@ -4,10 +4,6 @@
 */
 
 import {
-  JSONObject
-} from '@phosphor/coreutils';
-
-import {
   Message,
 } from '@phosphor/messaging';
 
@@ -19,11 +15,13 @@ import {
   Widget
 } from '@phosphor/widgets';
 
-import * as leaflet from 'leaflet';
-
 import {
   ActivityMonitor
 } from '@jupyterlab/coreutils';
+
+import {
+  JSONObject
+} from '@phosphor/coreutils';
 
 import {
   DocumentRegistry, 
@@ -34,6 +32,8 @@ import {
   MimeModel, 
   RenderMime
 } from '@jupyterlab/rendermime';
+
+import * as leaflet from 'leaflet';
 
 
 /**
@@ -57,7 +57,7 @@ const RENDER_TIMEOUT = 1000;
 /**
  * The mime type of GeoJSON.
  */
-const MIME_TYPE = 'application/geo+json';
+export const MIME_TYPE = 'application/geo+json';
 
 
 /**
@@ -95,8 +95,8 @@ class RenderedGeoJSON extends Widget {
   constructor(options: RenderMime.IRenderOptions) {
     super(options);
     this.addClass(RENDERED_GEOJSON_CLASS);
-    let data = options.model.data.get(options.mimeType) as JSONObject | GeoJSON.GeoJsonObject;
-    let metadata = options.model.metadata.get(options.mimeType) as JSONObject || {};
+    const data = options.model.data.get(options.mimeType) as JSONObject | GeoJSON.GeoJsonObject;
+    const metadata = options.model.metadata.get(options.mimeType) as JSONObject || {};
     this._map = leaflet.map(this.node).fitWorld();
     this._map.scrollWheelZoom.disable();
     leaflet.tileLayer(
@@ -150,7 +150,7 @@ class GeoJSONRenderer implements RenderMime.IRenderer {
   /**
    * The mimeTypes this renderer accepts.
    */
-  mimeTypes = ['application/geo+json'];
+  mimeTypes = [MIME_TYPE];
 
   /**
    * Whether the renderer can render given the render options.
@@ -239,8 +239,9 @@ class GeoJSONViewer extends Widget {
    * Handle an `update-request` message to the widget.
    */
   protected onUpdateRequest(msg: Message): void {
-    let context = this._context;
-    let model = context.model;
+    const context = this._context;
+    const model = context.model;
+    if (model.toString() === '') return;
     let data = {};
     try {
       data = {
@@ -251,9 +252,9 @@ class GeoJSONViewer extends Widget {
         'application/vnd.jupyter.stderr': error.message
       };
     }
-    let mimeModel = new MimeModel({ data, trusted: false });
-    let widget = this._rendermime.render(mimeModel);
-    let layout = this.layout as PanelLayout;
+    const mimeModel = new MimeModel({ data, trusted: false });
+    const widget = this._rendermime.render(mimeModel);
+    const layout = this.layout as PanelLayout;
     if (layout.widgets.length) {
       layout.widgets[0].dispose();
     }

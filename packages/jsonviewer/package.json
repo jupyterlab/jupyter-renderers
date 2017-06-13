@@ -18,12 +18,10 @@
     "@jupyterlab/rendermime": "^0.6.0",
     "@phosphor/messaging": "^1.2.0",
     "@phosphor/widgets": "^1.2.0",
-    "leaflet": "^1.0.3",
     "react-highlighter": "^0.4.0",
     "react-json-tree": "^0.10.9"
   },
   "devDependencies": {
-    "@types/leaflet": "^1.0.62",
     "@types/react": "^15.0.27",
     "@types/react-dom": "^15.5.0",
     "@types/react-highlighter": "^0.3.1",

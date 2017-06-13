@@ -191,6 +191,7 @@ class JSONViewer extends Widget {
   protected onUpdateRequest(msg: Message): void {
     const context = this._context;
     const model = context.model;
+    if (model.toString() === '') return;
     let data = {};
     try {
       data = {

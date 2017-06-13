@@ -24,32 +24,12 @@ import {
 import {
   GeoJSONRenderer,
   GeoJSONViewer,
-  GeoJSONViewerFactory
+  GeoJSONViewerFactory,
+  MIME_TYPE,
+  FILE_EXTENSIONS,
+  FACTORY,
+  NAMESPACE
 } from '@jupyterlab/geojsonviewer';
-
-
-/**
- * The mime type of GeoJSON.
- */
-const MIME_TYPE = 'application/geo+json';
-
-
-/**
- * The file extensions of GeoJSON.
- */
-const FILE_EXTENSIONS = ['.geojson', '.geo.json'];
-
-
-/**
- * The name of the factory that creates geojson widgets.
- */
-const FACTORY = 'GeoJSON';
-
-
-/**
- * The name of the factory that creates geojson widgets.
- */
-const NAMESPACE = 'rendered-geojson';
 
 
 /**
@@ -63,7 +43,7 @@ const ICON_CLASS = 'jp-ImageTextEditor';
  */
 const plugin: JupyterLabPlugin<void> = {
   activate,
-  id: 'jupyter.extensions.rendered-geojson',
+  id: `jupyter.extensions.${NAMESPACE}`,
   requires: [IDocumentRegistry, IRenderMime, ILayoutRestorer],
   autoStart: true
 };
