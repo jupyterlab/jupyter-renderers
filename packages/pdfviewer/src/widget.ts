@@ -32,7 +32,6 @@ class PDFViewer extends Widget {
     super({ node: Private.createNode() });
     this._context = context;
     this.node.tabIndex = -1;
-    this.addClass(PDF_CLASS);
 
     this._onTitleChanged();
     context.pathChanged.connect(this._onTitleChanged, this);
@@ -123,6 +122,7 @@ namespace Private {
   function createNode(): HTMLElement {
     let node = document.createElement('div');
     let pdf = document.createElement('embed');
+    pdf.className = PDF_CLASS;
     node.appendChild(pdf);
     return node;
   }
