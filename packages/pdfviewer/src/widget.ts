@@ -91,7 +91,8 @@ class PDFViewer extends Widget {
     let cm = this._context.contentsModel;
     let content = this._context.model.toString();
     let src = `data:application/pdf;${cm.format},${content}`;
-    this.node.querySelector('element').setAttribute('src', src);
+    this.node.querySelector('embed').setAttribute('src', src);
+    this.node.querySelector('embed').setAttribute('type', 'application/pdf');
   }
 
   private _context: DocumentRegistry.Context;
