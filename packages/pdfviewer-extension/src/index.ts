@@ -6,7 +6,7 @@ import {
 } from '@jupyterlab/application';
 
 import {
-  IInstanceTracker
+  InstanceTracker
 } from '@jupyterlab/apputils';
 
 import {
@@ -18,23 +18,23 @@ import {
 } from '@jupyterlab/pdfviewer';
 
 /**
- * The file extension for pdfs
+ * The list of file extensions for PDFs.
  */
-const PDF_EXTENSION = '.pdf';
+const EXTENSIONS = ['.pdf'];
 
 /**
- * The name of the factory that creates image widgets.
+ * The name of the factory that creates PDF widgets.
  */
 const FACTORY = 'PDF';
 
 /**
- * The image file handler extension.
+ * The PDF file handler extension.
  */
 const plugin: JupyterLabPlugin<IPDFTracker> = {
   activate,
-  id: 'jupyter.extensions.pdf-handler',
+  id: 'jupyter.extensions.PDF-handler',
+  provides: IPDFTracker,
   requires: [IDocumentRegistry, ILayoutRestorer],
-  provides: IPDFTracker
   autoStart: true
 };
 
@@ -46,15 +46,15 @@ export default plugin;
 
 
 /**
- * Activate the image widget extension.
+ * Activate the PDF widget extension.
  */
 function activate(app: JupyterLab, registry: IDocumentRegistry, restorer: ILayoutRestorer): IPDFTracker {
-  const namespace = 'pdf-widget';
-  const factory = new ImageViewerFactory({
+  const namespace = 'PDF-widget';
+  const factory = new PDFViewerFactory({
     name: FACTORY,
-    modelName: 'pdf',
-    fileExtensions: [PDF_EXTENSION],
-    defaultFor: [PDF_EXTENSION],
+    modelName: 'base64',
+    fileExtensions: EXTENSIONS,
+    defaultFor: EXTENSIONS,
     readOnly: true
   });
   const tracker = new InstanceTracker<PDFViewer>({ namespace });

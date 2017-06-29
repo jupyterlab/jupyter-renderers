@@ -6,10 +6,6 @@ import {
 } from '@jupyterlab/docregistry';
 
 import {
-  PromiseDelegate
-} from '@phosphor/coreutils';
-
-import {
   Message
 } from '@phosphor/messaging';
 
@@ -28,7 +24,7 @@ const PDF_CLASS = 'jp-PDFViewer';
  * A widget for PDFs.
  */
 export
-class PDFViewer extends Widget implements DocumentRegistry.IReadyWidget {
+class PDFViewer extends Widget {
   /**
    * Construct a new PDF widget.
    */
@@ -45,7 +41,6 @@ class PDFViewer extends Widget implements DocumentRegistry.IReadyWidget {
       this._render();
       context.model.contentChanged.connect(this.update, this);
       context.fileChanged.connect(this.update, this);
-      this._ready.resolve(void 0);
     });
   }
 
@@ -54,13 +49,6 @@ class PDFViewer extends Widget implements DocumentRegistry.IReadyWidget {
    */
   get context(): DocumentRegistry.Context {
     return this._context;
-  }
-
-  /**
-   * A promise that resolves when the pdf viewer is ready.
-   */
-  get ready(): Promise<void> {
-    return this._ready.promise;
   }
 
   /**
@@ -100,10 +88,13 @@ class PDFViewer extends Widget implements DocumentRegistry.IReadyWidget {
    * Render the widget content.
    */
   private _render(): void {
+    let cm = this._context.contentsModel;
+    let content = this._context.model.toString();
+    let src = `data:application/pdf;${cm.format},${content}`;
+    this.node.querySelector('element').setAttribute('src', src);
   }
 
   private _context: DocumentRegistry.Context;
-  private _ready = new PromiseDelegate<void>();
 }
 
 
@@ -117,5 +108,21 @@ class PDFViewerFactory extends ABCWidgetFactory<PDFViewer, DocumentRegistry.IMod
    */
   protected createNewWidget(context: DocumentRegistry.IContext<DocumentRegistry.IModel>): PDFViewer {
     return new PDFViewer(context);
+  }
+}
+
+/**
+ * A namespace for PDF widget private data.
+ */
+namespace Private {
+  /**
+   * Create the node for the PDF widget.
+   */
+  export
+  function createNode(): HTMLElement {
+    let node = document.createElement('div');
+    let pdf = document.createElement('embed');
+    node.appendChild(pdf);
+    return node;
   }
 }
