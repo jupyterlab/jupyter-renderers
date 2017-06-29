@@ -59,17 +59,6 @@ class PDFViewer extends Widget {
   }
 
   /**
-   * Handle `update-request` messages for the widget.
-   */
-  protected onUpdateRequest(msg: Message): void {
-    let context = this._context;
-    if (this.isDisposed || !context.isReady) {
-      return;
-    }
-    this._render();
-  }
-
-  /**
    * Handle `'activate-request'` messages.
    */
   protected onActivateRequest(msg: Message): void {
