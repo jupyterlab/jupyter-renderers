@@ -6,12 +6,11 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 
 ## Packages
 
-* jsonviewer: Renders JSON data as a collapsible tree with a search field
-  * Mime types: `application/json`
-  * File extensions: `.json`
-* geojsonviwer: Renders GeoJSON as a map
-  * Mime types: `application/geo+json`
-  * File extensions: `.geojson`, `.geo.json`
+| Name        | Mime types           | File extensions |
+| ----------- | -------------------- | --------------- |
+| geojsonviewer | `application/geo+json` | `.geojson`, `.geo.json` |
+| jsonviewer | `application/json` | `.json`, `.ipynb` |
+| plotlyviewer | `application/vnd.plotly.v1+json` | `.plotly`, `.plotly.json` |
 
 ## Install
 
@@ -24,12 +23,10 @@ npm run build
 
 ## Link extensions with JupyterLab
 
-```
-# jsonviewer-extension
-jupyter labextension link ./packages/jsonviewer-extension
+Link geojsonviewer:
 
-# geojsonviewer-extension
-jupyter labextension link ./packages/geojsonviewer-extension
+```
+jupyter labextension link ./packages/geojsonviewer
 ```
 
 ## Developing JupyterLab extensions

@@ -5,23 +5,24 @@
 
 /* Add CSS variables to :root */
 :root {
-  /*--jp-private-geojsonviewer-variable: 16px;*/
+  /*--jp-private-plotlyviewer-variable: 16px;*/
 }
 
 /* Base styles */
-.jp-RenderedGeoJSON {
+.jp-RenderedPlotly {
   width: 100%;
   height: 100%;
   padding: 0;
-  overflow: hidden;
+  overflow: auto;
 }
 
 /* Document styles */
-.jp-MimeRenderer .jp-RenderedGeoJSON {
-  
+.jp-MimeRenderer .jp-RenderedPlotly {
+  padding: 5px;
+  padding-top: 0;
 }
 
-/* Document styles */
-.jp-OutputArea .jp-RenderedGeoJSON {
-  height: 360px;
+/* Output styles */
+.jp-OutputArea .jp-RenderedPlotly {
+  /*height: 360px;*/
 }

@@ -1,7 +1,7 @@
 {
-  "name": "@jupyterlab/geojsonviewer",
+  "name": "@jupyterlab/plotlyviewer",
   "version": "0.7.0",
-  "description": "JupyterLab - GeoJSON Renderer",
+  "description": "JupyterLab - Plotly Renderer",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
@@ -17,10 +17,10 @@
   "dependencies": {
     "@jupyterlab/rendermime-interfaces": "^0.1.0",
     "@phosphor/widgets": "^1.3.0",
-    "leaflet": "^1.0.3"
+    "plotly.js": "^1.28.3"
   },
   "devDependencies": {
-    "@types/leaflet": "^1.0.62",
+    "@types/plotly.js": "^1.27.0",
     "rimraf": "^2.5.2",
     "typescript": "~2.3.1"
   },

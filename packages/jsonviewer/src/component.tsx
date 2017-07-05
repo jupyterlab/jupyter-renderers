@@ -12,24 +12,24 @@ import {
   JSONArray
 } from '@phosphor/coreutils';
 
-export interface Props {
+export interface IProps {
   data: JSONValue;
   metadata?: JSONObject;
   theme?: string;
 }
 
-export interface State {
+export interface IState {
   fiter?: string;
 }
 
-export class Component extends React.Component<Props, State> {
+export class Component extends React.Component<IProps, IState> {
   state = { filter: '' };
   input: Element = null;
   timer: number = null;
 
   componentDidMount() {
     /**
-     * Stop propagation of keyboard events to JupyterLab 
+     * Stop propagation of keyboard events to JupyterLab
      */
     ReactDOM.findDOMNode(this.input).addEventListener(
       'keydown',
@@ -56,18 +56,18 @@ export class Component extends React.Component<Props, State> {
       ? filterPaths(data, this.state.filter)
       : ['root'];
     return (
-      <div style={{ 
+      <div style={{
         position: 'relative',
         width: '100%'
       }}>
         <input
           ref={ref => this.input = ref}
           onChange={event => {
-            const filter = event.target.value;
             if (this.timer) clearTimeout(this.timer);
+            const filter = event.target.value;
             this.timer = setTimeout(
               () => {
-                this.setState({ filter } as State);
+                this.setState({ filter } as IState);
                 this.timer = null;
               },
               300
@@ -139,8 +139,8 @@ export class Component extends React.Component<Props, State> {
             );
           }}
           shouldExpandNode={(keyPath, data, level) =>
-            metadata && metadata.expanded 
-              ? true 
+            metadata && metadata.expanded
+              ? true
               : keyPaths.join(',').includes(keyPath.join(','))}
         />
       </div>
