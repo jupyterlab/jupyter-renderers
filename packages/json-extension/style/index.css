@@ -5,7 +5,7 @@
 
 /* Add CSS variables to :root */
 :root {
-  /*--jp-private-JSONviewer-variable: 16px;*/
+  /*--jp-private-json-variable: 16px;*/
 }
 
 /* Base styles */
@@ -24,7 +24,7 @@
 }
 
 /* Document styles */
-.jp-MimeRenderer .jp-RenderedJSON {
+.jp-MimeDocument .jp-RenderedJSON {
   padding: 5px;
   padding-top: 0;
   overflow-y: auto;

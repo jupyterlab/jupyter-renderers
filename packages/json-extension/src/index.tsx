@@ -68,39 +68,17 @@ class RenderedJSON extends Widget implements IRenderMime.IRenderer {
  * A mime renderer factory for GeoJSON data.
  */
 export
-class JSONRendererFactory implements IRenderMime.IRendererFactory {
-  /**
-   * The mimeTypes this renderer accepts.
-   */
-  mimeTypes = [MIME_TYPE];
-
-  /**
-   * * Whether the renderer can create a renderer given the render options.
-   */
-  canCreateRenderer(options: IRenderMime.IRendererOptions): boolean {
-    return this.mimeTypes.indexOf(options.mimeType) !== -1;
-  }
-
-  /**
-   * Render the transformed mime bundle.
-   */
-  createRenderer(options: IRenderMime.IRendererOptions): IRenderMime.IRenderer {
-    return new RenderedJSON(options);
-  }
-
-  /**
-   * Whether the renderer will sanitize the data given the render options.
-   */
-  wouldSanitize(options: IRenderMime.IRendererOptions): boolean {
-    return false;
-  }
-}
+const rendererFactory: IRenderMime.IRendererFactory = {
+  safe: true,
+  mimeTypes: [MIME_TYPE],
+  createRenderer: options => new RenderedJSON(options)
+};
 
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
   {
     mimeType: MIME_TYPE,
-    rendererFactory: new JSONRendererFactory(),
+    rendererFactory,
     rank: 0,
     dataType: 'json',
     documentWidgetFactoryOptions: {

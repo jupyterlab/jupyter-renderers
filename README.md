@@ -8,9 +8,9 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 
 | Name        | Mime types           | File extensions |
 | ----------- | -------------------- | --------------- |
-| geojsonviewer | `application/geo+json` | `.geojson`, `.geo.json` |
-| jsonviewer | `application/json` | `.json`, `.ipynb` |
-| plotlyviewer | `application/vnd.plotly.v1+json` | `.plotly`, `.plotly.json` |
+| geojson-extension | `application/geo+json` | `.geojson`, `.geo.json` |
+| json-extension | `application/json` | `.json`, `.ipynb` |
+| plotly-extension | `application/vnd.plotly.v1+json` | `.plotly`, `.plotly.json` |
 
 ## Install
 
@@ -23,10 +23,10 @@ npm run build
 
 ## Link extensions with JupyterLab
 
-Link geojsonviewer:
+Link geojson-extension:
 
 ```
-jupyter labextension link ./packages/geojsonviewer
+jupyter labextension link ./packages/geojson-extension
 ```
 
 ## Developing JupyterLab extensions

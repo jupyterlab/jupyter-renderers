@@ -5,7 +5,7 @@
 
 /* Add CSS variables to :root */
 :root {
-  /*--jp-private-geojsonviewer-variable: 16px;*/
+  /*--jp-private-geojson-variable: 16px;*/
 }
 
 /* Base styles */
@@ -17,7 +17,7 @@
 }
 
 /* Document styles */
-.jp-MimeRenderer .jp-RenderedGeoJSON {
+.jp-MimeDocument .jp-RenderedGeoJSON {
   
 }
 

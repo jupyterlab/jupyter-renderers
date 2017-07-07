@@ -5,7 +5,7 @@
 
 /* Add CSS variables to :root */
 :root {
-  /*--jp-private-plotlyviewer-variable: 16px;*/
+  /*--jp-private-plotly-variable: 16px;*/
 }
 
 /* Base styles */
@@ -17,7 +17,7 @@
 }
 
 /* Document styles */
-.jp-MimeRenderer .jp-RenderedPlotly {
+.jp-MimeDocument .jp-RenderedPlotly {
   padding: 5px;
   padding-top: 0;
 }
