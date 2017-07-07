@@ -14,6 +14,14 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 
 ## Install
 
+* geojson-extension: `jupyter labextension install @jupyterlab/geojson-extension`
+* json-extension: `jupyter labextension install @jupyterlab/json-extension`
+* plotly-extension: `jupyter labextension install @jupyterlab/plotly-extension`
+
+## Contributing
+
+### Developer install
+
 ```
 git clone https://github.com/gnestor/jupyter-renderers.git
 cd jupyter-renderers
@@ -21,15 +29,15 @@ npm install
 npm run build
 ```
 
-## Link extensions with JupyterLab
+### Link extensions with JupyterLab
 
 Link geojson-extension:
 
 ```
-jupyter labextension link ./packages/geojson-extension
+jupyter labextension link packages/geojson-extension
 ```
 
-## Developing JupyterLab extensions
+### Rebuilding extensions
 
 After making changes to the source of the extension or renderer packages, the packages must be rebuilt:
 
