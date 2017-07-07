@@ -6,14 +6,21 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 
 ## Packages
 
-* jsonviewer: Renders JSON data as a collapsible tree with a search field
-  * Mime types: `application/json`
-  * File extensions: `.json`
-* geojsonviwer: Renders GeoJSON as a map
-  * Mime types: `application/geo+json`
-  * File extensions: `.geojson`, `.geo.json`
+| Name        | Mime types           | File extensions |
+| ----------- | -------------------- | --------------- |
+| geojson-extension | `application/geo+json` | `.geojson`, `.geo.json` |
+| json-extension | `application/json` | `.json`, `.ipynb` |
+| plotly-extension | `application/vnd.plotly.v1+json` | `.plotly`, `.plotly.json` |
 
 ## Install
+
+* geojson-extension: `jupyter labextension install @jupyterlab/geojson-extension`
+* json-extension: `jupyter labextension install @jupyterlab/json-extension`
+* plotly-extension: `jupyter labextension install @jupyterlab/plotly-extension`
+
+## Contributing
+
+### Developer install
 
 ```
 git clone https://github.com/gnestor/jupyter-renderers.git
@@ -22,17 +29,15 @@ npm install
 npm run build
 ```
 
-## Link extensions with JupyterLab
+### Link extensions with JupyterLab
+
+Link geojson-extension:
 
 ```
-# jsonviewer-extension
-jupyter labextension link ./packages/jsonviewer-extension
-
-# geojsonviewer-extension
-jupyter labextension link ./packages/geojsonviewer-extension
+jupyter labextension link packages/geojson-extension
 ```
 
-## Developing JupyterLab extensions
+### Rebuilding extensions
 
 After making changes to the source of the extension or renderer packages, the packages must be rebuilt:
 

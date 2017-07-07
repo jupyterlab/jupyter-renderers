@@ -1,0 +1,28 @@
+/**
+  Copyright (c) Jupyter Development Team.
+  Distributed under the terms of the Modified BSD License.
+*/
+
+/* Add CSS variables to :root */
+:root {
+  /*--jp-private-plotly-variable: 16px;*/
+}
+
+/* Base styles */
+.jp-RenderedPlotly {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: auto;
+}
+
+/* Document styles */
+.jp-MimeDocument .jp-RenderedPlotly {
+  padding: 5px;
+  padding-top: 0;
+}
+
+/* Output styles */
+.jp-OutputArea .jp-RenderedPlotly {
+  /*height: 360px;*/
+}

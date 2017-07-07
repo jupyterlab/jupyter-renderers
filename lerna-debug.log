@@ -1,0 +1,114 @@
+0 silly input [ 'build' ]
+1 silly flags { _: [ 'run' ],
+1 silly flags   sort: true,
+1 silly flags   stream: false,
+1 silly flags   'only-updated': false,
+1 silly flags   onlyUpdated: false,
+1 silly flags   parallel: false,
+1 silly flags   concurrency: 4,
+1 silly flags   script: 'build',
+1 silly flags   args: [] }
+2 verbose rootPath /Users/grant/Sites/jupyter/jupyter-renderers
+3 info version 2.0.0-rc.5
+4 silly existsSync /Users/grant/Sites/jupyter/jupyter-renderers/VERSION
+5 silly initialize attempt
+6 silly initialize success
+7 silly execute attempt
+8 silly runScriptInDir build [] rendermime-interfaces
+9 silly getExecOpts { cwd: '/Users/grant/Sites/jupyter/jupyter-renderers/packages/rendermime-interfaces' }
+10 silly runScriptInDir build [] geojson-extension
+11 silly getExecOpts { cwd: '/Users/grant/Sites/jupyter/jupyter-renderers/packages/geojson-extension' }
+12 silly runScriptInDir build [] json-extension
+13 silly getExecOpts { cwd: '/Users/grant/Sites/jupyter/jupyter-renderers/packages/json-extension' }
+14 silly runScriptInDir build [] plotly-extension
+15 silly getExecOpts { cwd: '/Users/grant/Sites/jupyter/jupyter-renderers/packages/plotly-extension' }
+16 error build Errored while running script in '@jupyterlab/plotly-extension'
+17 error execute Error: Command failed: npm run build
+17 error execute
+17 error execute npm ERR! Darwin 16.6.0
+17 error execute npm ERR! argv "/usr/local/bin/iojs" "/usr/local/bin/npm" "run" "build"
+17 error execute npm ERR! node v7.10.0
+17 error execute npm ERR! npm  v4.2.0
+17 error execute npm ERR! code ELIFECYCLE
+17 error execute npm ERR! errno 1
+17 error execute npm ERR! @jupyterlab/plotly-extension@0.8.0 build: `tsc`
+17 error execute npm ERR! Exit status 1
+17 error execute npm ERR!
+17 error execute npm ERR! Failed at the @jupyterlab/plotly-extension@0.8.0 build script 'tsc'.
+17 error execute npm ERR! Make sure you have the latest version of node.js and npm installed.
+17 error execute npm ERR! If you do, this is most likely a problem with the @jupyterlab/plotly-extension package,
+17 error execute npm ERR! not with npm itself.
+17 error execute npm ERR! Tell the author that this fails on your system:
+17 error execute npm ERR!     tsc
+17 error execute npm ERR! You can get information on how to open an issue for this project with:
+17 error execute npm ERR!     npm bugs @jupyterlab/plotly-extension
+17 error execute npm ERR! Or if that isn't available, you can get their info via:
+17 error execute npm ERR!     npm owner ls @jupyterlab/plotly-extension
+17 error execute npm ERR! There is likely additional logging output above.
+17 error execute
+17 error execute npm ERR! Please include the following file with any support request:
+17 error execute npm ERR!     /Users/grant/.npm/_logs/2017-07-07T15_23_09_907Z-debug.log
+17 error execute
+17 error execute > @jupyterlab/plotly-extension@0.8.0 build /Users/grant/Sites/jupyter/jupyter-renderers/packages/plotly-extension
+17 error execute > tsc
+17 error execute
+17 error execute src/index.tsx(96,7): error TS2420: Class 'PlotlyRendererFactory' incorrectly implements interface 'IRendererFactory'.
+17 error execute   Property 'safe' is missing in type 'PlotlyRendererFactory'.
+17 error execute src/index.tsx(125,7): error TS2322: Type '{ mimeType: string; rendererFactory: PlotlyRendererFactory; rank: number; dataType: "json"; docum...' is not assignable to type 'IExtension | IExtension[]'.
+17 error execute   Type '{ mimeType: string; rendererFactory: PlotlyRendererFactory; rank: number; dataType: "json"; docum...' is not assignable to type 'IExtension[]'.
+17 error execute     Type '{ mimeType: string; rendererFactory: PlotlyRendererFactory; rank: number; dataType: "json"; docum...' is not assignable to type 'IExtension'.
+17 error execute       Types of property 'rendererFactory' are incompatible.
+17 error execute         Type 'PlotlyRendererFactory' is not assignable to type 'IRendererFactory'.
+17 error execute           Property 'safe' is missing in type 'PlotlyRendererFactory'.
+17 error execute
+17 error execute     at Promise.all.then.arr (/Users/grant/Sites/jupyter/jupyter-renderers/node_modules/execa/index.js:210:11)
+17 error execute     at process._tickCallback (internal/process/next_tick.js:109:7)
+17 error execute  callback with error
+17 error execute  { Error: Command failed: npm run build
+17 error execute
+17 error execute npm ERR! Darwin 16.6.0
+17 error execute npm ERR! argv "/usr/local/bin/iojs" "/usr/local/bin/npm" "run" "build"
+17 error execute npm ERR! node v7.10.0
+17 error execute npm ERR! npm  v4.2.0
+17 error execute npm ERR! code ELIFECYCLE
+17 error execute npm ERR! errno 1
+17 error execute npm ERR! @jupyterlab/plotly-extension@0.8.0 build: `tsc`
+17 error execute npm ERR! Exit status 1
+17 error execute npm ERR!
+17 error execute npm ERR! Failed at the @jupyterlab/plotly-extension@0.8.0 build script 'tsc'.
+17 error execute npm ERR! Make sure you have the latest version of node.js and npm installed.
+17 error execute npm ERR! If you do, this is most likely a problem with the @jupyterlab/plotly-extension package,
+17 error execute npm ERR! not with npm itself.
+17 error execute npm ERR! Tell the author that this fails on your system:
+17 error execute npm ERR!     tsc
+17 error execute npm ERR! You can get information on how to open an issue for this project with:
+17 error execute npm ERR!     npm bugs @jupyterlab/plotly-extension
+17 error execute npm ERR! Or if that isn't available, you can get their info via:
+17 error execute npm ERR!     npm owner ls @jupyterlab/plotly-extension
+17 error execute npm ERR! There is likely additional logging output above.
+17 error execute
+17 error execute npm ERR! Please include the following file with any support request:
+17 error execute npm ERR!     /Users/grant/.npm/_logs/2017-07-07T15_23_09_907Z-debug.log
+17 error execute
+17 error execute > @jupyterlab/plotly-extension@0.8.0 build /Users/grant/Sites/jupyter/jupyter-renderers/packages/plotly-extension
+17 error execute > tsc
+17 error execute
+17 error execute src/index.tsx(96,7): error TS2420: Class 'PlotlyRendererFactory' incorrectly implements interface 'IRendererFactory'.
+17 error execute   Property 'safe' is missing in type 'PlotlyRendererFactory'.
+17 error execute src/index.tsx(125,7): error TS2322: Type '{ mimeType: string; rendererFactory: PlotlyRendererFactory; rank: number; dataType: "json"; docum...' is not assignable to type 'IExtension | IExtension[]'.
+17 error execute   Type '{ mimeType: string; rendererFactory: PlotlyRendererFactory; rank: number; dataType: "json"; docum...' is not assignable to type 'IExtension[]'.
+17 error execute     Type '{ mimeType: string; rendererFactory: PlotlyRendererFactory; rank: number; dataType: "json"; docum...' is not assignable to type 'IExtension'.
+17 error execute       Types of property 'rendererFactory' are incompatible.
+17 error execute         Type 'PlotlyRendererFactory' is not assignable to type 'IRendererFactory'.
+17 error execute           Property 'safe' is missing in type 'PlotlyRendererFactory'.
+17 error execute
+17 error execute     at Promise.all.then.arr (/Users/grant/Sites/jupyter/jupyter-renderers/node_modules/execa/index.js:210:11)
+17 error execute     at process._tickCallback (internal/process/next_tick.js:109:7)
+17 error execute   code: 1,
+17 error execute   killed: false,
+17 error execute   stdout: '\n> @jupyterlab/plotly-extension@0.8.0 build /Users/grant/Sites/jupyter/jupyter-renderers/packages/plotly-extension\n> tsc\n\nsrc/index.tsx(96,7): error TS2420: Class \'PlotlyRendererFactory\' incorrectly implements interface \'IRendererFactory\'.\n  Property \'safe\' is missing in type \'PlotlyRendererFactory\'.\nsrc/index.tsx(125,7): error TS2322: Type \'{ mimeType: string; rendererFactory: PlotlyRendererFactory; rank: number; dataType: "json"; docum...\' is not assignable to type \'IExtension | IExtension[]\'.\n  Type \'{ mimeType: string; rendererFactory: PlotlyRendererFactory; rank: number; dataType: "json"; docum...\' is not assignable to type \'IExtension[]\'.\n    Type \'{ mimeType: string; rendererFactory: PlotlyRendererFactory; rank: number; dataType: "json"; docum...\' is not assignable to type \'IExtension\'.\n      Types of property \'rendererFactory\' are incompatible.\n        Type \'PlotlyRendererFactory\' is not assignable to type \'IRendererFactory\'.\n          Property \'safe\' is missing in type \'PlotlyRendererFactory\'.\n',
+17 error execute   stderr: '\nnpm ERR! Darwin 16.6.0\nnpm ERR! argv "/usr/local/bin/iojs" "/usr/local/bin/npm" "run" "build"\nnpm ERR! node v7.10.0\nnpm ERR! npm  v4.2.0\nnpm ERR! code ELIFECYCLE\nnpm ERR! errno 1\nnpm ERR! @jupyterlab/plotly-extension@0.8.0 build: `tsc`\nnpm ERR! Exit status 1\nnpm ERR! \nnpm ERR! Failed at the @jupyterlab/plotly-extension@0.8.0 build script \'tsc\'.\nnpm ERR! Make sure you have the latest version of node.js and npm installed.\nnpm ERR! If you do, this is most likely a problem with the @jupyterlab/plotly-extension package,\nnpm ERR! not with npm itself.\nnpm ERR! Tell the author that this fails on your system:\nnpm ERR!     tsc\nnpm ERR! You can get information on how to open an issue for this project with:\nnpm ERR!     npm bugs @jupyterlab/plotly-extension\nnpm ERR! Or if that isn\'t available, you can get their info via:\nnpm ERR!     npm owner ls @jupyterlab/plotly-extension\nnpm ERR! There is likely additional logging output above.\n\nnpm ERR! Please include the following file with any support request:\nnpm ERR!     /Users/grant/.npm/_logs/2017-07-07T15_23_09_907Z-debug.log\n',
+17 error execute   failed: true,
+17 error execute   signal: null,
+17 error execute   cmd: 'npm run build',
+17 error execute   timedOut: false }

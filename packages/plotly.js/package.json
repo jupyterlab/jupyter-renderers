@@ -1,0 +1,85 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "@types/plotly.js@^1.27.0",
+        "scope": "@types",
+        "escapedName": "@types%2fplotly.js",
+        "name": "@types/plotly.js",
+        "rawSpec": "^1.27.0",
+        "spec": ">=1.27.0 <2.0.0",
+        "type": "range"
+      },
+      "/Users/grant/Sites/jupyter/jupyterlab"
+    ]
+  ],
+  "_from": "@types/plotly.js@>=1.27.0 <2.0.0",
+  "_id": "@types/plotly.js@1.27.0",
+  "_inCache": true,
+  "_location": "/@types/plotly.js",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/plotly.js-1.27.0.tgz_1498226648240_0.04048319277353585"
+  },
+  "_npmUser": {
+    "name": "types",
+    "email": "ts-npm-types@microsoft.com"
+  },
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "@types/plotly.js@^1.27.0",
+    "scope": "@types",
+    "escapedName": "@types%2fplotly.js",
+    "name": "@types/plotly.js",
+    "rawSpec": "^1.27.0",
+    "spec": ">=1.27.0 <2.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@types/plotly.js/-/plotly.js-1.27.0.tgz",
+  "_shasum": "f3a482cf52756ef5a05211efacfe892719bfc41d",
+  "_shrinkwrap": null,
+  "_spec": "@types/plotly.js@^1.27.0",
+  "_where": "/Users/grant/Sites/jupyter/jupyterlab",
+  "contributors": [
+    {
+      "name": "Chris Gervang",
+      "url": "https://github.com/chrisgervang"
+    },
+    {
+      "name": "Martin Duparc",
+      "url": "https://github.com/martinduparc"
+    }
+  ],
+  "dependencies": {},
+  "description": "TypeScript definitions for plotly.js",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-21k0ar0xjHmUzlu7X9Fv508RvkfgSfp9QV00cU2Azvb3OTlxYKJ8uUu56LrGUg6tLMsuZZcwUg//OqrwuE1J0A==",
+    "shasum": "f3a482cf52756ef5a05211efacfe892719bfc41d",
+    "tarball": "https://registry.npmjs.org/@types/plotly.js/-/plotly.js-1.27.0.tgz"
+  },
+  "license": "MIT",
+  "main": "lib/index.d.ts",
+  "maintainers": [
+    {
+      "name": "types",
+      "email": "ts-npm-types@microsoft.com"
+    }
+  ],
+  "name": "@types/plotly.js",
+  "optionalDependencies": {},
+  "peerDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+  },
+  "scripts": {},
+  "typeScriptVersion": "2.2",
+  "typesPublisherContentHash": "3819fc78615cc2b202bcfb502a221dfe9199ec5e8396e28c7c360d92750b6876",
+  "version": "1.27.0"
+}
