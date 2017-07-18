@@ -9,7 +9,7 @@ import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
-import * as Plotly from 'plotly.js/lib/core';
+import * as Plotly from 'plotly.js';
 
 import '../style/index.css';
 
@@ -28,6 +28,11 @@ const CSS_CLASS = 'jp-RenderedPlotly';
 export
 const MIME_TYPE = 'application/vnd.plotly.v1+json';
 
+type PlotlySpec = {
+  data: Plotly.Data,
+  layout: Plotly.Layout
+}
+
 
 export
 class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
@@ -44,7 +49,7 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
    * Render Plotly into this widget's node.
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
-    const { data, layout } = model.data[this._mimeType] as any | Plotly.Spec;
+    const { data, layout } = model.data[this._mimeType] as any|PlotlySpec;
     // const metadata = model.metadata[this._mimeType] as any || {};
     return new Promise<void>((resolve, reject) => {
       Plotly.newPlot(this.node, data, layout)
