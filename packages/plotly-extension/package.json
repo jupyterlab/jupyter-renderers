@@ -21,7 +21,7 @@
     "plotly.js": "^1.28.3"
   },
   "devDependencies": {
-    "@types/plotly.js": "^1.27.0",
+    "@types/plotly.js": "^1.28.1",
     "rimraf": "^2.5.2",
     "typescript": "~2.3.1"
   },
