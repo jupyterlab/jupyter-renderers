@@ -28,7 +28,7 @@ const CSS_CLASS = 'jp-RenderedPlotly';
 export
 const MIME_TYPE = 'application/vnd.plotly.v1+json';
 
-type PlotlySpec = {
+interface PlotlySpec {
   data: Plotly.Data,
   layout: Plotly.Layout
 }
