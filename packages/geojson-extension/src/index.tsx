@@ -62,7 +62,7 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     this.addClass(CSS_CLASS);
     this._mimeType = options.mimeType;
   }
-  
+
   /**
    * Dispose of the widget.
    */
@@ -123,15 +123,20 @@ const rendererFactory: IRenderMime.IRendererFactory = {
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
   {
-    mimeType: MIME_TYPE,
+    name: 'GeoJSON',
     rendererFactory,
     rank: 0,
     dataType: 'json',
+    fileTypes: [{
+      name: 'GeoJSON',
+      mimeTypes: [MIME_TYPE],
+      extensions: ['.geojson', '.geo.json'],
+    }],
     documentWidgetFactoryOptions: {
       name: 'GeoJSON',
-      fileExtensions: ['.geojson', '.geo.json'],
-      defaultFor: ['.geojson', '.geo.json'],
-      readOnly: true
+      primaryFileType: 'GeoJSON',
+      fileTypes: ['GeoJSON'],
+      defaultFor: ['GeoJSON']
     }
   }
 ];
