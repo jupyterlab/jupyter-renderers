@@ -9,7 +9,7 @@ import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
-import * as Plotly from 'plotly.js';
+import * as Plotly from 'plotly.js/lib/core';
 
 import '../style/index.css';
 
