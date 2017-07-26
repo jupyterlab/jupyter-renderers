@@ -66,7 +66,7 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
         });
     });
   }
-  
+
   /**
    * A message handler invoked on a `'resize'` message.
    */
@@ -107,15 +107,20 @@ const rendererFactory: IRenderMime.IRendererFactory = {
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
   {
-    mimeType: MIME_TYPE,
+    name: 'Plotly',
     rendererFactory,
     rank: 0,
     dataType: 'json',
+    fileTypes: [{
+      name: 'plotly',
+      mimeTypes: [MIME_TYPE],
+      extensions: ['.plotly', '.plotly.json']
+    }],
     documentWidgetFactoryOptions: {
       name: 'Plotly',
-      fileExtensions: ['.plotly', '.plotly.json'],
-      defaultFor: ['.plotly', '.plotly.json'],
-      readOnly: true
+      primaryFileType: 'plotly',
+      fileTypes: ['plotly'],
+      defaultFor: ['plotly']
     }
   }
 ];

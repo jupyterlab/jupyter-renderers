@@ -77,15 +77,15 @@ const rendererFactory: IRenderMime.IRendererFactory = {
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
   {
-    mimeType: MIME_TYPE,
+    name: 'JSON',
     rendererFactory,
     rank: 0,
     dataType: 'json',
     documentWidgetFactoryOptions: {
       name: 'JSON',
-      fileExtensions: ['.json', '.ipynb'],
-      defaultFor: ['.json'],
-      readOnly: true
+      primaryFileType: 'json',
+      fileTypes: ['json', 'notebook'],
+      defaultFor: ['json']
     }
   }
 ];
