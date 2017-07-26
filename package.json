@@ -1,10 +1,21 @@
 {
-  "scripts": {
-    "build": "lerna run build",
-    "install": "lerna bootstrap --hoist",
-    "publish": "lerna publish"
-  },
-  "devDependencies": {
-    "lerna": "^2.0.0-rc.5"
-  }
+	"dependencies": {
+		"@jupyterlab/rendermime-interfaces": "^0.3.0",
+		"@phosphor/widgets": "^1.3.0",
+		"@types/leaflet": "^1.0.62",
+		"@types/plotly.js": "^1.28.1",
+		"@types/react": "^15.0.33",
+		"@types/react-dom": "^15.5.1",
+		"@types/react-highlighter": "^0.3.1",
+		"@types/react-json-tree": "^0.6.3",
+		"leaflet": "^1.0.3",
+		"lerna": "^2.0.0-rc.5",
+		"plotly.js": "^1.28.3",
+		"react": "^15.6.1",
+		"react-dom": "^15.6.1",
+		"react-highlighter": "^0.4.0",
+		"react-json-tree": "^0.10.9",
+		"rimraf": "^2.5.2",
+		"typescript": "~2.3.1"
+	}
 }
