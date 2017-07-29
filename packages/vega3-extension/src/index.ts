@@ -4,7 +4,7 @@
 |----------------------------------------------------------------------------*/
 
 import {
-  JSONObject, ReadonlyJSONObject
+  JSONObject, //ReadonlyJSONObject
 } from '@phosphor/coreutils';
 
 import {
@@ -89,19 +89,20 @@ class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
 
     let data = model.data[this._mimeType];
     let updatedData: JSONObject;
-    if (this._mode === 'vega-lite') {
-      updatedData = Private.updateVegaLiteDefaults(data as ReadonlyJSONObject);
-    } else {
-      updatedData = data as JSONObject;
-    }
+    // if (this._mode === 'vega-lite') {
+    //   updatedData = Private.updateVegaLiteDefaults(data as ReadonlyJSONObject);
+    // } else {
+    //   updatedData = data as JSONObject;
+    // }
+    updatedData = data as JSONObject;
 
-    let embedSpec = {
-      mode: this._mode,
-      spec: updatedData
-    };
+    // let embedSpec = {
+    //   mode: this._mode,
+    //   spec: updatedData
+    // };
 
     return new Promise<void>((resolve, reject) => {
-      embed(this.node, embedSpec, (error: any, result: any): any => {
+      embed(this.node, updatedData, (error: any, result: any): any => {
         resolve(undefined);
         // This is copied out for now as there is a bug in JupyterLab
         // that triggers and infinite rendering loop when this is done.
@@ -164,37 +165,37 @@ export default extension;
 /**
  * Namespace for module privates.
  */
-namespace Private {
+// namespace Private {
 
-  /**
-   * Default cell config for Vega-Lite.
-   */
-  const defaultCellConfig: JSONObject = {
-    'width': 400,
-    'height': 400 / 1.5
-  };
+//   /**
+//    * Default cell config for Vega-Lite.
+//    */
+//   const defaultCellConfig: JSONObject = {
+//     'width': 400,
+//     'height': 400 / 1.5
+//   };
 
-  /**
-   * Apply the default cell config to the spec in place.
-   *
-   * #### Notes
-   * This carefully does a shallow copy to avoid copying the potentially
-   * large data.
-   */
-  export
-  function updateVegaLiteDefaults(spec: ReadonlyJSONObject): JSONObject {
-    let config = spec.config as JSONObject;
-    if (!config) {
-      return {...{'config': {'cell': defaultCellConfig}}, ...spec};
-    }
-    let cell = config.cell as JSONObject;
-    if (cell) {
-      return {
-        ...{'config': {...{'cell': {...defaultCellConfig, ...cell}}}, ...config},
-        ...spec
-      };
-    } else {
-      return {...{'config': {...{'cell': {...defaultCellConfig}}}, ...config}, ...spec};
-    }
-  }
-}
+//   /**
+//    * Apply the default cell config to the spec in place.
+//    *
+//    * #### Notes
+//    * This carefully does a shallow copy to avoid copying the potentially
+//    * large data.
+//    */
+//   export
+//   function updateVegaLiteDefaults(spec: ReadonlyJSONObject): JSONObject {
+//     let config = spec.config as JSONObject;
+//     if (!config) {
+//       return {...{'config': {'cell': defaultCellConfig}}, ...spec};
+//     }
+//     let cell = config.cell as JSONObject;
+//     if (cell) {
+//       return {
+//         ...{'config': {...{'cell': {...defaultCellConfig, ...cell}}}, ...config},
+//         ...spec
+//       };
+//     } else {
+//       return {...{'config': {...{'cell': {...defaultCellConfig}}}, ...config}, ...spec};
+//     }
+//   }
+// }
