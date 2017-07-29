@@ -27,17 +27,17 @@ import '../style/index.css';
 /**
  * The CSS class to add to the Vega and Vega-Lite widget.
  */
-const VEGA_COMMON_CLASS = 'jp-RenderedVegaCommon';
+const VEGA_COMMON_CLASS = 'jp-RenderedVegaCommon3';
 
 /**
  * The CSS class to add to the Vega.
  */
-const VEGA_CLASS = 'jp-RenderedVega';
+const VEGA_CLASS = 'jp-RenderedVega3';
 
 /**
  * The CSS class to add to the Vega-Lite.
  */
-const VEGALITE_CLASS = 'jp-RenderedVegaLite';
+const VEGALITE_CLASS = 'jp-RenderedVegaLite3';
 
 /**
  * The MIME type for Vega.
@@ -62,7 +62,7 @@ const VEGALITE_MIME_TYPE = 'application/vnd.vegalite.v2+json';
  * A widget for rendering Vega or Vega-Lite data, for usage with rendermime.
  */
 export
-class RenderedVega extends Widget implements IRenderMime.IRenderer {
+class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
   /**
    * Create a new widget for rendering Vega/Vega-Lite.
    */
@@ -77,6 +77,7 @@ class RenderedVega extends Widget implements IRenderMime.IRenderer {
       this._mode = 'vega';
     } else {
       this.addClass(VEGALITE_CLASS);
+      this.addClass("testhadi");
       this._mode = 'vega-lite';
     }
   }
@@ -123,7 +124,7 @@ export
 const rendererFactory: IRenderMime.IRendererFactory = {
   safe: true,
   mimeTypes: [VEGA_MIME_TYPE, VEGALITE_MIME_TYPE],
-  createRenderer: options => new RenderedVega(options)
+  createRenderer: options => new RenderedVega3(options)
 };
 
 const extension: IRenderMime.IExtension = {
@@ -132,13 +133,13 @@ const extension: IRenderMime.IExtension = {
   rank: 0,
   dataType: 'json',
   documentWidgetFactoryOptions: [{
-    name: 'Vega',
+    name: 'Vega 3',
     primaryFileType: 'vega',
     fileTypes: ['vega', 'json'],
     defaultFor: ['vega']
   },
   {
-    name: 'Vega Lite',
+    name: 'Vega Lite 2',
     primaryFileType: 'vega-lite',
     fileTypes: ['vega-lite', 'json'],
     defaultFor: ['vega-lite']
@@ -146,13 +147,13 @@ const extension: IRenderMime.IExtension = {
   fileTypes: [{
     mimeTypes: [VEGA_MIME_TYPE],
     name: 'vega',
-    extensions: ['.vg', '.vg.json'],
+    extensions: ['.vg3', '.vg3.json'],
     iconClass: 'jp-MaterialIcon jp-VegaIcon',
   },
   {
     mimeTypes: [VEGALITE_MIME_TYPE],
     name: 'vega-lite',
-    extensions: ['.vl', '.vl.json'],
+    extensions: ['.vl2', '.vl2.json'],
     iconClass: 'jp-MaterialIcon jp-VegaIcon',
   }]
 };
