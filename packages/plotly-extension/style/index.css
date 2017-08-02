@@ -5,7 +5,7 @@
 
 /* Add CSS variables to :root */
 :root {
-  /*--jp-private-plotly-variable: 16px;*/
+  --jp-icon-plotly: url('./plotly.svg');
 }
 
 /* Base styles */
@@ -25,4 +25,9 @@
 /* Output styles */
 .jp-OutputArea .jp-RenderedPlotly {
   /*height: 360px;*/
+}
+
+/* Document icon */
+.jp-PlotlyIcon {
+  background-image: var(--jp-icon-plotly);
 }

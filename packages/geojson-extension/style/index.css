@@ -5,7 +5,7 @@
 
 /* Add CSS variables to :root */
 :root {
-  /*--jp-private-geojson-variable: 16px;*/
+  --jp-icon-geojson: url('./geojson.svg');
 }
 
 /* Base styles */
@@ -24,4 +24,9 @@
 /* Document styles */
 .jp-OutputArea .jp-RenderedGeoJSON {
   height: 360px;
+}
+
+/* Document icon */
+.jp-GeoJSONIcon {
+  background-image: var(--jp-icon-geojson);
 }

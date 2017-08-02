@@ -20,6 +20,11 @@ import '../style/index.css';
 const CSS_CLASS = 'jp-RenderedPlotly';
 
 /**
+ * The CSS class for a GeoJSON icon.
+ */
+const CSS_ICON_CLASS = 'jp-MaterialIcon jp-PlotlyIcon';
+
+/**
  * The MIME type for Vega.
  *
  * #### Notes
@@ -114,7 +119,8 @@ const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
     fileTypes: [{
       name: 'plotly',
       mimeTypes: [MIME_TYPE],
-      extensions: ['.plotly', '.plotly.json']
+      extensions: ['.plotly', '.plotly.json'],
+      iconClass: CSS_ICON_CLASS
     }],
     documentWidgetFactoryOptions: {
       name: 'Plotly',
