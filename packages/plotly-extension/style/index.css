@@ -19,7 +19,7 @@
 /* Document styles */
 .jp-MimeDocument .jp-RenderedPlotly {
   padding: 5px;
-  padding-top: 0;
+  overflow: hidden;
 }
 
 /* Output styles */
