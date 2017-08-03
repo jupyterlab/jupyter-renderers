@@ -5,7 +5,7 @@
 
 /* Add CSS variables to :root */
 :root {
-  /*--jp-private-plotly-variable: 16px;*/
+  --jp-icon-plotly: url('./plotly.svg');
 }
 
 /* Base styles */
@@ -19,10 +19,15 @@
 /* Document styles */
 .jp-MimeDocument .jp-RenderedPlotly {
   padding: 5px;
-  padding-top: 0;
+  overflow: hidden;
 }
 
 /* Output styles */
 .jp-OutputArea .jp-RenderedPlotly {
   /*height: 360px;*/
+}
+
+/* Document icon */
+.jp-PlotlyIcon {
+  background-image: var(--jp-icon-plotly);
 }

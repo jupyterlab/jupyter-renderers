@@ -17,9 +17,14 @@ import '../style/index.css';
 
 
 /**
- * The CSS class to add to the JSON Widget.
+ * The CSS class to add to the GeoJSON Widget.
  */
 const CSS_CLASS = 'jp-RenderedGeoJSON';
+
+/**
+ * The CSS class for a GeoJSON icon.
+ */
+const CSS_ICON_CLASS = 'jp-MaterialIcon jp-GeoJSONIcon';
 
 /**
  * The MIME type for Vega.
@@ -131,6 +136,7 @@ const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
       name: 'GeoJSON',
       mimeTypes: [MIME_TYPE],
       extensions: ['.geojson', '.geo.json'],
+      iconClass: CSS_ICON_CLASS
     }],
     documentWidgetFactoryOptions: {
       name: 'GeoJSON',
