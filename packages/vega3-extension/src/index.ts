@@ -136,25 +136,25 @@ const extension: IRenderMime.IExtension = {
   documentWidgetFactoryOptions: [{
     name: 'Vega 3',
     primaryFileType: 'vega',
-    fileTypes: ['vega', 'json'],
+    fileTypes: ['vega3', 'json'],
     defaultFor: ['vega']
   },
   {
     name: 'Vega Lite 2',
     primaryFileType: 'vega-lite',
-    fileTypes: ['vega-lite', 'json'],
+    fileTypes: ['vega-lite2', 'json'],
     defaultFor: ['vega-lite']
   }],
   fileTypes: [{
     mimeTypes: [VEGA_MIME_TYPE],
-    name: 'vega',
-    extensions: ['.vg3', '.vg3.json'],
+    name: 'vega3',
+    extensions: ['.vg', '.vg.json'],
     iconClass: 'jp-MaterialIcon jp-VegaIcon',
   },
   {
     mimeTypes: [VEGALITE_MIME_TYPE],
-    name: 'vega-lite',
-    extensions: ['.vl2', '.vl2.json'],
+    name: 'vega-lite2',
+    extensions: ['.vl', '.vl.json'],
     iconClass: 'jp-MaterialIcon jp-VegaIcon',
   }]
 };
