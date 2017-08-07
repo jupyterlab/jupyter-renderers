@@ -61,7 +61,6 @@ const rendererFactory: IRenderMime.IRendererFactory = {
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
   {
     name: 'PDF',
-    modelName: 'PDF',
     rendererFactory,
     rank: 0,
     dataType: 'string',
@@ -73,6 +72,7 @@ const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
     }],
     documentWidgetFactoryOptions: {
       name: 'PDF',
+      modelName: 'base64',
       primaryFileType: 'PDF',
       fileTypes: ['PDF'],
       defaultFor: ['PDF']
