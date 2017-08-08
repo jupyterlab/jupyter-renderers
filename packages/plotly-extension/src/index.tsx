@@ -20,15 +20,12 @@ import '../style/index.css';
 const CSS_CLASS = 'jp-RenderedPlotly';
 
 /**
- * The CSS class for a GeoJSON icon.
+ * The CSS class for a Plotly icon.
  */
 const CSS_ICON_CLASS = 'jp-MaterialIcon jp-PlotlyIcon';
 
 /**
- * The MIME type for Vega.
- *
- * #### Notes
- * The version of this follows the major version of Vega.
+ * The MIME type for Plotly.
  */
 export
 const MIME_TYPE = 'application/vnd.plotly.v1+json';
@@ -42,7 +39,7 @@ interface PlotlySpec {
 export
 class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
   /**
-   * Create a new widget for rendering Vega/Vega-Lite.
+   * Create a new widget for rendering Plotly.
    */
   constructor(options: IRenderMime.IRendererOptions) {
     super();

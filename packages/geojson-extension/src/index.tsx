@@ -27,10 +27,7 @@ const CSS_CLASS = 'jp-RenderedGeoJSON';
 const CSS_ICON_CLASS = 'jp-MaterialIcon jp-GeoJSONIcon';
 
 /**
- * The MIME type for Vega.
- *
- * #### Notes
- * The version of this follows the major version of Vega.
+ * The MIME type for GeoJSON.
  */
 export
 const MIME_TYPE = 'application/geo+json';
@@ -60,7 +57,7 @@ const LAYER_OPTIONS: leaflet.TileLayerOptions = {
 export
 class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   /**
-   * Create a new widget for rendering Vega/Vega-Lite.
+   * Create a new widget for rendering GeoJSON.
    */
   constructor(options: IRenderMime.IRendererOptions) {
     super();
