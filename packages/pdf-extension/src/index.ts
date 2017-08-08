@@ -44,7 +44,7 @@ class RenderedPDF extends IFrame implements IRenderMime.IRenderer {
  */
 export
 const rendererFactory: IRenderMime.IRendererFactory = {
-  safe: true,
+  safe: false,
   mimeTypes: [MIME_TYPE],
   createRenderer: options => new RenderedPDF(options)
 };
