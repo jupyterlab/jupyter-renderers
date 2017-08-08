@@ -21,13 +21,6 @@ const MIME_TYPE = 'application/pdf';
 export
 class RenderedPDF extends IFrame implements IRenderMime.IRenderer {
   /**
-   * Create a new widget for rendering PDFs.
-   */
-  constructor(options: IRenderMime.IRendererOptions) {
-    super();
-  }
-
-  /**
    * Render PDF into this widget's node.
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
@@ -46,7 +39,7 @@ export
 const rendererFactory: IRenderMime.IRendererFactory = {
   safe: false,
   mimeTypes: [MIME_TYPE],
-  createRenderer: options => new RenderedPDF(options)
+  createRenderer: options => new RenderedPDF()
 };
 
 
