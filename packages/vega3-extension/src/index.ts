@@ -4,7 +4,7 @@
 |----------------------------------------------------------------------------*/
 
 import {
-  JSONObject, //ReadonlyJSONObject
+  JSONObject
 } from '@phosphor/coreutils';
 
 import {
@@ -37,7 +37,7 @@ const VEGA_CLASS = 'jp-RenderedVega3';
 /**
  * The CSS class to add to the Vega-Lite.
  */
-const VEGALITE_CLASS = 'jp-RenderedVegaLite3';
+const VEGALITE_CLASS = 'jp-RenderedVegaLite2';
 
 /**
  * The MIME type for Vega.
@@ -68,53 +68,31 @@ class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
    */
   constructor(options: IRenderMime.IRendererOptions) {
     super();
+    this._mimeType = options.mimeType;
     this.addClass(VEGA_COMMON_CLASS);
-
-    // Handle things related to the MIME type.
-    let mimeType = this._mimeType = options.mimeType;
-    if (mimeType === VEGA_MIME_TYPE) {
-      this.addClass(VEGA_CLASS);
-      this._mode = 'vega';
-    } else {
-      this.addClass(VEGALITE_CLASS);
-      this.addClass("testhadi");
-      this._mode = 'vega-lite';
-    }
+    this.addClass(this._mimeType === VEGA_MIME_TYPE ? VEGA_CLASS : VEGALITE_CLASS);
   }
 
   /**
    * Render Vega/Vega-Lite into this widget's node.
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
-
-    let data = model.data[this._mimeType];
-    let updatedData: JSONObject;
-    // if (this._mode === 'vega-lite') {
-    //   updatedData = Private.updateVegaLiteDefaults(data as ReadonlyJSONObject);
-    // } else {
-    //   updatedData = data as JSONObject;
-    // }
-    updatedData = data as JSONObject;
-
-    // let embedSpec = {
-    //   mode: this._mode,
-    //   spec: updatedData
-    // };
-
-    return new Promise<void>((resolve, reject) => {
-      embed(this.node, updatedData, (error: any, result: any): any => {
-        resolve(undefined);
-        // This is copied out for now as there is a bug in JupyterLab
-        // that triggers and infinite rendering loop when this is done.
-        // let imageData = result.view.toImageURL();
-        // imageData = imageData.split(',')[1];
-        // this._injector('image/png', imageData);
-      });
+    const data = model.data[this._mimeType] as JSONObject;
+    const options = {
+      mode: this._mimeType === VEGA_MIME_TYPE ? 'vega' : 'vega-lite',
+      actions: true,
+      config: this._mimeType === VEGA_MIME_TYPE
+        ? {}
+        : {
+            cell: { width: 400, height: 400 / 1.5 }
+          }
+    };
+    return embed(this.node, data, options).then(result => {
+      console.log(result);
     });
   }
 
   private _mimeType: string;
-  private _mode: string;
 }
 
 
@@ -135,15 +113,15 @@ const extension: IRenderMime.IExtension = {
   dataType: 'json',
   documentWidgetFactoryOptions: [{
     name: 'Vega 3',
-    primaryFileType: 'vega',
+    primaryFileType: 'vega3',
     fileTypes: ['vega3', 'json'],
-    defaultFor: ['vega']
+    defaultFor: ['vega3']
   },
   {
     name: 'Vega Lite 2',
-    primaryFileType: 'vega-lite',
+    primaryFileType: 'vega-lite2',
     fileTypes: ['vega-lite2', 'json'],
-    defaultFor: ['vega-lite']
+    defaultFor: ['vega-lite2']
   }],
   fileTypes: [{
     mimeTypes: [VEGA_MIME_TYPE],
@@ -160,42 +138,3 @@ const extension: IRenderMime.IExtension = {
 };
 
 export default extension;
-
-
-/**
- * Namespace for module privates.
- */
-// namespace Private {
-
-//   /**
-//    * Default cell config for Vega-Lite.
-//    */
-//   const defaultCellConfig: JSONObject = {
-//     'width': 400,
-//     'height': 400 / 1.5
-//   };
-
-//   /**
-//    * Apply the default cell config to the spec in place.
-//    *
-//    * #### Notes
-//    * This carefully does a shallow copy to avoid copying the potentially
-//    * large data.
-//    */
-//   export
-//   function updateVegaLiteDefaults(spec: ReadonlyJSONObject): JSONObject {
-//     let config = spec.config as JSONObject;
-//     if (!config) {
-//       return {...{'config': {'cell': defaultCellConfig}}, ...spec};
-//     }
-//     let cell = config.cell as JSONObject;
-//     if (cell) {
-//       return {
-//         ...{'config': {...{'cell': {...defaultCellConfig, ...cell}}}, ...config},
-//         ...spec
-//       };
-//     } else {
-//       return {...{'config': {...{'cell': {...defaultCellConfig}}}, ...config}, ...spec};
-//     }
-//   }
-// }

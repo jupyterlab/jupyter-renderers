@@ -1,4 +1,10 @@
 declare module 'vega-embed' {
-    function embed(el: any, opt: any, callback: any): any;
+    type spec = String|Object;
+    type Options = Object;
+    interface Result {
+        spec: Object;
+        view: Object;
+    }
+    function embed(el: any, spec: any, opt?: any): Promise<Result>;
     export = embed;
 }

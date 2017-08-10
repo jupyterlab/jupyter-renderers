@@ -11,12 +11,12 @@
 }
 
 
-.jp-BaseVegaWidget .jp-RenderedVegaCommon3
+.jp-RenderedVegaCommon3
  {
   margin-left: 8px;
   margin-top: 8px;
 }
 
-.jp-MimeDocument.jp-Document .jp-RenderedVegaCommon3 {
+.jp-MimeDocument .jp-RenderedVegaCommon3 {
   padding: 16px;
 }
