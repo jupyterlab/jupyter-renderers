@@ -9,6 +9,12 @@ import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
+import {
+  renderMathInElement
+} from './autorender';
+
+import '../style/index.css';
+
 /**
  * The MathJax Typesetter.
  */
@@ -18,6 +24,7 @@ class KatexTypesetter implements IRenderMime.ILatexTypesetter {
    * Typeset the math in a node.
    */
   typeset(node: HTMLElement): void {
+    renderMathInElement(node);
   }
 }
 
@@ -30,7 +37,8 @@ const katexPlugin: JupyterLabPlugin<void> = {
   activate: (app: JupyterLab) => {
     const typesetter = new KatexTypesetter();
     app.rendermime.latexTypesetter = typesetter;
-  }
+  },
+  autoStart: true
 }
 
 export default katexPlugin;
