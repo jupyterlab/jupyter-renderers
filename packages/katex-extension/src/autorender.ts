@@ -134,16 +134,7 @@ function renderMathInText(text: string, optionsCopy: IAutoRenderOptions) {
       // Override any display mode defined in the settings with that
       // defined by the text itself
       optionsCopy.displayMode = data[i].display;
-      try {
-        katex.render(math, span, optionsCopy);
-      } catch (e) {
-        console.warn('KaTeX auto-render: Failed to parse `' + data[i].data +
-          '` with ',
-          e
-        );
-        fragment.appendChild(document.createTextNode(data[i].rawData));
-        continue;
-      }
+      katex.render(math, span, optionsCopy);
       fragment.appendChild(span);
     }
   }
@@ -175,6 +166,7 @@ export
 interface IAutoRenderOptions extends katex.KatexOptions {
   readonly delimiters: IDelimiter[];
   readonly ignoredTags: string[];
+  readonly throwOnError: boolean;
 }
 
 export
@@ -196,6 +188,8 @@ const defaultAutoRenderOptions: IAutoRenderOptions = {
   ignoredTags: [
     'script', 'noscript', 'style', 'textarea', 'pre', 'code',
   ],
+  errorColor: '#CC0000',
+  throwOnError: false,
 };
 
 
