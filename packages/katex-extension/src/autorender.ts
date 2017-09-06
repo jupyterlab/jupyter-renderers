@@ -190,6 +190,7 @@ const defaultAutoRenderOptions: IAutoRenderOptions = {
     {left: '\\[', right: '\\]', display: true},
     {left: '\\(', right: '\\)', display: false},
     {left: '$', right: '$', display: false},
+    {left: '\\begin{equation}', right: '\\end{equation}', display: true}
   ],
 
   ignoredTags: [
