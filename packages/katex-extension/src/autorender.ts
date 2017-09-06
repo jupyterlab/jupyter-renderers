@@ -134,7 +134,12 @@ function renderMathInText(text: string, optionsCopy: IAutoRenderOptions) {
       // Override any display mode defined in the settings with that
       // defined by the text itself
       optionsCopy.displayMode = data[i].display;
-      katex.render(math, span, optionsCopy);
+      try {
+        katex.render(math, span, optionsCopy);
+      } catch(err) {
+        fragment.appendChild(document.createTextNode(data[i].rawData));
+        continue;
+      }
       fragment.appendChild(span);
     }
   }
