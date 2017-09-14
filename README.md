@@ -18,6 +18,11 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 * json-extension: `jupyter labextension install @jupyterlab/json-extension`
 * plotly-extension: `jupyter labextension install @jupyterlab/plotly-extension`
 
+## Usage
+
+See https://github.com/jupyterlab/jupyterlab_json#usage for examples of how to use *json-extension*.
+(*geojson-extension* works similar)
+
 ## Contributing
 
 ### Developer install
