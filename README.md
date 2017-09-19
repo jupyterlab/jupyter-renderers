@@ -23,7 +23,7 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 ### Developer install
 
 ```
-git clone https://github.com/gnestor/jupyter-renderers.git
+git clone https://github.com/jupyterlab/jupyter-renderers.git
 cd jupyter-renderers
 npm install
 npm run build
