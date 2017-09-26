@@ -9,10 +9,31 @@ import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
-import * as Plotly from 'plotly.js/lib/core';
-
 import '../style/index.css';
 
+namespace Private {
+  
+  declare function require(moduleName: string): string;
+  
+  /**
+   * Is plotly.js being loaded?.
+   */
+  export
+  let loadingPlotly = false;
+  
+  /**
+   * Load plotly.js browser script.
+   */
+  export
+  function loadPlotly(): void {
+    loadingPlotly = true;
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.text = require('raw-loader!plotly.js/dist/plotly.min.js');
+    document.head.appendChild(script);
+  }
+  
+}
 
 /**
  * The CSS class to add to the Plotly Widget.
@@ -28,7 +49,7 @@ const CSS_ICON_CLASS = 'jp-MaterialIcon jp-PlotlyIcon';
  * The MIME type for Vega.
  *
  * #### Notes
- * The version of this follows the major version of Vega.
+ * The version of this follows the major version of Plotly.
  */
 export
 const MIME_TYPE = 'application/vnd.plotly.v1+json';
@@ -48,6 +69,7 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
     super();
     this.addClass(CSS_CLASS);
     this._mimeType = options.mimeType;
+    if (!Private.loadingPlotly) Private.loadPlotly();
   }
 
   /**
@@ -56,20 +78,17 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const { data, layout } = model.data[this._mimeType] as any|PlotlySpec;
     // const metadata = model.metadata[this._mimeType] as any || {};
-    return new Promise<void>((resolve, reject) => {
-      Plotly.newPlot(this.node, data, layout)
-        .then(() => Plotly.Plots.resize(this.node))
-        // .then(plot =>
-        //   Plotly.toImage(plot, {
-        //     format: 'png',
-        //     width: this._width,
-        //     height: this._height
-        //   }))
-        .then(() => {
-          // const data = url.split(',')[1];
-          resolve(undefined);
-        });
-    });
+    return Plotly.newPlot(this.node, data, layout)
+      .then(() => Plotly.Plots.resize(this.node))
+      // .then(plot =>
+      //   Plotly.toImage(plot, {
+      //     format: 'png',
+      //     width: this._width,
+      //     height: this._height
+      //   }))
+      // .then(() => {
+      //   const data = url.split(',')[1];
+      // });
   }
 
   /**
