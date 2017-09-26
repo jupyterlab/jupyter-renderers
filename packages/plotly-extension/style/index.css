@@ -13,18 +13,17 @@
   width: 100%;
   height: 100%;
   padding: 0;
-  overflow: auto;
+  overflow: hidden;
 }
 
 /* Document styles */
 .jp-MimeDocument .jp-RenderedPlotly {
-  padding: 5px;
   overflow: hidden;
 }
 
 /* Output styles */
 .jp-OutputArea .jp-RenderedPlotly {
-  /*height: 360px;*/
+  height: 360px;
 }
 
 /* Document icon */
