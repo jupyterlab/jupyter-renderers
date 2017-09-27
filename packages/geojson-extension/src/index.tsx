@@ -86,6 +86,12 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     return new Promise<void>((resolve, reject) => {
       this._map = leaflet.map(this.node).fitWorld();
       this._map.scrollWheelZoom.disable();
+      this._map.on('blur', (event) => {
+        this._map.scrollWheelZoom.disable();
+      });
+      this._map.on('focus', (event) => {
+        this._map.scrollWheelZoom.enable();
+      });
       leaflet.tileLayer(
         metadata.url_template || URL_TEMPLATE,
         metadata.layer_options || LAYER_OPTIONS
