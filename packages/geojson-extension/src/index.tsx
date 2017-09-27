@@ -6,6 +6,10 @@ import {
 } from '@phosphor/widgets';
 
 import {
+  Message
+} from '@phosphor/messaging';
+
+import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
@@ -27,10 +31,7 @@ const CSS_CLASS = 'jp-RenderedGeoJSON';
 const CSS_ICON_CLASS = 'jp-MaterialIcon jp-GeoJSONIcon';
 
 /**
- * The MIME type for Vega.
- *
- * #### Notes
- * The version of this follows the major version of Vega.
+ * The MIME type for GeoJSON.
  */
 export
 const MIME_TYPE = 'application/geo+json';
@@ -60,7 +61,7 @@ const LAYER_OPTIONS: leaflet.TileLayerOptions = {
 export
 class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   /**
-   * Create a new widget for rendering Vega/Vega-Lite.
+   * Create a new widget for rendering GeoJSON.
    */
   constructor(options: IRenderMime.IRendererOptions) {
     super();
@@ -72,6 +73,7 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    * Dispose of the widget.
    */
   dispose(): void {
+    // Dispose of leaflet map
     this._map.remove();
     this._map = null;
     super.dispose();
@@ -84,39 +86,49 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     const data = model.data[this._mimeType] as any | GeoJSON.GeoJsonObject;
     const metadata = model.metadata[this._mimeType] as any || {};
     return new Promise<void>((resolve, reject) => {
-      this._map = leaflet.map(this.node).fitWorld();
+      // Create leaflet map object
+      this._map = leaflet.map(this.node);
+      // Disable scroll zoom by default to avoid conflicts with notebook scroll
       this._map.scrollWheelZoom.disable();
+      // Enable scroll zoom on map focus
       this._map.on('blur', (event) => {
         this._map.scrollWheelZoom.disable();
       });
+      // Disable scroll zoom on blur
       this._map.on('focus', (event) => {
         this._map.scrollWheelZoom.enable();
       });
+      // Add leaflet tile layer to map
       leaflet.tileLayer(
         metadata.url_template || URL_TEMPLATE,
         metadata.layer_options || LAYER_OPTIONS
       ).addTo(this._map);
+      // Create GeoJSON layer from data and add to map
       this._geoJSONLayer = leaflet.geoJSON(data).addTo(this._map);
-      this._map.fitBounds(this._geoJSONLayer.getBounds());
-      this._map.invalidateSize();
       resolve(undefined);
     });
+  }
+  
+  /**
+   * A message handler invoked on a `'after-attach'` message.
+   */
+  protected onAfterAttach(msg: Message) {
+    // Set map size after widget is attached to DOM
+    this._map.fitBounds(this._geoJSONLayer.getBounds());
+    this._map.invalidateSize();
   }
 
   /**
    * A message handler invoked on a `'resize'` message.
    */
   protected onResize(msg: Widget.ResizeMessage) {
-    this._width = msg.width;
-    this._height = msg.height;
+    // Update map size after panel/window is resized
     this._map.fitBounds(this._geoJSONLayer.getBounds());
     this._map.invalidateSize();
   }
 
   private _map: leaflet.Map;
   private _geoJSONLayer: leaflet.GeoJSON;
-  private _width = -1;
-  private _height = -1;
   private _mimeType: string;
 }
 
