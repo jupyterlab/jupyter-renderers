@@ -6,6 +6,10 @@ import {
 } from '@phosphor/widgets';
 
 import {
+  Message
+} from '@phosphor/messaging';
+
+import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
@@ -84,7 +88,7 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     const data = model.data[this._mimeType] as any | GeoJSON.GeoJsonObject;
     const metadata = model.metadata[this._mimeType] as any || {};
     return new Promise<void>((resolve, reject) => {
-      this._map = leaflet.map(this.node).fitWorld();
+      this._map = leaflet.map(this.node);
       this._map.scrollWheelZoom.disable();
       this._map.on('blur', (event) => {
         this._map.scrollWheelZoom.disable();
@@ -97,10 +101,16 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
         metadata.layer_options || LAYER_OPTIONS
       ).addTo(this._map);
       this._geoJSONLayer = leaflet.geoJSON(data).addTo(this._map);
-      this._map.fitBounds(this._geoJSONLayer.getBounds());
-      this._map.invalidateSize();
       resolve(undefined);
     });
+  }
+  
+  /**
+   * A message handler invoked on a `'after-attach'` message.
+   */
+  protected onAfterAttach(msg: Message) {
+    this._map.fitBounds(this._geoJSONLayer.getBounds());
+    this._map.invalidateSize();
   }
 
   /**
