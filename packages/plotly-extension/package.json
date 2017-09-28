@@ -32,12 +32,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jupyterlab/jupyterlab.git"
+    "url": "https://github.com/jupyterlab/jupyter-renderers.git"
   },
   "author": "Project Jupyter",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/jupyterlab/jupyterlab/issues"
+    "url": "https://github.com/jupyterlab/jupyter-renderers/issues"
   },
-  "homepage": "https://github.com/jupyterlab/jupyterlab"
+  "homepage": "https://github.com/jupyterlab/jupyter-renderers"
 }
