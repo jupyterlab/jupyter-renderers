@@ -26,10 +26,7 @@ import '../style/index.css';
 const CSS_CLASS = 'jp-RenderedJSON';
 
 /**
- * The MIME type for Vega.
- *
- * #### Notes
- * The version of this follows the major version of Vega.
+ * The MIME type for JSON.
  */
 export
 const MIME_TYPE = 'application/json';
@@ -38,7 +35,7 @@ const MIME_TYPE = 'application/json';
 export
 class RenderedJSON extends Widget implements IRenderMime.IRenderer {
   /**
-   * Create a new widget for rendering Vega/Vega-Lite.
+   * Create a new widget for rendering JSON.
    */
   constructor(options: IRenderMime.IRendererOptions) {
     super();
@@ -65,7 +62,7 @@ class RenderedJSON extends Widget implements IRenderMime.IRenderer {
 
 
 /**
- * A mime renderer factory for GeoJSON data.
+ * A mime renderer factory for JSON data.
  */
 export
 const rendererFactory: IRenderMime.IRendererFactory = {

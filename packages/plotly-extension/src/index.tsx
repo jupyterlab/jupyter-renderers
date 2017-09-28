@@ -41,14 +41,12 @@ namespace Private {
 const CSS_CLASS = 'jp-RenderedPlotly';
 
 /**
- * The CSS class for a GeoJSON icon.
+ * The CSS class for a Plotly icon.
  */
 const CSS_ICON_CLASS = 'jp-MaterialIcon jp-PlotlyIcon';
 
 /**
- * The MIME type for Vega.
- *
- * #### Notes
+ * The MIME type for Plotly.
  * The version of this follows the major version of Plotly.
  */
 export
@@ -63,7 +61,7 @@ interface PlotlySpec {
 export
 class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
   /**
-   * Create a new widget for rendering Vega/Vega-Lite.
+   * Create a new widget for rendering Plotly.
    */
   constructor(options: IRenderMime.IRendererOptions) {
     super();
@@ -115,7 +113,7 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
 
 
 /**
- * A mime renderer factory for GeoPlotly data.
+ * A mime renderer factory for Plotly data.
  */
 export
 const rendererFactory: IRenderMime.IRendererFactory = {
@@ -140,7 +138,7 @@ const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
     documentWidgetFactoryOptions: {
       name: 'Plotly',
       primaryFileType: 'plotly',
-      fileTypes: ['plotly'],
+      fileTypes: ['plotly', 'json'],
       defaultFor: ['plotly']
     }
   }

@@ -151,16 +151,16 @@ const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
     rank: 0,
     dataType: 'json',
     fileTypes: [{
-      name: 'GeoJSON',
+      name: 'geojson',
       mimeTypes: [MIME_TYPE],
       extensions: ['.geojson', '.geo.json'],
       iconClass: CSS_ICON_CLASS
     }],
     documentWidgetFactoryOptions: {
       name: 'GeoJSON',
-      primaryFileType: 'GeoJSON',
-      fileTypes: ['GeoJSON'],
-      defaultFor: ['GeoJSON']
+      primaryFileType: 'geojson',
+      fileTypes: ['geojson', 'json'],
+      defaultFor: ['geojson']
     }
   }
 ];
