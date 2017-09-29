@@ -2,7 +2,7 @@
 
 <!-- This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-like) that consists of generic renderers for common file types and mime types as well as renderer extensions for both [JupyterLab](https://github.com/jupyterlab/jupyterlab) and [Jupyter Notebook](https://github.com/jupyter/notebook). -->
 
-This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-like) that consists of generic renderers for common file types and mime types as well as renderer extensions for both [JupyterLab](https://github.com/jupyterlab/jupyterlab)
+This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-like) that consists of generic renderers for common file types and mime types as well as renderer extensions for [JupyterLab](https://github.com/jupyterlab/jupyterlab).
 
 ## Packages
 
