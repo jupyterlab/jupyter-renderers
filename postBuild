@@ -1,0 +1,3 @@
+#!/bin/bash
+
+jupyter labextension install @jupyterlab/geojson-extension @jupyterlab/json-extension @jupyterlab/plotly-extension
