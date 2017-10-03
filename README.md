@@ -2,15 +2,15 @@
 
 <!-- This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-like) that consists of generic renderers for common file types and mime types as well as renderer extensions for both [JupyterLab](https://github.com/jupyterlab/jupyterlab) and [Jupyter Notebook](https://github.com/jupyter/notebook). -->
 
-This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-like) that consists of generic renderers for common file types and mime types as well as renderer extensions for both [JupyterLab](https://github.com/jupyterlab/jupyterlab)
+This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-like) that consists of generic renderers for common file types and mime types as well as renderer extensions for [JupyterLab](https://github.com/jupyterlab/jupyterlab).
 
 ## Packages
 
 | Name        | Mime types           | File extensions |
 | ----------- | -------------------- | --------------- |
-| geojson-extension | `application/geo+json` | `.geojson`, `.geo.json` |
-| json-extension | `application/json` | `.json`, `.ipynb` |
-| plotly-extension | `application/vnd.plotly.v1+json` | `.plotly`, `.plotly.json` |
+| [geojson-extension](packages/geojson-extension) | `application/geo+json` | `.geojson`, `.geo.json` |
+| [json-extension](packages/json-extension) | `application/json` | `.json`, `.ipynb` |
+| [plotly-extension](packages/plotly-extension) | `application/vnd.plotly.v1+json` | `.plotly`, `.plotly.json` |
 
 ## Install
 
