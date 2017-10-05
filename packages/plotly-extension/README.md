@@ -7,6 +7,7 @@ A JupyterLab extension for rendering Plotly charts
 ## Prerequisites
 
 * JupyterLab ^0.27.0
+* plotly.py >= 2.0.0
 
 ## Usage
 
@@ -38,23 +39,13 @@ Plotly(data, layout)
 To render using the [plotly Python library](https://github.com/plotly/plotly.py):
 
 ```python
-import plotly
-from IPython.display import display
-import json
-
-def Plotly(data=[], layout={}):
-    bundle = {}
-    bundle['application/vnd.plotly.v1+json'] = {
-        'data': json.loads(json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)),
-        'layout': json.loads(json.dumps(layout, cls=plotly.utils.PlotlyJSONEncoder)),
-    }
-    display(bundle, raw=True)
+from plotly.offline import iplot
     
 trace = plotly.graph_objs.Heatmap(z=[[1, 20, 30],
                       [20, 1, 60],
                       [30, 60, 1]])
-data=[trace]
-iplot(data)
+fig = dict(data=[trace])
+iplot(fig)
 ```
 
 To render a `.plotly` or `.plotly.json` file, simply open it:
