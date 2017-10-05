@@ -95,8 +95,6 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
    * A message handler invoked on a `'resize'` message.
    */
   protected onResize(msg: Widget.ResizeMessage) {
-    this._width = msg.width;
-    this._height = msg.height;
     Plotly.redraw(this.node)
       .then(() => {
         Plotly.Plots.resize(this.node);
@@ -112,8 +110,6 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
       // });
   }
 
-  private _width = -1;
-  private _height = -1;
   private _mimeType: string;
 }
 
