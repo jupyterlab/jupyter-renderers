@@ -1,6 +1,6 @@
 {
   "name": "@jupyterlab/plotly-extension",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "JupyterLab - Plotly Renderer",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
