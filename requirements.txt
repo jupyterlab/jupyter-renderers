@@ -1,0 +1,5 @@
+traitlets>=4.3.1
+ipython
+pandas
+plotly
+vdom
