@@ -13,7 +13,7 @@ import * as React from 'react';
 
 import * as ReactDOM from 'react-dom';
 
-import { objectToReactElement } from './object-to-react';
+import VDOM from '@nteract/transform-vdom';
 
 import '../style/index.css';
 
@@ -53,24 +53,9 @@ class RenderedVDOM extends Widget implements IRenderMime.IRenderer {
     const data = model.data[this._mimeType] as any;
     // const metadata = model.metadata[this._mimeType] as any || {};
     return new Promise<void>((resolve, reject) => {
-      try {
-        const vdomElement = objectToReactElement({ ...data })
-        ReactDOM.render(vdomElement, this.node, () => {
-          resolve(undefined);
-        });
-      } catch (error) {
-        const errorElement = (
-          <div style={{ padding: 5 }}>
-            <div style={{ textAlign: 'center', marginBottom: 10 }}>
-              There was an error rendering VDOM data from the kernel or notebook
-            </div>
-            <code>{error.message}</code>
-          </div>
-        );
-        ReactDOM.render(errorElement, this.node, () => {
-          resolve(undefined);
-        });
-      }
+      ReactDOM.render(<VDOM data={data} />, this.node, () => {
+        resolve(undefined);
+      });
     });
   }
 
