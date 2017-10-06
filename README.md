@@ -11,12 +11,14 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 | [geojson-extension](packages/geojson-extension) | `application/geo+json` | `.geojson`, `.geo.json` |
 | [json-extension](packages/json-extension) | `application/json` | `.json`, `.ipynb` |
 | [plotly-extension](packages/plotly-extension) | `application/vnd.plotly.v1+json` | `.plotly`, `.plotly.json` |
+| [vdom-extension](packages/vdom-extension) | `application/vdom.v1+json` | `.vdom`, `.vdom.json` |
 
 ## Install
 
 * geojson-extension: `jupyter labextension install @jupyterlab/geojson-extension`
 * json-extension: `jupyter labextension install @jupyterlab/json-extension`
 * plotly-extension: `jupyter labextension install @jupyterlab/plotly-extension`
+* vdom-extension: `jupyter labextension install @jupyterlab/vdom-extension`
 
 ## Contributing
 

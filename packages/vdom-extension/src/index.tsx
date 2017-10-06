@@ -13,29 +13,32 @@ import * as React from 'react';
 
 import * as ReactDOM from 'react-dom';
 
-import {
-  Component
-} from './component';
+import VDOM from '@nteract/transform-vdom';
 
 import '../style/index.css';
 
 
 /**
- * The CSS class to add to the JSON Widget.
+ * The CSS class to add to the VDOM Widget.
  */
-const CSS_CLASS = 'jp-RenderedJSON';
+const CSS_CLASS = 'jp-RenderedVDOM';
 
 /**
- * The MIME type for JSON.
+ * The CSS class for a VDOM icon.
+ */
+const CSS_ICON_CLASS = 'jp-MaterialIcon jp-VDOMIcon';
+
+/**
+ * The MIME type for VDOM.
  */
 export
-const MIME_TYPE = 'application/json';
+const MIME_TYPE = 'application/vdom.v1+json';
 
 
 export
-class RenderedJSON extends Widget implements IRenderMime.IRenderer {
+class RenderedVDOM extends Widget implements IRenderMime.IRenderer {
   /**
-   * Create a new widget for rendering JSON.
+   * Create a new widget for rendering DOM.
    */
   constructor(options: IRenderMime.IRendererOptions) {
     super();
@@ -44,14 +47,13 @@ class RenderedJSON extends Widget implements IRenderMime.IRenderer {
   }
 
   /**
-   * Render JSON into this widget's node.
+   * Render VDOM into this widget's node.
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const data = model.data[this._mimeType] as any;
-    const metadata = model.metadata[this._mimeType] as any || {};
-    const props = { data, metadata, theme: 'cm-s-jupyter' };
+    // const metadata = model.metadata[this._mimeType] as any || {};
     return new Promise<void>((resolve, reject) => {
-      ReactDOM.render(<Component {...props} />, this.node, () => {
+      ReactDOM.render(<VDOM data={data} />, this.node, () => {
         resolve(undefined);
       });
     });
@@ -62,27 +64,33 @@ class RenderedJSON extends Widget implements IRenderMime.IRenderer {
 
 
 /**
- * A mime renderer factory for JSON data.
+ * A mime renderer factory for VDOM data.
  */
 export
 const rendererFactory: IRenderMime.IRendererFactory = {
   safe: true,
   mimeTypes: [MIME_TYPE],
-  createRenderer: options => new RenderedJSON(options)
+  createRenderer: options => new RenderedVDOM(options)
 };
 
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
   {
-    name: 'JSON',
+    name: 'VDOM',
     rendererFactory,
     rank: 0,
     dataType: 'json',
+    fileTypes: [{
+      name: 'vdom',
+      mimeTypes: [MIME_TYPE],
+      extensions: ['.vdom', '.vdom.json'],
+      iconClass: CSS_ICON_CLASS
+    }],
     documentWidgetFactoryOptions: {
-      name: 'JSON',
-      primaryFileType: 'json',
-      fileTypes: ['json', 'notebook'],
-      defaultFor: ['json']
+      name: 'VDOM',
+      primaryFileType: 'vdom',
+      fileTypes: ['vdom', 'json'],
+      defaultFor: ['vdom']
     }
   }
 ];
