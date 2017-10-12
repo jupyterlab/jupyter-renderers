@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- '5'
+sudo: false
+notifications:
+  email: false
+before_install:
+  - cd ..
+  - git clone --depth=50 --branch=master https://github.com/jupyterlab/jupyterlab.git
+  - cd jupyterlab
+install:
+  - npm install --no-optional
+  - npm run addsibling $TRAVIS_BUILD_DIR
+  - npm run build
+script:
+  - echo "Build successful"
