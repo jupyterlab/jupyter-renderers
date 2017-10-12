@@ -19,7 +19,7 @@ export interface IProps {
 }
 
 export interface IState {
-  fiter?: string;
+  filter?: string;
 }
 
 export class Component extends React.Component<IProps, IState> {
@@ -33,7 +33,7 @@ export class Component extends React.Component<IProps, IState> {
      */
     ReactDOM.findDOMNode(this.input).addEventListener(
       'keydown',
-      event => {
+      (event: Event) => {
         event.stopPropagation();
       },
       false
@@ -43,7 +43,7 @@ export class Component extends React.Component<IProps, IState> {
   componentWillUnmount() {
     ReactDOM.findDOMNode(this.input).removeEventListener(
       'keydown',
-      event => {
+      (event: Event) => {
         event.stopPropagation();
       },
       false
