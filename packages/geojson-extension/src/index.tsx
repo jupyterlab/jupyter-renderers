@@ -146,7 +146,7 @@ const rendererFactory: IRenderMime.IRendererFactory = {
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
   {
-    name: 'GeoJSON',
+    id: '@jupyterlab/geojson-extension:factory',
     rendererFactory,
     rank: 0,
     dataType: 'json',
