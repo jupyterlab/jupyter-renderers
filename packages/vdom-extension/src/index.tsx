@@ -76,7 +76,7 @@ const rendererFactory: IRenderMime.IRendererFactory = {
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
   {
-    name: 'VDOM',
+    id: '@jupyterlab/vdom-extension:factory',
     rendererFactory,
     rank: 0,
     dataType: 'json',
