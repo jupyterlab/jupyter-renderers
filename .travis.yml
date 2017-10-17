@@ -24,9 +24,9 @@ install:
 - conda install nodejs notebook
 - pip install selenium
 - pip install --pre jupyterlab
+script:
 - npm install
 - npm run build
-script:
 - jupyter labextension link packages/geojson-extension --no-build
 - jupyter labextension link packages/json-extension --no-build
 - jupyter labextension link packages/plotly-extension --no-build
