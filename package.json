@@ -3,7 +3,7 @@
     "build": "lerna run build",
     "install": "lerna bootstrap --hoist",
     "publish": "lerna publish",
-    "watch": "lerna run --parallel build:watch"
+    "watch": "lerna run --parallel watch"
   },
   "devDependencies": {
     "lerna": "^2.0.0-rc.5"
