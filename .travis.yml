@@ -1,0 +1,25 @@
+language: python
+sudo: false
+cache:
+  directories:
+    - $HOME/.npm
+install:
+- wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+- bash miniconda.sh -b -p $HOME/miniconda
+- export PATH="$HOME/miniconda/bin:$PATH"
+- hash -r
+- conda config --set always_yes yes --set changeps1 no
+- conda update -q conda
+- conda info -a
+- conda install nodejs
+- pip install selenium
+- pip install --pre jupyterlab
+- npm install
+- npm run build
+script:
+- jupyter labextension link packages/geojson-extension --no-build
+- jupyter labextension link packages/json-extension --no-build
+- jupyter labextension link packages/plotly-extension --no-build
+- jupyter labextension link packages/vdom-extension --no-build
+- jupyter lab build 
+- python -m jupyterlab.selenium_check
