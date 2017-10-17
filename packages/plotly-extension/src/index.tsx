@@ -125,7 +125,7 @@ const rendererFactory: IRenderMime.IRendererFactory = {
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
   {
-    id: '@jupyterlab/pltoly-extension:factory',
+    id: '@jupyterlab/plotly-extension:factory',
     rendererFactory,
     rank: 0,
     dataType: 'json',

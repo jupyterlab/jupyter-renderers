@@ -50,3 +50,13 @@ npm run build
 # Rebuild the JupyterLab staging directory
 jupyter lab build
 ```
+
+You may also watch the `jupyter-renderers` directory for changes and automatically rebuild:
+
+```
+# In one terminal tab, watch the jupyter-renderers directory
+lerna run watch
+
+# In another terminal tab, run jupyterlab with the watch flag
+jupyter lab --watch
+```
