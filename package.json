@@ -2,7 +2,8 @@
   "scripts": {
     "build": "lerna run build",
     "install": "lerna bootstrap --hoist",
-    "publish": "lerna publish"
+    "publish": "lerna publish",
+    "watch": "lerna run watch"
   },
   "devDependencies": {
     "lerna": "^2.0.0-rc.5"
