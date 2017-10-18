@@ -1,5 +1,5 @@
 {
-  "name": "@jupyterlab/katex",
+  "name": "jupyterlab-katex",
   "version": "0.1.0",
   "description": "JupyterLab - KaTeX math rendering",
   "main": "lib/index.js",
@@ -12,9 +12,14 @@
   "directories": {
     "lib": "lib/"
   },
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "katex"
+  ],
   "dependencies": {
-    "@jupyterlab/application": "^0.10.0",
-    "@jupyterlab/rendermime-interfaces": "^0.3.1",
+    "@jupyterlab/application": "^0.11.0",
+    "@jupyterlab/rendermime-interfaces": "^0.4.0",
     "katex": "^0.8.3"
   },
   "devDependencies": {
