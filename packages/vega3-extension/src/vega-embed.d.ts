@@ -6,5 +6,6 @@ declare module 'vega-embed' {
         view: Object;
     }
     function embed(el: any, spec: any, opt?: any): Promise<Result>;
+    // function embed(el: any, spec: any, opt: any, cb: (err: any, view: any) => void): void;
     export = embed;
 }
