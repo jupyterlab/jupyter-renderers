@@ -20,3 +20,7 @@
 .jp-MimeDocument .jp-RenderedVegaCommon3 {
   padding: 16px;
 }
+
+.vega canvas {
+  background: var(--jp-vega-background);
+}

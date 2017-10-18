@@ -107,7 +107,7 @@ const rendererFactory: IRenderMime.IRendererFactory = {
 };
 
 const extension: IRenderMime.IExtension = {
-  name: 'vega3',
+  id: '@jupyterlab/vega3-extension:factory',
   rendererFactory,
   rank: 0,
   dataType: 'json',
