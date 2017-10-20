@@ -85,7 +85,7 @@ class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
             cell: { width: 400, height: 400 / 1.5 }
           }
     };
-    return vegaEmbed(this.node, data, options).then((result: Object) => {
+    return vegaEmbed(this.node as HTMLBaseElement, data, options).then((result: Object) => {
       console.log(result);
     });
   }
