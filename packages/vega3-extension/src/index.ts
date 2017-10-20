@@ -78,12 +78,7 @@ class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
     const mode: Mode = this._mimeType === VEGA_MIME_TYPE ? 'vega' : 'vega-lite';
     const options = {
       mode,
-      actions: true,
-      config: this._mimeType === VEGA_MIME_TYPE
-        ? {}
-        : {
-            cell: { width: 400, height: 400 / 1.5 }
-          }
+      actions: true
     };
     return vegaEmbed(this.node as HTMLBaseElement, data, options).then((result: Object) => {
       console.log(result);
