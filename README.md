@@ -55,7 +55,7 @@ You may also watch the `jupyter-renderers` directory for changes and automatical
 
 ```
 # In one terminal tab, watch the jupyter-renderers directory
-lerna run watch
+npm run watch
 
 # In another terminal tab, run jupyterlab with the watch flag
 jupyter lab --watch
