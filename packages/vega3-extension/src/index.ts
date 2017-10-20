@@ -15,10 +15,7 @@ import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
-/**
- * Import vega-embed in this manner due to how it is exported.
- */
-import embed = require('vega-embed');
+import vegaEmbed, {Mode} from 'vega-embed';
 
 
 import '../style/index.css';
@@ -78,8 +75,9 @@ class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const data = model.data[this._mimeType] as JSONObject;
+    const mode: Mode = this._mimeType === VEGA_MIME_TYPE ? 'vega' : 'vega-lite';
     const options = {
-      mode: this._mimeType === VEGA_MIME_TYPE ? 'vega' : 'vega-lite',
+      mode,
       actions: true,
       config: this._mimeType === VEGA_MIME_TYPE
         ? {}
@@ -87,7 +85,7 @@ class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
             cell: { width: 400, height: 400 / 1.5 }
           }
     };
-    return embed(this.node, data, options).then(result => {
+    return vegaEmbed(this.node, data, options).then((result: Object) => {
       console.log(result);
     });
   }

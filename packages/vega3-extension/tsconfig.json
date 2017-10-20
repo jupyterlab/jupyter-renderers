@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noEmitOnError": true,
     "noUnusedLocals": true,
     "module": "commonjs",
@@ -11,5 +11,8 @@
     "lib": ["ES5", "ES2015.Promise", "DOM", "ES2015.Collection"],
     "types": []
   },
-  "include": ["src/*"]
+  "include": [
+    "src/*",
+    "../../node_modules/vega-embed/typings/vega.d.ts"
+  ]
 }
