@@ -1,4 +1,4 @@
-# jupyterlab-katex
+# @jupyterlab/katex
 
 An extension for JupyterLab that provides [KaTeX](https://khan.github.io/KaTeX/) rendering for math.
 
@@ -14,19 +14,19 @@ you probably will want to fall back to MathJax.
 
 ## Prerequisites
 
-* JupyterLab 0.28
+* JupyterLab 0.28.0
 
 ## Installation
 
 To install this extension into JupyterLab (requires node 5 or later), enter the following in your terminal:
 
 ```bash
-jupyter labextension install jupyterlab-katex
+jupyter labextension install @jupyterlab/katex
 ```
 
 ## Development
 
-From the `jupyterlab-katex` directory, run
+From the `katex-extension` directory, run
 
 ```bash
 npm install
