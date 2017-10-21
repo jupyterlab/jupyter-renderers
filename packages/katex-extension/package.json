@@ -1,5 +1,5 @@
 {
-  "name": "jupyterlab-katex",
+  "name": "@jupyterlab/katex-extension",
   "version": "0.1.0",
   "description": "JupyterLab - KaTeX math rendering",
   "main": "lib/index.js",
@@ -37,12 +37,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jupyterlab/jupyterlab-katex.git"
+    "url": "https://github.com/jupyterlab/jupyter-renderers.git"
   },
   "author": "Project Jupyter",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/jupyterlab/jupyterlab-katex/issues"
+    "url": "https://github.com/jupyterlab/jupyter-renderers/issues"
   },
-  "homepage": "https://github.com/jupyterlab/jupyterlab-katex"
+  "homepage": "https://github.com/jupyterlab/jupyter-renderers"
 }

@@ -16,7 +16,7 @@ import {
 import '../style/index.css';
 
 /**
- * The MathJax Typesetter.
+ * The KaTeX Typesetter.
  */
 export
 class KatexTypesetter implements IRenderMime.ILatexTypesetter {

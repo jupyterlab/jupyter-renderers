@@ -17,6 +17,7 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 
 * geojson-extension: `jupyter labextension install @jupyterlab/geojson-extension`
 * json-extension: `jupyter labextension install @jupyterlab/json-extension`
+* katex-extension: `jupyter labextension install @jupyterlab/katex-extension`
 * plotly-extension: `jupyter labextension install @jupyterlab/plotly-extension`
 * vdom-extension: `jupyter labextension install @jupyterlab/vdom-extension`
 
