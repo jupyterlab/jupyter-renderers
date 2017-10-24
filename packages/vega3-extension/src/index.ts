@@ -80,9 +80,9 @@ class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
       mode,
       actions: true
     };
-    return vegaEmbed(this.node as HTMLBaseElement, data, options).then((result: Object) => {
+    return vegaEmbed(this.node as HTMLBaseElement, data, options).then((result) => {
       console.log(result);
-    });
+    }).catch(console.warn);
   }
 
   private _mimeType: string;
