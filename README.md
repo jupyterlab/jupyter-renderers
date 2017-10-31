@@ -27,7 +27,7 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 
 ### Developer install
 
-```
+```bash
 git clone https://github.com/jupyterlab/jupyter-renderers.git
 cd jupyter-renderers
 npm install
@@ -38,7 +38,7 @@ npm run build
 
 Link geojson-extension:
 
-```
+```bash
 jupyter labextension link packages/geojson-extension
 ```
 
@@ -46,7 +46,7 @@ jupyter labextension link packages/geojson-extension
 
 After making changes to the source of the extension or renderer packages, the packages must be rebuilt:
 
-```
+```bash
 # Rebuild the source
 npm run build
 
@@ -62,4 +62,12 @@ npm run watch
 
 # In another terminal tab, run jupyterlab with the watch flag
 jupyter lab --watch
+```
+
+### Publishing packages
+
+```bash
+npm run publish
+# If publishing a package for the first time
+npm access public @jupyterlab/<extension name>
 ```
