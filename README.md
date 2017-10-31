@@ -67,7 +67,7 @@ jupyter lab --watch
 ### Publishing packages
 
 ```bash
-lerna publish
+npm run publish
 # If publishing a package for the first time
 npm access public @jupyterlab/<extension name>
 ```
