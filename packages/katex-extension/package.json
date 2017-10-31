@@ -1,7 +1,7 @@
 {
   "name": "@jupyterlab/katex-extension",
   "version": "0.1.0",
-  "description": "JupyterLab - KaTeX math rendering",
+  "description": "KaTeX math renderer for JupyterLab",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [
