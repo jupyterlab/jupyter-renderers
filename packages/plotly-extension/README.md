@@ -14,6 +14,8 @@ A JupyterLab extension for rendering Plotly charts
 To render Plotly JSON in IPython:
 
 ```python
+from IPython.display import display
+
 def Plotly(data=[], layout={}):
     bundle = {}
     bundle['application/vnd.plotly.v1+json'] = {
@@ -72,6 +74,15 @@ jupyter labextension link packages/plotly-extension
 npm run build
 # Rebuild JupyterLab after making any changes
 jupyter lab build
+```
+
+You can watch the jupyter-renderers directory and run JupyterLab in watch mode to watch for changes in the extension's source and automatically rebuild the extension and application.
+
+```bash
+# Run jupyterlab in watch mode in one terminal tab
+jupyter lab --watch
+# Watch the jupyter-renderers directory
+npm run watch
 ```
 
 ## Uninstall

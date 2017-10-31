@@ -1,7 +1,7 @@
 {
   "name": "@jupyterlab/json-extension",
   "version": "0.11.0",
-  "description": "JupyterLab - JSON Renderer",
+  "description": "JSON renderer for JupyterLab",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "files": [

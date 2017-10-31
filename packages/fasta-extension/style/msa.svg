@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>fasta</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="fasta" transform="translate(-6.000000, -6.000000)">
+            <rect id="Rectangle" fill="#64FF62" x="6" y="6" width="4" height="4"></rect>
+            <rect id="Rectangle-Copy-3" fill="#FFA460" x="10" y="6" width="4" height="4"></rect>
+            <rect id="Rectangle-Copy-6" fill="#665FFF" x="14" y="6" width="4" height="4"></rect>
+            <rect id="Rectangle-Copy" fill="#DFFF59" x="6" y="10" width="4" height="4"></rect>
+            <rect id="Rectangle-Copy-4" fill="#FFFFFF" x="10" y="10" width="4" height="4"></rect>
+            <rect id="Rectangle-Copy-4" fill="#A1A1A1" x="11.5" y="11.75" width="1" height="1"></rect>
+            <rect id="Rectangle-Copy-7" fill="#FF60E2" x="14" y="10" width="4" height="4"></rect>
+            <rect id="Rectangle-Copy-2" fill="#FF8561" x="6" y="14" width="4" height="4"></rect>
+            <rect id="Rectangle-Copy-5" fill="#A460FF" x="10" y="14" width="4" height="4"></rect>
+            <rect id="Rectangle-Copy-8" fill="#E160FF" x="14" y="14" width="4" height="4"></rect>
+            <polygon id="Shape" points="0 0 24 0 24 24 0 24"></polygon>
+        </g>
+    </g>
+</svg>

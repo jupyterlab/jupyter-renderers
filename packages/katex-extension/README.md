@@ -1,6 +1,6 @@
-# @jupyterlab/katex
+# katex-extension
 
-An extension for JupyterLab that provides [KaTeX](https://khan.github.io/KaTeX/) rendering for math.
+A JupyterLab extension for rendering [KaTeX](https://khan.github.io/KaTeX/) math.
 
 The default LaTeX renderer in JupyterLab uses [MathJax](https://www.mathjax.org/),
 which, while powerful, can be slow to render complex equations.
@@ -14,30 +14,44 @@ you probably will want to fall back to MathJax.
 
 ## Prerequisites
 
-* JupyterLab 0.28.0
+* JupyterLab ^0.28.0
+* Node.js >= 5
 
-## Installation
-
-To install this extension into JupyterLab (requires node 5 or later), enter the following in your terminal:
+## Install
 
 ```bash
-jupyter labextension install @jupyterlab/katex
+jupyter labextension install @jupyterlab/katex-extension
 ```
 
 ## Development
 
-From the `katex-extension` directory, run
-
 ```bash
+# Clone the repo to your local environment
+git clone https://github.com/jupyterlab/jupyter-renderers.git
+cd jupyter-renderers
+# Install dependencies
 npm install
+# Build Typescript source
 npm run build
-jupyter labextension link .
+# Link your development version of the extension with JupyterLab
+jupyter labextension link packages/katex-extension
+# Rebuild Typescript source after making changes
+npm run build
+# Rebuild JupyterLab after making any changes
+jupyter lab build
 ```
 
-You can then watch the `src` directory for changes by running
+You can watch the jupyter-renderers directory and run JupyterLab in watch mode to watch for changes in the extension's source and automatically rebuild the extension and application.
+
 ```bash
+# Run jupyterlab in watch mode in one terminal tab
+jupyter lab --watch
+# Watch the jupyter-renderers directory
 npm run watch
 ```
-Launch JupyterLab in watch mode (`jupyter lab --watch`), and
-it wil automatically pick up changes to the built assets
-of this extension and rebuild the application.
+
+## Uninstall
+
+```bash
+jupyter labextension uninstall @jupyterlab/katex-extension
+```

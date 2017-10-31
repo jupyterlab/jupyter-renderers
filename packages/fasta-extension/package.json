@@ -1,32 +1,14 @@
 {
-  "name": "@jupyterlab/katex-extension",
-  "version": "0.1.0",
-  "description": "KaTeX math renderer for JupyterLab",
+  "private": true,
+  "name": "@jupyterlab/fasta-extension",
+  "version": "0.11.0",
+  "description": "Fasta renderer for JupyterLab",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "files": [
-    "lib/*.d.ts",
-    "lib/*.js",
-    "style/*.css"
-  ],
-  "directories": {
-    "lib": "lib/"
-  },
   "keywords": [
     "jupyter",
-    "jupyterlab",
-    "katex"
+    "jupyterlab"
   ],
-  "dependencies": {
-    "@jupyterlab/application": "^0.11.0",
-    "@jupyterlab/rendermime-interfaces": "^0.4.0",
-    "katex": "^0.8.3"
-  },
-  "devDependencies": {
-    "@types/katex": "^0.5.0",
-    "rimraf": "^2.5.2",
-    "typescript": "~2.4.1"
-  },
   "scripts": {
     "build": "tsc",
     "clean": "rimraf lib",
@@ -34,7 +16,24 @@
     "watch": "tsc -w"
   },
   "jupyterlab": {
-    "extension": true
+    "mimeExtension": true
+  },
+  "dependencies": {
+    "@jupyterlab/rendermime-interfaces": "^0.4.1",
+    "@phosphor/widgets": "^1.5.0",
+    "msa": "^1.0.3"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.1",
+    "typescript": "~2.4.1"
+  },
+  "files": [
+    "lib/*.d.ts",
+    "lib/*.js",
+    "style/*"
+  ],
+  "directories": {
+    "lib": "lib/"
   },
   "repository": {
     "type": "git",

@@ -85,6 +85,15 @@ npm run build
 jupyter lab build
 ```
 
+You can watch the jupyter-renderers directory and run JupyterLab in watch mode to watch for changes in the extension's source and automatically rebuild the extension and application.
+
+```bash
+# Run jupyterlab in watch mode in one terminal tab
+jupyter lab --watch
+# Watch the jupyter-renderers directory
+npm run watch
+```
+
 ## Uninstall
 
 ```bash
