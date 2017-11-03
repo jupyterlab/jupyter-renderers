@@ -6,10 +6,6 @@ import {
 } from '@phosphor/widgets';
 
 import {
-  Message
-} from '@phosphor/messaging';
-
-import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
@@ -69,6 +65,16 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     this._mimeType = options.mimeType;
     // Create leaflet map object
     this._map = leaflet.map(this.node);
+    // Disable scroll zoom by default to avoid conflicts with notebook scroll
+    this._map.scrollWheelZoom.disable();
+    // Enable scroll zoom on map focus
+    this._map.on('blur', (event) => {
+      this._map.scrollWheelZoom.disable();
+    });
+    // Disable scroll zoom on blur
+    this._map.on('focus', (event) => {
+      this._map.scrollWheelZoom.enable();
+    });
   }
 
   /**
@@ -97,33 +103,19 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
       this._geoJSONLayer = leaflet.geoJSON(data).addTo(this._map);
       // Update map size after panel/window is resized
       this._map.fitBounds(this._geoJSONLayer.getBounds());
-      this._map.invalidateSize();
+      // TODO: This is a temporary hack to get outputs in notebooks to invalidate size after running a cell
+      window.setTimeout(() => {
+        this._map.invalidateSize();
+      }, 30);
       resolve(undefined);
     });
   }
-  
-  /**
-   * A message handler invoked on a `'after-attach'` message.
-   */
-  protected onAfterAttach(msg: Message) {
-    // Disable scroll zoom by default to avoid conflicts with notebook scroll
-    this._map.scrollWheelZoom.disable();
-    // Enable scroll zoom on map focus
-    this._map.on('blur', (event) => {
-      this._map.scrollWheelZoom.disable();
-    });
-    // Disable scroll zoom on blur
-    this._map.on('focus', (event) => {
-      this._map.scrollWheelZoom.enable();
-    });
-  }
-
+    
   /**
    * A message handler invoked on a `'resize'` message.
    */
   protected onResize(msg: Widget.ResizeMessage) {
     // Update map size after panel/window is resized
-    if (this._geoJSONLayer) this._map.fitBounds(this._geoJSONLayer.getBounds());
     this._map.invalidateSize();
   }
 
