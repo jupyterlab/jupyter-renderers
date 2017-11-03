@@ -33,4 +33,4 @@ script:
 - jupyter labextension link packages/vdom-extension --no-build
 - jupyter labextension link packages/katex-extension --no-build
 - jupyter lab build 
-- python -m jupyterlab.selenium_check
+# python -m jupyterlab.selenium_check

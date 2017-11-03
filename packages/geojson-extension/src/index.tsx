@@ -69,6 +69,16 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     this._mimeType = options.mimeType;
     // Create leaflet map object
     this._map = leaflet.map(this.node);
+    // Disable scroll zoom by default to avoid conflicts with notebook scroll
+    this._map.scrollWheelZoom.disable();
+    // Enable scroll zoom on map focus
+    this._map.on('blur', (event) => {
+      this._map.scrollWheelZoom.disable();
+    });
+    // Disable scroll zoom on blur
+    this._map.on('focus', (event) => {
+      this._map.scrollWheelZoom.enable();
+    });
   }
 
   /**
@@ -97,25 +107,23 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
       this._geoJSONLayer = leaflet.geoJSON(data).addTo(this._map);
       // Update map size after panel/window is resized
       this._map.fitBounds(this._geoJSONLayer.getBounds());
-      this._map.invalidateSize();
+      this.update();
       resolve(undefined);
     });
   }
-  
+
   /**
-   * A message handler invoked on a `'after-attach'` message.
+   * A message handler invoked on an `'after-attach'` message.
    */
-  protected onAfterAttach(msg: Message) {
-    // Disable scroll zoom by default to avoid conflicts with notebook scroll
-    this._map.scrollWheelZoom.disable();
-    // Enable scroll zoom on map focus
-    this._map.on('blur', (event) => {
-      this._map.scrollWheelZoom.disable();
-    });
-    // Disable scroll zoom on blur
-    this._map.on('focus', (event) => {
-      this._map.scrollWheelZoom.enable();
-    });
+  protected onAfterAttach(msg: Message): void {
+    this.update();
+  }
+
+  /**
+   * A message handler invoked on an `'after-show'` message.
+   */
+  protected onAfterShow(msg: Message): void {
+    this.update();
   }
 
   /**
@@ -123,8 +131,16 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    */
   protected onResize(msg: Widget.ResizeMessage) {
     // Update map size after panel/window is resized
-    if (this._geoJSONLayer) this._map.fitBounds(this._geoJSONLayer.getBounds());
-    this._map.invalidateSize();
+    this.update();
+  }
+
+  /**
+   * A message handler invoked on an `'update-request'` message.
+   */
+  protected onUpdateRequest(msg: Message): void {
+    if (this.isVisible) {
+      this._map.invalidateSize();
+    }
   }
 
   private _map: leaflet.Map;
