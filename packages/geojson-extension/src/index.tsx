@@ -98,7 +98,7 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
       // Update map size after panel/window is resized
       this._map.fitBounds(this._geoJSONLayer.getBounds());
       this.update();
-      resolve(undefined);
+      resolve();
     });
   }
   
