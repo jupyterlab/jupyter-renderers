@@ -8,12 +8,14 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 
 | Name        | Mime types           | File extensions |
 | ----------- | -------------------- | --------------- |
+| [fasta-extension](packages/fasta-extension) | `application/vnd.fasta.fasta` | `.fasta` |
 | [geojson-extension](packages/geojson-extension) | `application/geo+json` | `.geojson`, `.geo.json` |
 | [katex-extension](packages/katex-extension) | N/A | N/A |
 | [plotly-extension](packages/plotly-extension) | `application/vnd.plotly.v1+json` | `.plotly`, `.plotly.json` |
 
 ## Install
 
+* fasta-extension: `jupyter labextension install @jupyterlab/fasta-extension`
 * geojson-extension: `jupyter labextension install @jupyterlab/geojson-extension`
 * katex-extension: `jupyter labextension install @jupyterlab/katex-extension`
 * plotly-extension: `jupyter labextension install @jupyterlab/plotly-extension`
