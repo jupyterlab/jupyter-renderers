@@ -6,6 +6,10 @@ import {
 } from '@phosphor/widgets';
 
 import {
+  Message
+} from '@phosphor/messaging';
+
+import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
@@ -76,36 +80,38 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const { data, layout } = model.data[this._mimeType] as any|PlotlySpec;
     // const metadata = model.metadata[this._mimeType] as any || {};
-    return Plotly.newPlot(this.node, data, layout)
-      .then(() => Plotly.Plots.resize(this.node))
-      // .then(plot =>
-      //   Plotly.toImage(plot, {
-      //     format: 'png',
-      //     width: this._width,
-      //     height: this._height
-      //   }))
-      // .then(() => {
-      //   const data = url.split(',')[1];
+    return Plotly.newPlot(this.node, data, layout).then((plot) => {
+      this.update();
+      // return Plotly.toImage(plot, {
+      //   format: 'png',
+      //   width: this.node.offsetWidth,
+      //   height: this.node.offsetHeight
+      // }).then(url => {
+      //   const imageData = url.split(',')[1];
+      //   model.setData({ data: { ...data, 'image/png': imageData } });
       // });
+    });
   }
-
+  
+  /**
+   * A message handler invoked on an `'after-show'` message.
+   */
+  protected onAfterShow(msg: Message): void {
+    this.update();
+  }
+    
   /**
    * A message handler invoked on a `'resize'` message.
    */
-  protected onResize(msg: Widget.ResizeMessage) {
-    Plotly.redraw(this.node)
-      .then(() => {
-        Plotly.Plots.resize(this.node);
-      });
-      // .then(plot =>
-      //   Plotly.toImage(plot, {
-      //     format: 'png',
-      //     width: this._width,
-      //     height: this._height
-      //   }))
-      // .then(url => {
-      //   const data = url.split(',')[1];
-      // });
+  protected onResize(msg: Widget.ResizeMessage): void {
+    this.update();
+  }
+  
+  /**
+   * A message handler invoked on an `'update-request'` message.
+   */
+  protected onUpdateRequest(msg: Message): void {
+    if (this.isVisible) Plotly.redraw(this.node);
   }
 
   private _mimeType: string;

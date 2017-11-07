@@ -4,12 +4,16 @@
 |----------------------------------------------------------------------------*/
 
 import {
-  IRenderMime
-} from '@jupyterlab/rendermime-interfaces';
-
-import {
   Widget
 } from '@phosphor/widgets';
+
+import {
+  Message
+} from '@phosphor/messaging';
+
+import {
+  IRenderMime
+} from '@jupyterlab/rendermime-interfaces';
 
 import * as msa from 'msa';
 
@@ -75,30 +79,39 @@ class RenderedData extends Widget implements IRenderMime.IRenderer {
    * Render into this widget's node.
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
-    let data = model.data[this._mimeType];
-    var seqs =  this._parser.parse(data);
-    this.msa.seqs.reset(seqs);
-    this.msa.render();
-    this._resetWidth();
-    return Promise.resolve();
+    return new Promise<void>((resolve, reject) => {
+      let data = model.data[this._mimeType];
+      var seqs =  this._parser.parse(data);
+      this.msa.seqs.reset(seqs);
+      this.msa.render();
+      this.update();
+      resolve();
+    });
+  }
+    
+  /**
+   * A message handler invoked on an `'after-show'` message.
+   */
+  protected onAfterShow(msg: Message): void {
+    this.update();
+  }
+    
+  /**
+   * A message handler invoked on a `'resize'` message.
+   */
+  protected onResize(msg: Widget.ResizeMessage): void {
+    this.update();
   }
 
   /**
-   * Resize handler
-   *
-   * @param msg Resize message
+   * A message handler invoked on an `'update-request'` message.
    */
-  onResize(msg: Widget.ResizeMessage): void {
-    // We're inside of a Panel, so we don't get the real width
-    this._resetWidth();
-  }
-
-  /**
-   * Reset the msa width to the current widget width
-   */
-  private _resetWidth() {
-    let newWidth = this.node.getBoundingClientRect().width - this.msa.g.zoomer.getLeftBlockWidth();
-    this.msa.g.zoomer.set('alignmentWidth', newWidth);
+  protected onUpdateRequest(msg: Message): void {
+    // Update size after update
+    if (this.isVisible) {
+      let newWidth = this.node.getBoundingClientRect().width - this.msa.g.zoomer.getLeftBlockWidth();
+      this.msa.g.zoomer.set('alignmentWidth', newWidth);
+    }
   }
 
   msa: any;
