@@ -27,36 +27,40 @@ GeoJSON({
 To use a specific tileset:
 
 ```python
-GeoJSON(data={
-    "type": "Feature",
-    "geometry": {
-        "type": "Point",
-        "coordinates": [-118.4563712, 34.0163116]
+GeoJSON(
+    data={
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-118.4563712, 34.0163116]
+        }
+    }, url_template="https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=[MAPBOX_ACCESS_TOKEN]", 
+    layer_options={
+        "id": "mapbox.streets",
+        "attribution" : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }
-}, url_template="https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=[MAPBOX_ACCESS_TOKEN]", 
-layer_options={
-    "id": "mapbox.streets",
-    "attribution" : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-})
+)
 ```
 
 To render GeoJSON on Mars:
 
 ```python
-GeoJSON(data={
-    "type": "Feature",
-    "geometry": {
-        "type": "Point",
-        "coordinates": [11.8, -45.04]
-    }
-}, url_template="http://s3-eu-west-1.amazonaws.com/whereonmars.cartodb.net/{basemap_id}/{z}/{x}/{y}.png", 
-layer_options={
-    "basemap_id": "celestia_mars-shaded-16k_global",
-    "attribution" : "Celestia/praesepe",
-    "tms": True,
-    "minZoom" : 0,
-    "maxZoom" : 5
-})
+GeoJSON(
+  data={
+      "type": "Feature",
+      "geometry": {
+          "type": "Point",
+          "coordinates": [11.8, -45.04]
+      }
+  }, url_template="http://s3-eu-west-1.amazonaws.com/whereonmars.cartodb.net/{basemap_id}/{z}/{x}/{y}.png", 
+  layer_options={
+      "basemap_id": "celestia_mars-shaded-16k_global",
+      "attribution" : "Celestia/praesepe",
+      "tms": True,
+      "minZoom" : 0,
+      "maxZoom" : 5
+  }
+)
 ```
 
 To render a `.geojson` or `.geo.json` file, simply open it:

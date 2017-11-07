@@ -1,7 +1,8 @@
 {
   "scripts": {
-    "build": "lerna run build",
+    "build": "lerna run --parallel build",
     "install": "lerna bootstrap --hoist",
+    "link": "lerna exec --parallel -- jupyter labextension link .",
     "publish": "lerna publish",
     "watch": "lerna run --parallel watch"
   },
