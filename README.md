@@ -33,8 +33,14 @@ npm run build
 
 Link geojson-extension:
 
-```
+```bash
 jupyter labextension link packages/geojson-extension
+```
+
+Link all extensions in `packages`:
+
+```bash
+npm run link
 ```
 
 ### Rebuilding extensions
