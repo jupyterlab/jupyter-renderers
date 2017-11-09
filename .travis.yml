@@ -31,4 +31,4 @@ script:
 - jupyter labextension link packages/plotly-extension --no-build
 - jupyter labextension link packages/katex-extension --no-build
 - jupyter lab build 
-- python -m jupyterlab.selenium_check --NotebookApp.ip=127.0.0.1
+- python -m jupyterlab.selenium_check
