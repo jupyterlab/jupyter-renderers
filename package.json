@@ -1,12 +1,15 @@
 {
+  "private": true,
   "scripts": {
     "build": "lerna run --parallel build",
-    "install": "lerna bootstrap --hoist",
     "link": "lerna exec --parallel -- jupyter labextension link .",
     "publish": "lerna publish",
     "watch": "lerna run --parallel watch"
   },
   "devDependencies": {
-    "lerna": "^2.0.0-rc.5"
-  }
+    "lerna": "^2.5.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
 }
