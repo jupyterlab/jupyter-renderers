@@ -111,7 +111,11 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
    * A message handler invoked on an `'update-request'` message.
    */
   protected onUpdateRequest(msg: Message): void {
-    if (this.isVisible) Plotly.redraw(this.node);
+    if (this.isVisible) {
+      Plotly.redraw(this.node).then(() => {
+        Plotly.Plots.resize(this.node);
+      });
+    }
   }
 
   private _mimeType: string;
