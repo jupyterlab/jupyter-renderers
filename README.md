@@ -12,6 +12,7 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 | [geojson-extension](packages/geojson-extension) | `application/geo+json` | `.geojson`, `.geo.json` |
 | [katex-extension](packages/katex-extension) | N/A | N/A |
 | [plotly-extension](packages/plotly-extension) | `application/vnd.plotly.v1+json` | `.plotly`, `.plotly.json` |
+| vega3-extension | `application/vnd.vega.v3+json`, `application/vnd.vegalite.v2+json`| `.vg`, `.vl`, `.vg.json`, `.vl.json` |
 
 ## Install
 
@@ -47,7 +48,7 @@ npm run link
 
 ### Rebuilding extensions
 
-After making changes to the source of the extension or renderer packages, the packages must be rebuilt:
+After making changes to the source packages, the packages must be rebuilt:
 
 ```bash
 # Rebuild the source
