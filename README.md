@@ -25,11 +25,13 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 
 ### Developer install
 
+Requires the [yarn](https://yarnpkg.com/) package manager.
+
 ```bash
 git clone https://github.com/jupyterlab/jupyter-renderers.git
 cd jupyter-renderers
-npm install
-npm run build
+yarn install
+yarn run build
 ```
 
 ### Link extensions with JupyterLab
@@ -43,7 +45,7 @@ jupyter labextension link packages/geojson-extension
 Link all extensions in `packages`:
 
 ```bash
-npm run link
+yarn run link
 ```
 
 ### Rebuilding extensions
@@ -52,7 +54,7 @@ After making changes to the source packages, the packages must be rebuilt:
 
 ```bash
 # Rebuild the source
-npm run build
+yarn run build
 
 # Rebuild the JupyterLab staging directory
 jupyter lab build
@@ -62,7 +64,7 @@ You may also watch the `jupyter-renderers` directory for changes and automatical
 
 ```
 # In one terminal tab, watch the jupyter-renderers directory
-npm run watch
+yarn run watch
 
 # In another terminal tab, run jupyterlab with the watch flag
 jupyter lab --watch
@@ -71,7 +73,7 @@ jupyter lab --watch
 ### Publishing packages
 
 ```bash
-npm run publish
+yarn run publish
 # If publishing a package for the first time
-npm access public @jupyterlab/<extension name>
+yarn access public @jupyterlab/<extension name>
 ```

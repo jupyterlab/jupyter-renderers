@@ -1,7 +1,7 @@
 {
-  "lerna": "2.0.0-rc.5",
-  "packages": [
-    "packages/*"
-  ],
-  "version": "0.12.0"
+  "lerna": "2.5.1",
+  "npmClient": "yarn",
+  "registry": "https://registry.npmjs.org",
+  "useWorkspaces": true,
+  "version": "independent"
 }
