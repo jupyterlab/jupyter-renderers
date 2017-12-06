@@ -16,15 +16,15 @@
     "mimeExtension": true
   },
   "dependencies": {
-    "@jupyterlab/rendermime-interfaces": "^0.4.1",
+    "@jupyterlab/rendermime-interfaces": "^0.4.2",
     "@phosphor/messaging": "^1.2.2",
     "@phosphor/widgets": "^1.5.0",
     "plotly.js": "^1.28.3"
   },
   "devDependencies": {
     "@types/plotly.js": "^1.28.3",
-    "rimraf": "^2.6.2",
-    "typescript": "~2.4.2"
+    "rimraf": "~2.6.2",
+    "typescript": "~2.6.2"
   },
   "scripts": {
     "build": "tsc",
