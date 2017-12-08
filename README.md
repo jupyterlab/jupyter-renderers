@@ -1,6 +1,6 @@
 # Jupyter Renderers
 
-[Binder](https://mybinder.org/v2/gh/jupyterlab/jupyter-renderers/master?urlpath=lab)
+[![Binder](https://beta.mybinder.org/badge.svg)](https://mybinder.org/v2/gh/jupyterlab/jupyter-renderers/master?urlpath=lab)
 
 This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-like) that consists of generic renderers for common file types and mime types as well as renderer extensions for [JupyterLab](https://github.com/jupyterlab/jupyterlab).
 
