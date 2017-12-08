@@ -30,13 +30,13 @@ jupyter labextension install @jupyterlab/katex-extension
 git clone https://github.com/jupyterlab/jupyter-renderers.git
 cd jupyter-renderers
 # Install dependencies
-npm install
+yarn install
 # Build Typescript source
-npm run build
+yarn run build
 # Link your development version of the extension with JupyterLab
 jupyter labextension link packages/katex-extension
 # Rebuild Typescript source after making changes
-npm run build
+yarn run build
 # Rebuild JupyterLab after making any changes
 jupyter lab build
 ```
@@ -47,7 +47,7 @@ You can watch the jupyter-renderers directory and run JupyterLab in watch mode t
 # Run jupyterlab in watch mode in one terminal tab
 jupyter lab --watch
 # Watch the jupyter-renderers directory
-npm run watch
+yarn run watch
 ```
 
 ## Uninstall
