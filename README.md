@@ -76,5 +76,5 @@ jupyter lab --watch
 ```bash
 yarn run publish
 # If publishing a package for the first time
-yarn access public @jupyterlab/<extension name>
+npm access public @jupyterlab/<extension name>
 ```
