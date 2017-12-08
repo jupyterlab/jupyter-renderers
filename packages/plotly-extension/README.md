@@ -6,7 +6,7 @@ A JupyterLab extension for rendering Plotly charts
 
 ## Prerequisites
 
-* JupyterLab ^0.27.0
+* JupyterLab ^0.30.0
 * plotly.py >= 2.0.0
 
 ## Usage
@@ -65,13 +65,13 @@ jupyter labextension install @jupyterlab/plotly-extension
 git clone https://github.com/jupyterlab/jupyter-renderers.git
 cd jupyter-renderers
 # Install dependencies
-npm install
+yarn install
 # Build Typescript source
-npm run build
+yarn run build
 # Link your development version of the extension with JupyterLab
 jupyter labextension link packages/plotly-extension
 # Rebuild Typescript source after making changes
-npm run build
+yarn run build
 # Rebuild JupyterLab after making any changes
 jupyter lab build
 ```
@@ -82,7 +82,7 @@ You can watch the jupyter-renderers directory and run JupyterLab in watch mode t
 # Run jupyterlab in watch mode in one terminal tab
 jupyter lab --watch
 # Watch the jupyter-renderers directory
-npm run watch
+yarn run watch
 ```
 
 ## Uninstall
