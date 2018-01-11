@@ -2,12 +2,12 @@
 // Distributed under the terms of the Modified BSD License.
 
 import {
-  JupyterLab, JupyterLabPlugin
+  JupyterLabPlugin
 } from '@jupyterlab/application';
 
 import {
-  IRenderMime
-} from '@jupyterlab/rendermime-interfaces';
+  ILatexTypesetter
+} from '@jupyterlab/rendermime';
 
 import {
   renderMathInElement
@@ -19,7 +19,7 @@ import '../style/index.css';
  * The KaTeX Typesetter.
  */
 export
-class KatexTypesetter implements IRenderMime.ILatexTypesetter {
+class KatexTypesetter implements ILatexTypesetter {
   /**
    * Typeset the math in a node.
    */
@@ -31,13 +31,10 @@ class KatexTypesetter implements IRenderMime.ILatexTypesetter {
 /**
  * The KaTex extension.
  */
-const katexPlugin: JupyterLabPlugin<void> = {
+const katexPlugin: JupyterLabPlugin<ILatexTypesetter> = {
   id: 'jupyter.extensions.katex',
   requires: [],
-  activate: (app: JupyterLab) => {
-    const typesetter = new KatexTypesetter();
-    app.rendermime.latexTypesetter = typesetter;
-  },
+  activate: () => new KatexTypesetter(),
   autoStart: true
 }
 

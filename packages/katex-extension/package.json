@@ -18,8 +18,8 @@
     "katex"
   ],
   "dependencies": {
-    "@jupyterlab/application": "^0.13.0",
-    "@jupyterlab/rendermime-interfaces": "^0.4.1",
+    "@jupyterlab/application": "^0.15.0",
+    "@jupyterlab/rendermime-interfaces": "^1.0.0",
     "katex": "^0.8.3"
   },
   "devDependencies": {
