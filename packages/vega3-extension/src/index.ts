@@ -119,13 +119,13 @@ const extension: IRenderMime.IExtension = {
   fileTypes: [{
     mimeTypes: [VEGA_MIME_TYPE],
     name: 'vega3',
-    extensions: ['.vg', '.vg.json'],
+    extensions: ['.vg', '.vg.json', '.vega'],
     iconClass: 'jp-MaterialIcon jp-VegaIcon',
   },
   {
     mimeTypes: [VEGALITE_MIME_TYPE],
     name: 'vega-lite2',
-    extensions: ['.vl', '.vl.json'],
+    extensions: ['.vl', '.vl.json', '.vegalite'],
     iconClass: 'jp-MaterialIcon jp-VegaIcon',
   }]
 };
