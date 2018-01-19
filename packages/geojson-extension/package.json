@@ -7,7 +7,7 @@
   "files": [
     "lib/*.d.ts",
     "lib/*.js",
-    "style/*"
+    "style/*.*"
   ],
   "directories": {
     "lib": "lib/"
@@ -16,7 +16,7 @@
     "mimeExtension": true
   },
   "dependencies": {
-    "@jupyterlab/rendermime-interfaces": "^1.0.0",
+    "@jupyterlab/rendermime-interfaces": "^1.0.3",
     "@phosphor/messaging": "^1.2.2",
     "@phosphor/widgets": "^1.5.0",
     "leaflet": "^1.2.0"
