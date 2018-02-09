@@ -12,6 +12,11 @@
   "directories": {
     "lib": "lib/"
   },
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension"
+  ],
   "jupyterlab": {
     "mimeExtension": true
   },
