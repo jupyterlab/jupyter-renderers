@@ -15,6 +15,7 @@
   "keywords": [
     "jupyter",
     "jupyterlab",
+    "jupyterlab-extension",
     "katex"
   ],
   "dependencies": {
