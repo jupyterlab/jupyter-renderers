@@ -19,6 +19,9 @@ import 'leaflet/dist/leaflet.css';
 
 import '../style/index.css';
 
+import * as iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+import * as iconUrl from 'leaflet/dist/images/marker-icon.png';
+import * as shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 /**
  * The CSS class to add to the GeoJSON Widget.
@@ -39,7 +42,20 @@ const MIME_TYPE = 'application/geo+json';
 /**
  * Set base path for leaflet images.
  */
-leaflet.Icon.Default.imagePath = 'https://unpkg.com/leaflet/dist/images/';
+
+// https://github.com/Leaflet/Leaflet/issues/4968
+// Marker file names are hard-coded in the leaflet source causing
+// issues with webpack.
+// This workaround allows webpack to inline all marker URLs.
+
+delete (leaflet.Icon.Default.prototype as any)['_getIconUrl'];
+
+leaflet.Icon.Default.mergeOptions({
+  iconRetinaUrl: iconRetinaUrl,
+  iconUrl: iconUrl,
+  shadowUrl: shadowUrl
+});
+
 
 /**
  * The url template that leaflet tile layers.
