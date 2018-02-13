@@ -23,7 +23,7 @@
 
 /* Output styles */
 .jp-OutputArea .jp-RenderedPlotly {
-  height: 360px;
+  min-height: 360px;
 }
 
 /* Document icon */
