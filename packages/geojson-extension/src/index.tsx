@@ -84,7 +84,12 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     this.addClass(CSS_CLASS);
     this._mimeType = options.mimeType;
     // Create leaflet map object
-    this._map = leaflet.map(this.node);
+    // trackResize option set to false as it is not needed to track
+    // window.resize events since we have individual phosphor resize
+    // events.
+    this._map = leaflet.map(this.node, {
+        trackResize: false
+    });
   }
 
   /**
