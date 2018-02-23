@@ -31,7 +31,7 @@ Requires the [yarn](https://yarnpkg.com/) package manager.
 ```bash
 git clone https://github.com/jupyterlab/jupyter-renderers.git
 cd jupyter-renderers
-yarn install
+yarn
 yarn run build
 ```
 
