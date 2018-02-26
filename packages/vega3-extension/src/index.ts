@@ -15,8 +15,9 @@ import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
-import vegaEmbed, {Mode} from 'vega-embed';
+import vegaEmbed, { Mode } from 'vega-embed';
 
+import * as vega from 'vega';
 
 import '../style/index.css';
 
@@ -66,6 +67,7 @@ class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
   constructor(options: IRenderMime.IRendererOptions) {
     super();
     this._mimeType = options.mimeType;
+    this._resolver = options.resolver;
     this.addClass(VEGA_COMMON_CLASS);
     this.addClass(this._mimeType === VEGA_MIME_TYPE ? VEGA_CLASS : VEGALITE_CLASS);
   }
@@ -76,16 +78,22 @@ class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const data = model.data[this._mimeType] as JSONObject;
     const mode: Mode = this._mimeType === VEGA_MIME_TYPE ? 'vega' : 'vega-lite';
-    const options = {
-      mode,
-      actions: true
-    };
-    return vegaEmbed(this.node as HTMLBaseElement, data, options).then((result) => {
-      console.log(result);
-    }).catch(console.warn);
+    return this._resolver.resolveUrl('').then((path: string) => {
+      const baseURL = `/files/${path}`;
+      const loader = vega.loader({ baseURL });
+      const options = {
+        mode,
+        loader,
+        actions: true
+      };
+      return vegaEmbed(this.node as HTMLBaseElement, data, options).then((result) => {
+        console.log(result);
+      }).catch(console.warn);
+    });
   }
 
   private _mimeType: string;
+  private _resolver: IRenderMime.IResolver;
 }
 
 
