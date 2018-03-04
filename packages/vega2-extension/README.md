@@ -1,8 +1,8 @@
-# vega3-extension
+# vega2-extension
 
-A JupyterLab extension for rendering Vega 3 and Vega-lite 2
+A JupyterLab extension for rendering Vega 2 and Vega-lite 1.
 
-![demo](http://g.recordit.co/JmaWb6crQj.gif)
+**Vega 2 is deprecated. The latest version comes by default with JupyterLab. Only use this extension if you have specifications that do not work with the latest version.**
 
 ## Prerequisites
 
@@ -10,14 +10,14 @@ A JupyterLab extension for rendering Vega 3 and Vega-lite 2
 
 ## Usage
 
-To render Vega 3 or Vega-lite 2 output in IPython:
+To render Vega 2 or Vega-lite 1 output in IPython:
 
 ```python
 from IPython.display import display
 
 display({
-    "application/vnd.vegalite.v2+json": {
-        "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
+    "application/vnd.vegalite.v1+json": {
+        "$schema": "https://vega.github.io/schema/vega-lite/v1.json",
         "description": "A simple bar chart with embedded data.",
         "data": {
             "values": [
@@ -40,7 +40,7 @@ To render a `.vg`, `.vl`, `.vg.json`, `.vl.json` file, simply open it:
 ## Install
 
 ```bash
-jupyter labextension install @jupyterlab/vega3-extension
+jupyter labextension install @jupyterlab/vega2-extension
 ```
 
 ## Development
@@ -54,7 +54,7 @@ yarn install
 # Build Typescript source
 yarn run build
 # Link your development version of the extension with JupyterLab
-jupyter labextension link packages/vega3-extension
+jupyter labextension link packages/vega2-extension
 # Rebuild Typescript source after making changes
 yarn run build
 # Rebuild JupyterLab after making any changes
@@ -73,5 +73,5 @@ yarn run watch
 ## Uninstall
 
 ```bash
-jupyter labextension uninstall @jupyterlab/vega3-extension
+jupyter labextension uninstall @jupyterlab/vega2-extension
 ```
