@@ -123,6 +123,7 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     });
   }
   
+
   /**
    * A message handler invoked on an `'after-attach'` message.
    */
@@ -139,13 +140,19 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
         this._map.scrollWheelZoom.enable();
       });
     }
+    // Update map size after panel/window is resized
+    this._map.fitBounds(this._geoJSONLayer.getBounds());
     this.update();
   }
+
+
   
   /**
    * A message handler invoked on an `'after-show'` message.
    */
   protected onAfterShow(msg: Message): void {
+    // Update map size after panel/window is resized
+    this._map.fitBounds(this._geoJSONLayer.getBounds());
     this.update();
   }
     
@@ -153,6 +160,8 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    * A message handler invoked on a `'resize'` message.
    */
   protected onResize(msg: Widget.ResizeMessage): void {
+    // Update map size after panel/window is resized
+    this._map.fitBounds(this._geoJSONLayer.getBounds());
     this.update();
   }
   
@@ -162,6 +171,8 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   protected onUpdateRequest(msg: Message): void {
     // Update map size after update
     if (this.isVisible) this._map.invalidateSize();
+    // Update map size after panel/window is resized
+    this._map.fitBounds(this._geoJSONLayer.getBounds());
   }
 
   private _map: leaflet.Map;
