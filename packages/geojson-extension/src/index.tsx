@@ -121,7 +121,6 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     });
   }
   
-
   /**
    * A message handler invoked on an `'after-attach'` message.
    */
@@ -140,8 +139,6 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     }
     this.update();
   }
-
-
   
   /**
    * A message handler invoked on an `'after-show'` message.
