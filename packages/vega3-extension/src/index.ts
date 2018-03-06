@@ -15,9 +15,8 @@ import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
-import vegaEmbed, { Mode, Loader } from 'vega-embed';
-
-import * as vega from 'vega';
+import vegaEmbed, { Mode } from 'vega-embed';
+import * as vega from 'vega-lib';
 
 import '../style/index.css';
 
@@ -80,7 +79,7 @@ class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
     const mode: Mode = this._mimeType === VEGA_MIME_TYPE ? 'vega' : 'vega-lite';
     return this._resolver.resolveUrl('').then((path: string) => {
       const baseURL = `/files/${path}`;
-      const loader: Loader = vega.loader({ baseURL });
+      const loader = vega.loader({ baseURL });
       const options = {
         mode,
         loader,
