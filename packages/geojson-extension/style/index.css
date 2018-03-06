@@ -6,6 +6,7 @@
 /* Add CSS variables to :root */
 :root {
   --jp-icon-geojson: url('./geojson.svg');
+  --jp-icon-zoom-to-bounds: url('./zoom_to_bounds.svg');
 }
 
 /* Base styles */
@@ -29,4 +30,9 @@
 /* Document icon */
 .jp-GeoJSONIcon {
   background-image: var(--jp-icon-geojson);
+}
+
+/* Zoom to bounds icon */
+.jp-ZoomToBoundsIcon {
+  content: var(--jp-icon-zoom-to-bounds);
 }
