@@ -15,8 +15,7 @@ import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
-import vegaEmbed, { Mode } from 'vega-embed';
-import * as vega from 'vega-lib';
+import vegaEmbed, { Mode, vega } from 'vega-embed';
 
 import '../style/index.css';
 
