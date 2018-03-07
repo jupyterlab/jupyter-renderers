@@ -73,17 +73,6 @@ const LAYER_OPTIONS: leaflet.TileLayerOptions = {
   maxZoom: 20
 };
 
-// class FitToBounds extends leaflet.Control {
-//     _img: HTMLImageElement;
-//     onAdd(map: object): HTMLElement {
-//         this._img = leaflet.DomUtil.create('img') as HTMLImageElement;
-//         this._img.className = 'jp-ZoomToBoundsIcon';
-//         this._img.style.width = '40px';
-//         this._img.onclick = function(){map.fitToBounds()};
-//         return this._img;
-//         };
-// }
-
 class FitToBounds extends leaflet.Control {
     _img: HTMLImageElement;
     delegate: RenderedGeoJSON;
