@@ -48,13 +48,13 @@ jupyter labextension install @jupyterlab/fasta-extension
 git clone https://github.com/jupyterlab/jupyter-renderers.git
 cd jupyter-renderers
 # Install dependencies
-yarn install
+jlpm install
 # Build Typescript source
-yarn run build
+jlpm run build
 # Link your development version of the extension with JupyterLab
-jupyter labextension link packages/fasta-extension
+jupyter labextension install packages/fasta-extension
 # Rebuild Typescript source after making changes
-yarn run build
+jlpm run build
 # Rebuild JupyterLab after making any changes
 jupyter lab build
 ```
@@ -65,7 +65,7 @@ You can watch the jupyter-renderers directory and run JupyterLab in watch mode t
 # Run jupyterlab in watch mode in one terminal tab
 jupyter lab --watch
 # Watch the jupyter-renderers directory
-yarn run watch
+jlpm run watch
 ```
 
 ## Uninstall
