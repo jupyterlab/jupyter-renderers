@@ -12,7 +12,7 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 | [geojson-extension](packages/geojson-extension) | `application/geo+json` | `.geojson`, `.geo.json` |
 | [katex-extension](packages/katex-extension) | N/A | N/A |
 | [plotly-extension](packages/plotly-extension) | `application/vnd.plotly.v1+json` | `.plotly`, `.plotly.json` |
-| [vega3-extension](packages/vega3-extension) | `application/vnd.vega.v3+json`, `application/vnd.vegalite.v2+json`| `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` |
+| [vega2-extension](packages/vega2-extension) | `application/vnd.vega.v2+json`, `application/vnd.vegalite.v1+json`| `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` |
 
 ## Install
 
@@ -20,7 +20,7 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 * geojson-extension: `jupyter labextension install @jupyterlab/geojson-extension`
 * katex-extension: `jupyter labextension install @jupyterlab/katex-extension`
 * plotly-extension: `jupyter labextension install @jupyterlab/plotly-extension`
-* vega3-extension: `jupyter labextension install @jupyterlab/vega3-extension`
+* vega2-extension: `jupyter labextension install @jupyterlab/vega2-extension`
 
 ## Contributing
 
