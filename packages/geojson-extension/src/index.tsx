@@ -116,8 +116,6 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
       ).addTo(this._map);
       // Create GeoJSON layer from data and add to map
       this._geoJSONLayer = leaflet.geoJSON(data).addTo(this._map);
-      // Update map size after panel/window is resized
-      this._map.fitBounds(this._geoJSONLayer.getBounds());
       this.update();
       resolve();
     });
@@ -162,6 +160,8 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   protected onUpdateRequest(msg: Message): void {
     // Update map size after update
     if (this.isVisible) this._map.invalidateSize();
+    // Update map size after panel/window is resized
+    this._map.fitBounds(this._geoJSONLayer.getBounds());
   }
 
   private _map: leaflet.Map;
