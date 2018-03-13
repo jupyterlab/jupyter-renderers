@@ -61,14 +61,14 @@ leaflet.Icon.Default.mergeOptions({
  * The url template that leaflet tile layers.
  * See http://leafletjs.com/reference-1.0.3.html#tilelayer
  */
-const URL_TEMPLATE: string = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const URL_TEMPLATE: string = 'http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
 
 /**
  * The options for leaflet tile layers.
  * See http://leafletjs.com/reference-1.0.3.html#tilelayer
  */
 const LAYER_OPTIONS: leaflet.TileLayerOptions = {
-  attribution: 'Map data (c) <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>',
   minZoom: 0,
   maxZoom: 18
 };
