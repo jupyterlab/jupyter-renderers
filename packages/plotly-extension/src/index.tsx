@@ -57,8 +57,9 @@ export
 const MIME_TYPE = 'application/vnd.plotly.v1+json';
 
 interface PlotlySpec {
-  data: Plotly.Data,
-  layout: Plotly.Layout
+  data: Plotly.Data;
+  layout: Plotly.Layout;
+  frames?: Plotly.Frame[];
 }
 
 
@@ -78,9 +79,15 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
    * Render Plotly into this widget's node.
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
-    const { data, layout } = model.data[this._mimeType] as any|PlotlySpec;
+    const { data, layout, frames } = model.data[this._mimeType] as any|PlotlySpec;
     // const metadata = model.metadata[this._mimeType] as any || {};
     return Plotly.newPlot(this.node, data, layout).then((plot) => {
+      if (frames) {
+        return Plotly.addFrames(this.node, frames).then(() => {
+          Plotly.animate(this.node);
+          this.update();
+        });
+      }
       this.update();
       // return Plotly.toImage(plot, {
       //   format: 'png',
