@@ -4,10 +4,17 @@ A JupyterLab extension for rendering Plotly charts
 
 ![demo](http://g.recordit.co/Hq3qZhqkFG.gif)
 
-## Prerequisites
+## Requirements
 
 * JupyterLab ^0.30.0
-* plotly.py >= 2.0.0
+* Node.js >= 5
+* plotly.py >= 2.0.0 (optional)
+
+## Install
+
+```bash
+jupyter labextension install @jupyterlab/plotly-extension
+```
 
 ## Usage
 
@@ -46,32 +53,34 @@ from plotly.offline import iplot
 trace = plotly.graph_objs.Heatmap(z=[[1, 20, 30],
                       [20, 1, 60],
                       [30, 60, 1]])
+
 fig = dict(data=[trace])
+
 iplot(fig)
 ```
 
-To render a `.plotly` or `.plotly.json` file, simply open it:
+To render a `.plotly` or `.plotly.json` file, simply open it.
 
-## Install
+## Contributing
 
-```bash
-jupyter labextension install @jupyterlab/plotly-extension
-```
+### Install
 
-## Development
+The `jlpm` command is JupyterLab's pinned version of
+[yarn](https://yarnpkg.com/) that is installed with JupyterLab. You may use
+`yarn` or `npm` in lieu of `jlpm` below.
 
 ```bash
 # Clone the repo to your local environment
 git clone https://github.com/jupyterlab/jupyter-renderers.git
 cd jupyter-renderers
 # Install dependencies
-yarn install
+jlpm
 # Build Typescript source
-yarn run build
+jlpm build
 # Link your development version of the extension with JupyterLab
 jupyter labextension link packages/plotly-extension
 # Rebuild Typescript source after making changes
-yarn run build
+jlpm build
 # Rebuild JupyterLab after making any changes
 jupyter lab build
 ```
@@ -81,11 +90,11 @@ You can watch the jupyter-renderers directory and run JupyterLab in watch mode t
 ```bash
 # Run jupyterlab in watch mode in one terminal tab
 jupyter lab --watch
-# Watch the jupyter-renderers directory
-yarn run watch
+# Watch the jupyter-renderers directory in another terminal tab
+jlpm watch
 ```
 
-## Uninstall
+### Uninstall
 
 ```bash
 jupyter labextension uninstall @jupyterlab/plotly-extension
