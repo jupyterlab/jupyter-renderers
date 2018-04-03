@@ -24,15 +24,21 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 
 ## Contributing
 
-### Developer install
+## Requirements
 
-Requires the [yarn](https://yarnpkg.com/) package manager.
+* Node.js >= 5 (see [Installing Node.js and jlpm](https://github.com/jupyterlab/jupyterlab/blob/master/CONTRIBUTING.md#installing-nodejs-and-jlpm) in the JupyterLab docs)
+
+### Install
+
+The `jlpm` command is JupyterLab's pinned version of
+[yarn](https://yarnpkg.com/) that is installed with JupyterLab. You may use
+`yarn` or `npm` in lieu of `jlpm` below.
 
 ```bash
 git clone https://github.com/jupyterlab/jupyter-renderers.git
 cd jupyter-renderers
-yarn install
-yarn run build
+jlpm
+jlpm build
 ```
 
 ### Link extensions with JupyterLab
@@ -46,7 +52,7 @@ jupyter labextension link packages/geojson-extension
 Link all extensions in `packages`:
 
 ```bash
-yarn run link
+jlpm run link
 ```
 
 ### Rebuilding extensions
@@ -55,7 +61,7 @@ After making changes to the source packages, the packages must be rebuilt:
 
 ```bash
 # Rebuild the source
-yarn run build
+jlpm build
 
 # Rebuild the JupyterLab staging directory
 jupyter lab build
@@ -63,9 +69,9 @@ jupyter lab build
 
 You may also watch the `jupyter-renderers` directory for changes and automatically rebuild:
 
-```
+```bash
 # In one terminal tab, watch the jupyter-renderers directory
-yarn run watch
+jlpm watch
 
 # In another terminal tab, run jupyterlab with the watch flag
 jupyter lab --watch
@@ -74,7 +80,7 @@ jupyter lab --watch
 ### Publishing packages
 
 ```bash
-yarn run publish
+jlpm publish
 # If publishing a package for the first time
 npm access public @jupyterlab/<extension name>
 ```
