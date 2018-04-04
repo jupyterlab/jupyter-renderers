@@ -13,7 +13,7 @@ import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
-import * as mapboxgl from 'mapbox-gl';
+import mapboxgl = require('mapbox-gl');
 
 import 'leaflet/dist/leaflet.css';
 
