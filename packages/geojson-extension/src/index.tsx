@@ -13,15 +13,12 @@ import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
-import * as leaflet from 'leaflet';
+import * as mapboxgl from 'mapbox-gl';
 
 import 'leaflet/dist/leaflet.css';
 
 import '../style/index.css';
 
-import * as iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
-import * as iconUrl from 'leaflet/dist/images/marker-icon.png';
-import * as shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 /**
  * The CSS class to add to the GeoJSON Widget.
@@ -39,39 +36,7 @@ const CSS_ICON_CLASS = 'jp-MaterialIcon jp-GeoJSONIcon';
 export
 const MIME_TYPE = 'application/geo+json';
 
-/**
- * Set base path for leaflet images.
- */
-
-// https://github.com/Leaflet/Leaflet/issues/4968
-// Marker file names are hard-coded in the leaflet source causing
-// issues with webpack.
-// This workaround allows webpack to inline all marker URLs.
-
-delete (leaflet.Icon.Default.prototype as any)['_getIconUrl'];
-
-leaflet.Icon.Default.mergeOptions({
-  iconRetinaUrl: iconRetinaUrl,
-  iconUrl: iconUrl,
-  shadowUrl: shadowUrl
-});
-
-
-/**
- * The url template that leaflet tile layers.
- * See http://leafletjs.com/reference-1.0.3.html#tilelayer
- */
-const URL_TEMPLATE: string = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-
-/**
- * The options for leaflet tile layers.
- * See http://leafletjs.com/reference-1.0.3.html#tilelayer
- */
-const LAYER_OPTIONS: leaflet.TileLayerOptions = {
-  attribution: 'Map data (c) <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-  minZoom: 0,
-  maxZoom: 18
-};
+mapboxgl.accessToken = 'pk.eyJ1IjoibWlja3QiLCJhIjoiLXJIRS1NbyJ9.EfVT76g4A5dyuApW_zuIFQ';
 
 
 export
@@ -82,14 +47,7 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   constructor(options: IRenderMime.IRendererOptions) {
     super();
     this.addClass(CSS_CLASS);
-    this._mimeType = options.mimeType;
-    // Create leaflet map object
-    // trackResize option set to false as it is not needed to track
-    // window.resize events since we have individual phosphor resize
-    // events.
-    this._map = leaflet.map(this.node, {
-        trackResize: false
-    });
+    this._mimeType = options.mimeType;    
   }
 
   /**
@@ -107,16 +65,20 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const data = model.data[this._mimeType] as any | GeoJSON.GeoJsonObject;
-    const metadata = model.metadata[this._mimeType] as any || {};
+    // const metadata = model.metadata[this._mimeType] as any || {};
     return new Promise<void>((resolve, reject) => {
-      // Add leaflet tile layer to map
-      leaflet.tileLayer(
-        metadata.url_template || URL_TEMPLATE,
-        metadata.layer_options || LAYER_OPTIONS
-      ).addTo(this._map);
-      // Create GeoJSON layer from data and add to map
-      this._geoJSONLayer = leaflet.geoJSON(data).addTo(this._map);
-      this.update();
+      // Add GeoJSON layer to map
+      if (this._map) {
+        this._map.addLayer({
+          id: 'layer',
+          type: 'symbol',
+          source: {
+            type: 'geojson',
+            data
+          }
+        });
+        this.update();
+      }
       resolve();
     });
   }
@@ -125,16 +87,22 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    * A message handler invoked on an `'after-attach'` message.
    */
   protected onAfterAttach(msg: Message): void {
+    this._map = new mapboxgl.Map({
+      container: this.node,
+      style: 'mapbox://styles/mapbox/light-v9',
+      minZoom: 0,
+      maxZoom: 18
+    });
     if (this.parent.hasClass('jp-OutputArea-child')) {
       // Disable scroll zoom by default to avoid conflicts with notebook scroll
-      this._map.scrollWheelZoom.disable();
+      this._map.scrollZoom.disable();
       // Enable scroll zoom on map focus
-      this._map.on('blur', (event) => {
-        this._map.scrollWheelZoom.disable();
+      this._map.on('blur', (event: Event) => {
+        this._map.scrollZoom.disable();
       });
       // Disable scroll zoom on blur
-      this._map.on('focus', (event) => {
-        this._map.scrollWheelZoom.enable();
+      this._map.on('focus', (event: Event) => {
+        this._map.scrollZoom.enable();
       });
     }
     this.update();
@@ -159,13 +127,12 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    */
   protected onUpdateRequest(msg: Message): void {
     // Update map size after update
-    if (this.isVisible) this._map.invalidateSize();
-    // Update map size after panel/window is resized
-    this._map.fitBounds(this._geoJSONLayer.getBounds());
+    if (this._map && this.isVisible) {
+      this._map.resize();
+    }
   }
 
-  private _map: leaflet.Map;
-  private _geoJSONLayer: leaflet.GeoJSON;
+  private _map: mapboxgl.Map;
   private _mimeType: string;
 }
 
