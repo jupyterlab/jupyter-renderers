@@ -4,3 +4,13 @@
 |----------------------------------------------------------------------------*/
 
 @import url('~katex/dist/katex.css');
+
+/**
+ * Note: the KaTeX CSS doesn't apply a height property
+ * to its SVG objects, so it can be overridden by low-
+ * specificity rules elsewhere on the page. This
+ * is a workaround for that behavior.
+ */
+.katex svg {
+  height: inherit;
+}
