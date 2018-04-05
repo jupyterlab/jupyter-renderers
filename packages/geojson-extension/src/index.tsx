@@ -69,14 +69,8 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     return new Promise<void>((resolve, reject) => {
       // Add GeoJSON layer to map
       if (this._map) {
-        this._map.addLayer({
-          id: 'layer',
-          type: 'symbol',
-          source: {
-            type: 'geojson',
-            data
-          }
-        });
+        const dataSource = this._map.getSource('geojson') as mapboxgl.GeoJSONSource;
+        dataSource.setData(data);
         this.update();
       }
       resolve();
@@ -89,22 +83,38 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   protected onAfterAttach(msg: Message): void {
     this._map = new mapboxgl.Map({
       container: this.node,
-      style: 'mapbox://styles/mapbox/light-v9',
-      minZoom: 0,
-      maxZoom: 18
+      style: 'mapbox://styles/mapbox/light-v9?optimize=true'
     });
-    if (this.parent.hasClass('jp-OutputArea-child')) {
-      // Disable scroll zoom by default to avoid conflicts with notebook scroll
-      this._map.scrollZoom.disable();
-      // Enable scroll zoom on map focus
-      this._map.on('blur', (event: Event) => {
-        this._map.scrollZoom.disable();
-      });
-      // Disable scroll zoom on blur
-      this._map.on('focus', (event: Event) => {
-        this._map.scrollZoom.enable();
-      });
-    }
+    this._map.on('style.load', () => {
+    	this._map.addSource('geojson', {
+    		type: 'geojson',
+    		data: { 'type':'FeatureCollection', 'features': [] }
+    	});
+    	this._map.addLayer({
+    		id: 'geojson-points',
+    		type: 'circle',
+    		source: 'geojson',
+    		paint: {
+    			'circle-color': 'red',
+    			'circle-stroke-color': 'white',
+    			'circle-stroke-width': { stops: [[0,0.1], [18,3]], base: 1.2 },
+    			'circle-radius': { stops: [[15,3], [18,5]], base: 1.2 }
+    		}
+      })
+    });
+    // If in a notebook context
+    // if (this.parent.hasClass('jp-OutputArea-child')) {
+    //   // Disable scroll zoom by default to avoid conflicts with notebook scroll
+    //   this._map.scrollZoom.disable();
+    //   // Enable scroll zoom on map focus
+    //   this._map.on('blur', (event: Event) => {
+    //     this._map.scrollZoom.disable();
+    //   });
+    //   // Disable scroll zoom on blur
+    //   this._map.on('focus', (event: Event) => {
+    //     this._map.scrollZoom.enable();
+    //   });
+    // }
     this.update();
   }
   
