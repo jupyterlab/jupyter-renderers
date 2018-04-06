@@ -66,14 +66,33 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const data = model.data[this._mimeType] as any | GeoJSON.GeoJsonObject;
     // const metadata = model.metadata[this._mimeType] as any || {};
+    this._map = new mapboxgl.Map({
+      container: this.node,
+      style: 'mapbox://styles/mapbox/light-v9?optimize=true',
+      zoom: 10
+    });
     return new Promise<void>((resolve, reject) => {
       // Add GeoJSON layer to map
-      if (this._map) {
-        const dataSource = this._map.getSource('geojson') as mapboxgl.GeoJSONSource;
-        dataSource.setData(data);
+      this._map.on('style.load', () => {
+        this._map.addSource('geojson', {
+          type: 'geojson',
+          data
+        });
+        this._map.addLayer({
+          id: 'geojson-points',
+          type: 'circle',
+          source: 'geojson',
+          paint: {
+            'circle-color': 'red',
+            'circle-stroke-color': 'white',
+            'circle-stroke-width': { stops: [[0,0.1], [18,3]], base: 1.2 },
+            'circle-radius': { stops: [[15,3], [18,5]], base: 1.2 }
+          }
+        });
+        
         this.update();
-      }
-      resolve();
+        resolve();
+      });
     });
   }
   
@@ -81,27 +100,6 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    * A message handler invoked on an `'after-attach'` message.
    */
   protected onAfterAttach(msg: Message): void {
-    this._map = new mapboxgl.Map({
-      container: this.node,
-      style: 'mapbox://styles/mapbox/light-v9?optimize=true'
-    });
-    this._map.on('style.load', () => {
-    	this._map.addSource('geojson', {
-    		type: 'geojson',
-    		data: { 'type':'FeatureCollection', 'features': [] }
-    	});
-    	this._map.addLayer({
-    		id: 'geojson-points',
-    		type: 'circle',
-    		source: 'geojson',
-    		paint: {
-    			'circle-color': 'red',
-    			'circle-stroke-color': 'white',
-    			'circle-stroke-width': { stops: [[0,0.1], [18,3]], base: 1.2 },
-    			'circle-radius': { stops: [[15,3], [18,5]], base: 1.2 }
-    		}
-      })
-    });
     // If in a notebook context
     // if (this.parent.hasClass('jp-OutputArea-child')) {
     //   // Disable scroll zoom by default to avoid conflicts with notebook scroll
@@ -115,7 +113,7 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     //     this._map.scrollZoom.enable();
     //   });
     // }
-    this.update();
+    // this.update();
   }
   
   /**
@@ -138,11 +136,13 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   protected onUpdateRequest(msg: Message): void {
     // Update map size after update
     if (this._map && this.isVisible) {
+      this._map.fitBounds(this._map.getBounds());
       this._map.resize();
     }
   }
 
   private _map: mapboxgl.Map;
+  // private _geoJSONLayer: mapboxgl.GeoJSONSource;
   private _mimeType: string;
 }
 
