@@ -15,6 +15,8 @@ import {
 
 import mapboxgl = require('mapbox-gl');
 
+import bbox from '@turf/bbox';
+
 import 'leaflet/dist/leaflet.css';
 
 import '../style/index.css';
@@ -68,7 +70,7 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     // const metadata = model.metadata[this._mimeType] as any || {};
     this._map = new mapboxgl.Map({
       container: this.node,
-      style: 'mapbox://styles/mapbox/light-v9?optimize=true',
+      style: 'mapbox://styles/mapbox/streets-v9?optimize=true',
       zoom: 10
     });
     return new Promise<void>((resolve, reject) => {
@@ -78,6 +80,8 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
           type: 'geojson',
           data
         });
+        const [minX, minY, maxX, maxY] = bbox(data);
+        this._map.fitBounds([[minX, minY], [maxX, maxY]], { maxZoom: 15, padding: 100 });
         this._map.addLayer({
           id: 'geojson-points',
           type: 'circle',
@@ -89,7 +93,6 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
             'circle-radius': { stops: [[15,3], [18,5]], base: 1.2 }
           }
         });
-        
         this.update();
         resolve();
       });
@@ -136,7 +139,6 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   protected onUpdateRequest(msg: Message): void {
     // Update map size after update
     if (this._map && this.isVisible) {
-      this._map.fitBounds(this._map.getBounds());
       this._map.resize();
     }
   }

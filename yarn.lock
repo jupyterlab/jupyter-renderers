@@ -311,6 +311,23 @@
     d3-collection "1"
     d3-interpolate "1"
 
+"@turf/bbox@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/@turf/bbox/-/bbox-6.0.1.tgz#b966075771475940ee1c16be2a12cf389e6e923a"
+  dependencies:
+    "@turf/helpers" "6.x"
+    "@turf/meta" "6.x"
+
+"@turf/helpers@6.x":
+  version "6.1.3"
+  resolved "https://registry.npmjs.org/@turf/helpers/-/helpers-6.1.3.tgz#0001a5c4a3bff25b4bbbc64f8713a383c9ab9e94"
+
+"@turf/meta@6.x":
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/@turf/meta/-/meta-6.0.1.tgz#cf6f3f2263a3d24fc8d6a7e90f0420bbc44c090d"
+  dependencies:
+    "@turf/helpers" "6.x"
+
 "@types/d3-array@*":
   version "1.2.1"
   resolved "https://registry.npmjs.org/@types/d3-array/-/d3-array-1.2.1.tgz#e489605208d46a1c9d980d2e5772fa9c75d9ec65"
