@@ -19,9 +19,9 @@
     "katex"
   ],
   "dependencies": {
-    "@jupyterlab/application": "^0.15.1",
-    "@jupyterlab/rendermime": "^0.15.1",
-    "@jupyterlab/rendermime-interfaces": "^1.0.3",
+    "@jupyterlab/application": "^0.16.0",
+    "@jupyterlab/rendermime": "^0.16.0",
+    "@jupyterlab/rendermime-interfaces": "^1.0.7",
     "katex": "^0.9.0"
   },
   "devDependencies": {
