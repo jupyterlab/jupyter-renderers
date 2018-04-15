@@ -48,6 +48,7 @@ Plotly(data, layout)
 To render using the [plotly Python library](https://github.com/plotly/plotly.py):
 
 ```python
+import plotly
 from plotly.offline import iplot
     
 trace = plotly.graph_objs.Heatmap(z=[[1, 20, 30],
