@@ -1,5 +1,4 @@
 {
-  "private": true,
   "scripts": {
     "build": "lerna run --parallel build",
     "link": "lerna exec --parallel -- jupyter labextension link . --no-build",
