@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v2.json",
-  "data": { "url": "notebooks/population.json"},
+  "data": { "url": "population.json"},
   "transform": [{
     "filter": "datum.year == 2000"
   }],
