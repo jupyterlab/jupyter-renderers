@@ -3,7 +3,7 @@
   "scripts": {
     "build": "lerna run --parallel build",
     "link": "lerna exec --parallel -- jupyter labextension link .",
-    "publish": "lerna publish",
+    "publish": "lerna publish --git-remote jupyterlab",
     "watch": "lerna run --parallel watch"
   },
   "devDependencies": {
