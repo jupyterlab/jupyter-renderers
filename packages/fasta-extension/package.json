@@ -1,6 +1,6 @@
 {
   "name": "@jupyterlab/fasta-extension",
-  "version": "0.14.4",
+  "version": "0.16.0",
   "description": "Fasta renderer for JupyterLab",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

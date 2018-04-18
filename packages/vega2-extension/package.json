@@ -1,6 +1,6 @@
 {
   "name": "@jupyterlab/vega2-extension",
-  "version": "0.15.7",
+  "version": "0.16.0",
   "description": "JupyterLab - Vega 2 and Vega-Lite 1 Mime Renderer Extension",
   "homepage": "https://github.com/jupyterlab/jupyterlab",
   "bugs": {
