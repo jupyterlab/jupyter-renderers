@@ -63,17 +63,25 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
         return Plotly.addFrames(this.node, frames).then(() => {
           Plotly.animate(this.node);
           this.update();
+          return Plotly.toImage(plot, {
+            format: 'png',
+            width: this.node.offsetWidth,
+            height: this.node.offsetHeight
+          }).then((url: string) => {
+            const imageData = url.split(',')[1];
+            model.setData({ data: { ...data, 'image/png': imageData } });
+          });
         });
       }
       this.update();
-      // return Plotly.toImage(plot, {
-      //   format: 'png',
-      //   width: this.node.offsetWidth,
-      //   height: this.node.offsetHeight
-      // }).then(url => {
-      //   const imageData = url.split(',')[1];
-      //   model.setData({ data: { ...data, 'image/png': imageData } });
-      // });
+      return Plotly.toImage(plot, {
+        format: 'png',
+        width: this.node.offsetWidth,
+        height: this.node.offsetHeight
+      }).then((url: string) => {
+        const imageData = url.split(',')[1];
+        model.setData({ data: { ...data, 'image/png': imageData } });
+      });
     });
   }
   
