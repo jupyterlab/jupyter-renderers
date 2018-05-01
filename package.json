@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "lerna run --parallel build",
-    "link": "lerna exec --parallel -- jupyter labextension link .",
+    "link": "lerna exec --parallel -- jupyter labextension link . --no-build",
     "publish": "lerna publish --git-remote jupyterlab",
     "watch": "lerna run --parallel watch"
   },
