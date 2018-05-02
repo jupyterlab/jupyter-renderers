@@ -70,9 +70,20 @@ const URL_TEMPLATE: string = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
 const LAYER_OPTIONS: leaflet.TileLayerOptions = {
   attribution: 'Map data (c) <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
   minZoom: 0,
-  maxZoom: 18
+  maxZoom: 20
 };
 
+class FitToBounds extends leaflet.Control {
+    _img: HTMLImageElement;
+    delegate: RenderedGeoJSON;
+    onAdd(map: leaflet.Map): HTMLElement {
+        this._img = leaflet.DomUtil.create('img') as HTMLImageElement;
+        this._img.className = 'jp-ZoomToBoundsIcon';
+        this._img.style.width = '40px';
+        this._img.onclick = this.delegate.fitToBounds.bind(this.delegate);
+        return this._img;
+    };
+};
 
 export
 class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
@@ -90,6 +101,9 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     this._map = leaflet.map(this.node, {
         trackResize: false
     });
+    let ftb_control = new FitToBounds();
+    ftb_control.delegate = this;
+    ftb_control.addTo(this._map);
   }
 
   /**
@@ -120,7 +134,12 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
       resolve();
     });
   }
-  
+
+
+   fitToBounds(): void {
+       // Update map size after panel/window is resized
+       this._map.fitBounds(this._geoJSONLayer.getBounds());
+    }
   /**
    * A message handler invoked on an `'after-attach'` message.
    */
@@ -137,6 +156,7 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
         this._map.scrollWheelZoom.enable();
       });
     }
+    this.fitToBounds();
     this.update();
   }
   
@@ -144,6 +164,7 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    * A message handler invoked on an `'after-show'` message.
    */
   protected onAfterShow(msg: Message): void {
+    this.fitToBounds();
     this.update();
   }
     
@@ -160,8 +181,6 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   protected onUpdateRequest(msg: Message): void {
     // Update map size after update
     if (this.isVisible) this._map.invalidateSize();
-    // Update map size after panel/window is resized
-    this._map.fitBounds(this._geoJSONLayer.getBounds());
   }
 
   private _map: leaflet.Map;
