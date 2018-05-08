@@ -13,31 +13,9 @@ import {
   IRenderMime
 } from '@jupyterlab/rendermime-interfaces';
 
-import '../style/index.css';
+import * as Plotly from 'plotly.js/dist/plotly';
 
-namespace Private {
-  
-  declare function require(moduleName: string): string;
-  
-  /**
-   * Is plotly.js being loaded?.
-   */
-  export
-  let loadingPlotly = false;
-  
-  /**
-   * Load plotly.js browser script.
-   */
-  export
-  function loadPlotly(): void {
-    loadingPlotly = true;
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.text = require('raw-loader!plotly.js/dist/plotly.min.js');
-    document.head.appendChild(script);
-  }
-  
-}
+import '../style/index.css';
 
 /**
  * The CSS class to add to the Plotly Widget.
@@ -72,7 +50,6 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
     super();
     this.addClass(CSS_CLASS);
     this._mimeType = options.mimeType;
-    if (!Private.loadingPlotly) Private.loadPlotly();
   }
 
   /**
@@ -86,17 +63,25 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
         return Plotly.addFrames(this.node, frames).then(() => {
           Plotly.animate(this.node);
           this.update();
+          return Plotly.toImage(plot, {
+            format: 'png',
+            width: this.node.offsetWidth,
+            height: this.node.offsetHeight
+          }).then((url: string) => {
+            const imageData = url.split(',')[1];
+            model.setData({ data: { ...data, 'image/png': imageData } });
+          });
         });
       }
       this.update();
-      // return Plotly.toImage(plot, {
-      //   format: 'png',
-      //   width: this.node.offsetWidth,
-      //   height: this.node.offsetHeight
-      // }).then(url => {
-      //   const imageData = url.split(',')[1];
-      //   model.setData({ data: { ...data, 'image/png': imageData } });
-      // });
+      return Plotly.toImage(plot, {
+        format: 'png',
+        width: this.node.offsetWidth,
+        height: this.node.offsetHeight
+      }).then((url: string) => {
+        const imageData = url.split(',')[1];
+        model.setData({ data: { ...data, 'image/png': imageData } });
+      });
     });
   }
   
