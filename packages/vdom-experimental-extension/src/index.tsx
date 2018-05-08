@@ -98,6 +98,11 @@ class RenderedVDOM extends Widget implements IRenderMime.IRenderer {
   dispose(): void {
     // Dispose of leaflet map
     ReactDOM.unmountComponentAtNode(this.node);
+    for (let targetName in this._comms) {
+      this._comms[targetName].then(comm => {
+        comm.close();
+      });
+    }
     this._session.then(session => {
       session.dispose();
     });
