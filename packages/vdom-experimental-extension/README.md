@@ -1,13 +1,15 @@
 # vdom-experimental-extension
 
+[![Binder](https://beta.mybinder.org/badge.svg)](https://mybinder.org/v2/gh/gnestor/jupyter-renderers/binder-dev?urlpath=lab/tree/notebooks/vdom-experimental-extension.ipynb)
+
 A JupyterLab extension for rendering VirtualDOM using React
 
-![demo](http://g.recordit.co/EIwAIBsGBh.gif)
+![demo](../../../../raw/vdom-experimental/notebooks/vdom-experimental-extension.gif)
 
 ## Experimental branch
 
 This branch adds experimental event handling support to
-@jupyterlab/vdom-extension. 
+[@jupyterlab/vdom-extension](https://github.com/jupyterlab/jupyterlab/tree/master/packages/vdom-extension). 
 
 ## Requirements
 
@@ -25,7 +27,7 @@ pip install -e .
 
 ## Usage
 
-See [vdom-events.ipynb](../../notebooks/vdom-events.ipynb) for
+See [vdom-events.ipynb](../../notebooks/vdom-experimental-extension.ipynb) for
 experimental event handling usage.
 
 To render VDOM output in IPython:
