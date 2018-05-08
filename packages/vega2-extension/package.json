@@ -2,9 +2,9 @@
   "name": "@jupyterlab/vega2-extension",
   "version": "0.16.0",
   "description": "JupyterLab - Vega 2 and Vega-Lite 1 Mime Renderer Extension",
-  "homepage": "https://github.com/jupyterlab/jupyterlab",
+  "homepage": "https://github.com/jupyterlab/jupyter-renderers",
   "bugs": {
-    "url": "https://github.com/jupyterlab/jupyterlab/issues"
+    "url": "https://github.com/jupyterlab/jupyter-renderers/issues"
   },
   "license": "BSD-3-Clause",
   "author": "Project Jupyter",
@@ -21,7 +21,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jupyterlab/jupyterlab.git"
+    "url": "https://github.com/jupyterlab/jupyter-renderers.git"
   },
   "scripts": {
     "build": "tsc",
