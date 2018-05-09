@@ -9,7 +9,7 @@ A JupyterLab extension for rendering VirtualDOM using React
 ## Experimental branch
 
 This branch adds experimental event handling support to
-[@jupyterlab/vdom-extension](https://github.com/jupyterlab/jupyterlab/tree/master/packages/vdom-extension). 
+[@jupyterlab/vdom-extension](https://github.com/jupyterlab/jupyterlab/tree/master/packages/vdom-extension).
 
 ## Requirements
 

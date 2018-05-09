@@ -1,32 +1,21 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
 
-import {
-  Kernel,
-  Session
-} from '@jupyterlab/services';
+import { Kernel, Session } from '@jupyterlab/services';
 
-import {
-  Widget
-} from '@phosphor/widgets';
+import { Widget } from '@phosphor/widgets';
 
-import {
-  IRenderMime
-} from '@jupyterlab/rendermime-interfaces';
+import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
 import * as React from 'react';
 
 import * as ReactDOM from 'react-dom';
 
-import {
-  default as VDOM,
-  IVDOMElement
-} from '@nteract/transform-vdom';
+import { default as VDOM, IVDOMElement } from '@nteract/transform-vdom';
 
 import domJSON from './serialize';
 
 import '../style/index.css';
-
 
 /**
  * The CSS class to add to the VDOM Widget.
@@ -41,13 +30,29 @@ const CSS_ICON_CLASS = 'jp-MaterialIcon jp-VDOMIcon';
 /**
  * The MIME type for VDOM.
  */
-export
-const MIME_TYPE = 'application/vdom.v1+json';
+export const MIME_TYPE = 'application/vdom.v1+json';
 
-type IAttributes = {[key: string]: any};
+type IAttributes = { [key: string]: any };
 
 function serializeEvent(event: React.SyntheticEvent<any> | Event): any {
-  const blacklist = ['_targetInst', '_dispatchInstances', 'dispatchConfig', 'nativeEvent', 'currentTarget', 'relatedTarget', 'view', 'eventPhase', 'bubbles', 'cancelable', 'defaultPrevented', 'isTrusted', 'preventDefault', 'isDefaultPrevented', 'stopPropagation', 'isPropagationStopped'];
+  const blacklist = [
+    '_targetInst',
+    '_dispatchInstances',
+    'dispatchConfig',
+    'nativeEvent',
+    'currentTarget',
+    'relatedTarget',
+    'view',
+    'eventPhase',
+    'bubbles',
+    'cancelable',
+    'defaultPrevented',
+    'isTrusted',
+    'preventDefault',
+    'isDefaultPrevented',
+    'stopPropagation',
+    'isPropagationStopped'
+  ];
   let _event: { [key: string]: any } = {};
   for (let key in event) {
     if (blacklist.indexOf(key) < 0) {
@@ -72,12 +77,10 @@ function serializeEvent(event: React.SyntheticEvent<any> | Event): any {
   });
 }
 
-
 /**
  * A renderer for declarative virtual DOM content.
  */
-export
-class RenderedVDOM extends Widget implements IRenderMime.IRenderer {
+export class RenderedVDOM extends Widget implements IRenderMime.IRenderer {
   /**
    * Create a new widget for rendering DOM.
    */
@@ -86,7 +89,9 @@ class RenderedVDOM extends Widget implements IRenderMime.IRenderer {
     this.addClass(CSS_CLASS);
     this._mimeType = options.mimeType;
     this._session = Session.listRunning().then(sessionModels => {
-      const session = sessionModels.find(session => session.path === (options.resolver as any)._session.path);
+      const session = sessionModels.find(
+        session => session.path === (options.resolver as any)._session.path
+      );
       return Session.connectTo(session);
     });
     // this._session = Session.connectTo(options.resolver._session as Session.ISession)
@@ -142,33 +147,41 @@ class RenderedVDOM extends Widget implements IRenderMime.IRenderer {
   getProps(data: IVDOMElement): IVDOMElement {
     // Handle JSON representations of callback functions in attributes
     const decodeAttributes = (attributes: IAttributes): IAttributes => {
-      return Object.keys(attributes).reduce((result: IAttributes, key: string) => {
-        const value = attributes[key];
-        // If an attribute has `target_name` key
-        if (value['target_name']) {
-          // Connect to the comm channel
-          this._comms[value['target_name']] = this._session.then(session => session.kernel.connectToComm(value['target_name']));
-          this._comms[value['target_name']].then(comm => {
-            comm.open({});
-            comm.onMsg = (msg: any) => {
-              console.log('comm.onMsg', msg.content.data);
-            };
-            comm.onClose = (msg: any) => {
-              console.log('comm.onClose', msg.content.data);
-            };
-          });
-          // Replace prop value with a callback function that will send a JSON
-          // representation of the DOM event to the kernel over the comm channel
-          return {...result, [key]: (event: React.SyntheticEvent<any>) => {
-            const serializedEvent = serializeEvent(event);
+      return Object.keys(attributes).reduce(
+        (result: IAttributes, key: string) => {
+          const value = attributes[key];
+          // If an attribute has `target_name` key
+          if (value['target_name']) {
+            // Connect to the comm channel
+            this._comms[value['target_name']] = this._session.then(session =>
+              session.kernel.connectToComm(value['target_name'])
+            );
             this._comms[value['target_name']].then(comm => {
-              // console.log('comm.send', event, serializedEvent);
-              comm.send(serializedEvent);
+              comm.open({});
+              comm.onMsg = (msg: any) => {
+                console.log('comm.onMsg', msg.content.data);
+              };
+              comm.onClose = (msg: any) => {
+                console.log('comm.onClose', msg.content.data);
+              };
             });
-          }};
-        }
-        return {...result, [key]: value};
-      }, {});
+            // Replace prop value with a callback function that will send a JSON
+            // representation of the DOM event to the kernel over the comm channel
+            return {
+              ...result,
+              [key]: (event: React.SyntheticEvent<any>) => {
+                const serializedEvent = serializeEvent(event);
+                this._comms[value['target_name']].then(comm => {
+                  // console.log('comm.send', event, serializedEvent);
+                  comm.send(serializedEvent);
+                });
+              }
+            };
+          }
+          return { ...result, [key]: value };
+        },
+        {}
+      );
     };
     if (data) {
       if (data.attributes) {
@@ -178,7 +191,7 @@ class RenderedVDOM extends Widget implements IRenderMime.IRenderer {
         if (Array.isArray(data.children)) {
           data.children = data.children.map(child => this.getProps(child));
         }
-        if (typeof(data.children) === 'object') {
+        if (typeof data.children === 'object') {
           data.children = this.getProps(data.children as IVDOMElement);
         }
       }
@@ -191,17 +204,14 @@ class RenderedVDOM extends Widget implements IRenderMime.IRenderer {
   private _comms: { [key: string]: Promise<Kernel.IComm> } = {};
 }
 
-
 /**
  * A mime renderer factory for VDOM data.
  */
-export
-const rendererFactory: IRenderMime.IRendererFactory = {
+export const rendererFactory: IRenderMime.IRendererFactory = {
   safe: true,
   mimeTypes: [MIME_TYPE],
   createRenderer: options => new RenderedVDOM(options)
 };
-
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
   {
@@ -209,12 +219,14 @@ const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
     rendererFactory,
     rank: 0,
     dataType: 'json',
-    fileTypes: [{
-      name: 'vdom',
-      mimeTypes: [MIME_TYPE],
-      extensions: ['.vdom', '.vdom.json'],
-      iconClass: CSS_ICON_CLASS
-    }],
+    fileTypes: [
+      {
+        name: 'vdom',
+        mimeTypes: [MIME_TYPE],
+        extensions: ['.vdom', '.vdom.json'],
+        iconClass: CSS_ICON_CLASS
+      }
+    ],
     documentWidgetFactoryOptions: {
       name: 'VDOM',
       primaryFileType: 'vdom',

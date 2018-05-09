@@ -1,11 +1,17 @@
 declare module '@nteract/transform-vdom' {
-
   import * as React from 'react';
 
   interface IVDOMElement {
     tagName: 'string';
     attributes: Object;
-    children: IVDOMElement | IVDOMElement[] | Object | string | number | boolean | null;
+    children:
+      | IVDOMElement
+      | IVDOMElement[]
+      | Object
+      | string
+      | number
+      | boolean
+      | null;
     key?: number | string | null;
   }
 
@@ -13,6 +19,5 @@ declare module '@nteract/transform-vdom' {
     data: IVDOMElement;
   }
 
-  export default class VDOM extends React.Component<IVDOMProps, {}> { }
-
+  export default class VDOM extends React.Component<IVDOMProps, {}> {}
 }
