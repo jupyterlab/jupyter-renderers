@@ -3,26 +3,18 @@
 | Distributed under the terms of the Modified BSD License.
 |----------------------------------------------------------------------------*/
 
-import {
-  JSONObject, ReadonlyJSONObject, JSONValue
-} from '@phosphor/coreutils';
+import { JSONObject, ReadonlyJSONObject, JSONValue } from '@phosphor/coreutils';
 
-import {
-  Widget
-} from '@phosphor/widgets';
+import { Widget } from '@phosphor/widgets';
 
-import {
-  IRenderMime
-} from '@jupyterlab/rendermime-interfaces';
+import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
 /**
  * Import vega-embed in this manner due to how it is exported.
  */
 import embed = require('vega-embed-v2');
 
-
 import '../style/index.css';
-
 
 /**
  * The CSS class to add to the Vega and Vega-Lite widget.
@@ -45,8 +37,7 @@ const VEGALITE_CLASS = 'jp-RenderedVegaLite';
  * #### Notes
  * The version of this follows the major version of Vega.
  */
-export
-const VEGA_MIME_TYPE = 'application/vnd.vega.v2+json';
+export const VEGA_MIME_TYPE = 'application/vnd.vega.v2+json';
 
 /**
  * The MIME type for Vega-Lite.
@@ -54,15 +45,12 @@ const VEGA_MIME_TYPE = 'application/vnd.vega.v2+json';
  * #### Notes
  * The version of this follows the major version of Vega-Lite.
  */
-export
-const VEGALITE_MIME_TYPE = 'application/vnd.vegalite.v1+json';
-
+export const VEGALITE_MIME_TYPE = 'application/vnd.vegalite.v1+json';
 
 /**
  * A widget for rendering Vega or Vega-Lite data, for usage with rendermime.
  */
-export
-class RenderedVega extends Widget implements IRenderMime.IRenderer {
+export class RenderedVega extends Widget implements IRenderMime.IRenderer {
   /**
    * Create a new widget for rendering Vega/Vega-Lite.
    */
@@ -71,7 +59,7 @@ class RenderedVega extends Widget implements IRenderMime.IRenderer {
     this.addClass(VEGA_COMMON_CLASS);
 
     // Handle things related to the MIME type.
-    let mimeType = this._mimeType = options.mimeType;
+    let mimeType = (this._mimeType = options.mimeType);
     if (mimeType === VEGA_MIME_TYPE) {
       this.addClass(VEGA_CLASS);
       this._mode = 'vega';
@@ -85,7 +73,6 @@ class RenderedVega extends Widget implements IRenderMime.IRenderer {
    * Render Vega/Vega-Lite into this widget's node.
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
-
     let data = model.data[this._mimeType] as ReadonlyJSONObject;
     let updatedData: JSONObject;
     if (this._mode === 'vega-lite') {
@@ -109,7 +96,7 @@ class RenderedVega extends Widget implements IRenderMime.IRenderer {
           // Save png data in MIME bundle along with original MIME data.
           if (!model.data['image/png']) {
             let imageData = result.view.toImageURL().split(',')[1] as JSONValue;
-            let newData = {...(model.data), 'image/png': imageData};
+            let newData = { ...model.data, 'image/png': imageData };
             model.setData({ data: newData });
           }
           resolve(undefined);
@@ -122,12 +109,10 @@ class RenderedVega extends Widget implements IRenderMime.IRenderer {
   private _mode: string;
 }
 
-
 /**
  * A mime renderer factory for vega data.
  */
-export
-const rendererFactory: IRenderMime.IRendererFactory = {
+export const rendererFactory: IRenderMime.IRendererFactory = {
   safe: true,
   mimeTypes: [VEGA_MIME_TYPE, VEGALITE_MIME_TYPE],
   createRenderer: options => new RenderedVega(options)
@@ -138,47 +123,48 @@ const extension: IRenderMime.IExtension = {
   rendererFactory,
   rank: 60,
   dataType: 'json',
-  documentWidgetFactoryOptions: [{
-    name: 'Vega 2',
-    primaryFileType: 'vega2',
-    fileTypes: ['vega2', 'json'],
-    defaultFor: ['vega2']
-  },
-  {
-    name: 'Vega-Lite 1',
-    primaryFileType: 'vega-lite1',
-    fileTypes: ['vega-lite1', 'json'],
-    defaultFor: ['vega-lite1']
-  }],
-  fileTypes: [{
-    mimeTypes: [VEGA_MIME_TYPE],
-    name: 'vega2',
-    extensions: ['.vg', '.vg.json', '.vega'],
-    iconClass: 'jp-MaterialIcon jp-VegaIcon',
-  },
-  {
-    mimeTypes: [VEGALITE_MIME_TYPE],
-    name: 'vega-lite1',
-    extensions: ['.vl', '.vl.json', '.vegalite'],
-    iconClass: 'jp-MaterialIcon jp-VegaIcon',
-  }]
+  documentWidgetFactoryOptions: [
+    {
+      name: 'Vega 2',
+      primaryFileType: 'vega2',
+      fileTypes: ['vega2', 'json'],
+      defaultFor: ['vega2']
+    },
+    {
+      name: 'Vega-Lite 1',
+      primaryFileType: 'vega-lite1',
+      fileTypes: ['vega-lite1', 'json'],
+      defaultFor: ['vega-lite1']
+    }
+  ],
+  fileTypes: [
+    {
+      mimeTypes: [VEGA_MIME_TYPE],
+      name: 'vega2',
+      extensions: ['.vg', '.vg.json', '.vega'],
+      iconClass: 'jp-MaterialIcon jp-VegaIcon'
+    },
+    {
+      mimeTypes: [VEGALITE_MIME_TYPE],
+      name: 'vega-lite1',
+      extensions: ['.vl', '.vl.json', '.vegalite'],
+      iconClass: 'jp-MaterialIcon jp-VegaIcon'
+    }
+  ]
 };
 
 export default extension;
-
-
 
 /**
  * Namespace for module privates.
  */
 namespace Private {
-
   /**
    * Default cell config for Vega-Lite.
    */
   const defaultCellConfig: JSONObject = {
-    'width': 400,
-    'height': 400 / 1.5
+    width: 400,
+    height: 400 / 1.5
   };
 
   /**
@@ -189,21 +175,22 @@ namespace Private {
   /**
    * Initialize the vega-embed module.
    */
-  export
-  function ensureMod(): Promise<typeof embed> {
+  export function ensureMod(): Promise<typeof embed> {
     return new Promise((resolve, reject) => {
       if (mod !== undefined) {
         resolve(mod);
         return;
       }
-      (require as any).ensure(['vega-embed-v2'], (require: NodeRequire) => {
-        mod = require('vega-embed-v2');
-        resolve(mod);
-      },
-      (err: any) => {
-        reject(err);
-      },
-      'vega2'
+      (require as any).ensure(
+        ['vega-embed-v2'],
+        (require: NodeRequire) => {
+          mod = require('vega-embed-v2');
+          resolve(mod);
+        },
+        (err: any) => {
+          reject(err);
+        },
+        'vega2'
       );
     });
   }
@@ -215,20 +202,25 @@ namespace Private {
    * This carefully does a shallow copy to avoid copying the potentially
    * large data.
    */
-  export
-  function updateVegaLiteDefaults(spec: ReadonlyJSONObject): JSONObject {
+  export function updateVegaLiteDefaults(spec: ReadonlyJSONObject): JSONObject {
     let config = spec.config as JSONObject;
     if (!config) {
-      return {...{'config': {'cell': defaultCellConfig}}, ...spec};
+      return { ...{ config: { cell: defaultCellConfig } }, ...spec };
     }
     let cell = config.cell as JSONObject;
     if (cell) {
       return {
-        ...{'config': {...{'cell': {...defaultCellConfig, ...cell}}}, ...config},
+        ...{
+          config: { ...{ cell: { ...defaultCellConfig, ...cell } } },
+          ...config
+        },
         ...spec
       };
     } else {
-      return {...{'config': {...{'cell': {...defaultCellConfig}}}, ...config}, ...spec};
+      return {
+        ...{ config: { ...{ cell: { ...defaultCellConfig } } }, ...config },
+        ...spec
+      };
     }
   }
 }

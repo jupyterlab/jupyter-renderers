@@ -3,17 +3,11 @@
 | Distributed under the terms of the Modified BSD License.
 |----------------------------------------------------------------------------*/
 
-import {
-  Widget
-} from '@phosphor/widgets';
+import { Widget } from '@phosphor/widgets';
 
-import {
-  Message
-} from '@phosphor/messaging';
+import { Message } from '@phosphor/messaging';
 
-import {
-  IRenderMime
-} from '@jupyterlab/rendermime-interfaces';
+import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
 import * as msa from 'msa';
 
@@ -21,7 +15,9 @@ import 'msa/css/msa.css';
 
 import '../style/index.css';
 
-const TYPES: {[key: string]: {name: string, extensions: string[], reader: any}} = {
+const TYPES: {
+  [key: string]: { name: string; extensions: string[]; reader: any };
+} = {
   'application/vnd.fasta.fasta': {
     name: 'Fasta',
     extensions: ['.fasta', '.fa'],
@@ -31,14 +27,13 @@ const TYPES: {[key: string]: {name: string, extensions: string[], reader: any}} 
     name: 'Clustal',
     extensions: ['.clustal', '.aln'],
     reader: msa.io.clustal
-  },
+  }
 };
 
 /**
  * A widget for rendering data, for usage with rendermime.
  */
-export
-class RenderedData extends Widget implements IRenderMime.IRenderer {
+export class RenderedData extends Widget implements IRenderMime.IRenderer {
   /**
    * Create a new widget for rendering Vega/Vega-Lite.
    */
@@ -58,7 +53,7 @@ class RenderedData extends Widget implements IRenderMime.IRenderer {
         overviewbox: true,
         seqlogo: false,
         gapHeader: false,
-        leftHeader: true,
+        leftHeader: true
       }
     });
 
@@ -81,21 +76,21 @@ class RenderedData extends Widget implements IRenderMime.IRenderer {
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       let data = model.data[this._mimeType];
-      var seqs =  this._parser.parse(data);
+      var seqs = this._parser.parse(data);
       this.msa.seqs.reset(seqs);
       this.msa.render();
       this.update();
       resolve();
     });
   }
-    
+
   /**
    * A message handler invoked on an `'after-show'` message.
    */
   protected onAfterShow(msg: Message): void {
     this.update();
   }
-    
+
   /**
    * A message handler invoked on a `'resize'` message.
    */
@@ -109,7 +104,9 @@ class RenderedData extends Widget implements IRenderMime.IRenderer {
   protected onUpdateRequest(msg: Message): void {
     // Update size after update
     if (this.isVisible) {
-      let newWidth = this.node.getBoundingClientRect().width - this.msa.g.zoomer.getLeftBlockWidth();
+      let newWidth =
+        this.node.getBoundingClientRect().width -
+        this.msa.g.zoomer.getLeftBlockWidth();
       this.msa.g.zoomer.set('alignmentWidth', newWidth);
     }
   }
@@ -123,8 +120,7 @@ class RenderedData extends Widget implements IRenderMime.IRenderer {
 /**
  * A mime renderer factory for data.
  */
-export
-const rendererFactory: IRenderMime.IRendererFactory = {
+export const rendererFactory: IRenderMime.IRendererFactory = {
   safe: false,
   mimeTypes: Object.keys(TYPES),
   createRenderer: options => new RenderedData(options)
@@ -137,17 +133,19 @@ const extensions = Object.keys(TYPES).map(k => {
     rendererFactory,
     rank: 0,
     dataType: 'string',
-    fileTypes: [{
-      name,
-      extensions: TYPES[k].extensions,
-      mimeTypes: [k],
-      iconClass: 'jp-MaterialIcon jp-MSAIcon'
-    }],
+    fileTypes: [
+      {
+        name,
+        extensions: TYPES[k].extensions,
+        mimeTypes: [k],
+        iconClass: 'jp-MaterialIcon jp-MSAIcon'
+      }
+    ],
     documentWidgetFactoryOptions: {
       name,
       primaryFileType: name,
       fileTypes: [name],
-      defaultFor: [name],
+      defaultFor: [name]
     }
   } as IRenderMime.IExtension;
 });

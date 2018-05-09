@@ -1,29 +1,20 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
 
-import {
-  JupyterLabPlugin
-} from '@jupyterlab/application';
+import { JupyterLabPlugin } from '@jupyterlab/application';
 
-import {
-  ILatexTypesetter
-} from '@jupyterlab/rendermime';
+import { ILatexTypesetter } from '@jupyterlab/rendermime';
 
-import {
-  IRenderMime
-} from '@jupyterlab/rendermime-interfaces';
+import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import {
-  renderMathInElement
-} from './autorender';
+import { renderMathInElement } from './autorender';
 
 import '../style/index.css';
 
 /**
  * The KaTeX Typesetter.
  */
-export
-class KatexTypesetter implements IRenderMime.ILatexTypesetter {
+export class KatexTypesetter implements IRenderMime.ILatexTypesetter {
   /**
    * Typeset the math in a node.
    */
@@ -40,6 +31,6 @@ const katexPlugin: JupyterLabPlugin<ILatexTypesetter> = {
   provides: ILatexTypesetter,
   activate: () => new KatexTypesetter(),
   autoStart: true
-}
+};
 
 export default katexPlugin;

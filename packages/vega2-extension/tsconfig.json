@@ -10,8 +10,5 @@
     "outDir": "./lib",
     "lib": ["ES5", "ES2015.Promise", "DOM", "ES2015.Collection"]
   },
-  "include": [
-    "src/*",
-    "typings/*.d.ts"
-  ]
+  "include": ["src/*", "typings/*.d.ts"]
 }

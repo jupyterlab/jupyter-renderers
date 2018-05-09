@@ -28,7 +28,7 @@ def Fasta(data=''):
     bundle = {}
     bundle['application/vnd.fasta.fasta'] = data
     bundle['text/plain'] = data
-    display(bundle, raw=True)    
+    display(bundle, raw=True)
 
 Fasta(""">SEQUENCE_1
 MTEITAAMVKELRESTGAGMMDCKNALSETNGDFDKAVQLLREKGLGKAAKKADRLAAEG

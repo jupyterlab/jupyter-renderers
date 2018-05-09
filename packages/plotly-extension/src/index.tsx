@@ -1,17 +1,11 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
 
-import {
-  Widget
-} from '@phosphor/widgets';
+import { Widget } from '@phosphor/widgets';
 
-import {
-  Message
-} from '@phosphor/messaging';
+import { Message } from '@phosphor/messaging';
 
-import {
-  IRenderMime
-} from '@jupyterlab/rendermime-interfaces';
+import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
 import * as Plotly from 'plotly.js/dist/plotly';
 
@@ -31,8 +25,7 @@ const CSS_ICON_CLASS = 'jp-MaterialIcon jp-PlotlyIcon';
  * The MIME type for Plotly.
  * The version of this follows the major version of Plotly.
  */
-export
-const MIME_TYPE = 'application/vnd.plotly.v1+json';
+export const MIME_TYPE = 'application/vnd.plotly.v1+json';
 
 interface PlotlySpec {
   data: Plotly.Data;
@@ -40,9 +33,7 @@ interface PlotlySpec {
   frames?: Plotly.Frame[];
 }
 
-
-export
-class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
+export class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
   /**
    * Create a new widget for rendering Plotly.
    */
@@ -56,9 +47,11 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
    * Render Plotly into this widget's node.
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
-    const { data, layout, frames } = model.data[this._mimeType] as any|PlotlySpec;
+    const { data, layout, frames } = model.data[this._mimeType] as
+      | any
+      | PlotlySpec;
     // const metadata = model.metadata[this._mimeType] as any || {};
-    return Plotly.newPlot(this.node, data, layout).then((plot) => {
+    return Plotly.newPlot(this.node, data, layout).then(plot => {
       if (frames) {
         return Plotly.addFrames(this.node, frames).then(() => {
           Plotly.animate(this.node);
@@ -84,21 +77,21 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
       });
     });
   }
-  
+
   /**
    * A message handler invoked on an `'after-show'` message.
    */
   protected onAfterShow(msg: Message): void {
     this.update();
   }
-    
+
   /**
    * A message handler invoked on a `'resize'` message.
    */
   protected onResize(msg: Widget.ResizeMessage): void {
     this.update();
   }
-  
+
   /**
    * A message handler invoked on an `'update-request'` message.
    */
@@ -113,17 +106,14 @@ class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
   private _mimeType: string;
 }
 
-
 /**
  * A mime renderer factory for Plotly data.
  */
-export
-const rendererFactory: IRenderMime.IRendererFactory = {
+export const rendererFactory: IRenderMime.IRendererFactory = {
   safe: true,
   mimeTypes: [MIME_TYPE],
   createRenderer: options => new RenderedPlotly(options)
 };
-
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
   {
@@ -131,12 +121,14 @@ const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
     rendererFactory,
     rank: 0,
     dataType: 'json',
-    fileTypes: [{
-      name: 'plotly',
-      mimeTypes: [MIME_TYPE],
-      extensions: ['.plotly', '.plotly.json'],
-      iconClass: CSS_ICON_CLASS
-    }],
+    fileTypes: [
+      {
+        name: 'plotly',
+        mimeTypes: [MIME_TYPE],
+        extensions: ['.plotly', '.plotly.json'],
+        iconClass: CSS_ICON_CLASS
+      }
+    ],
     documentWidgetFactoryOptions: {
       name: 'Plotly',
       primaryFileType: 'plotly',
