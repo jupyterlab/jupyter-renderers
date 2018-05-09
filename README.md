@@ -6,13 +6,13 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 
 ## Packages
 
-| Name        | Mime types           | File extensions |
-| ----------- | -------------------- | --------------- |
-| [fasta-extension](packages/fasta-extension) | `application/vnd.fasta.fasta` | `.fasta` |
-| [geojson-extension](packages/geojson-extension) | `application/geo+json` | `.geojson`, `.geo.json` |
-| [katex-extension](packages/katex-extension) | N/A | N/A |
-| [plotly-extension](packages/plotly-extension) | `application/vnd.plotly.v1+json` | `.plotly`, `.plotly.json` |
-| [vega2-extension](packages/vega2-extension) | `application/vnd.vega.v2+json`, `application/vnd.vegalite.v1+json`| `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` |
+| Name                                            | Mime types                                                         | File extensions                                            |
+| ----------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------- |
+| [fasta-extension](packages/fasta-extension)     | `application/vnd.fasta.fasta`                                      | `.fasta`                                                   |
+| [geojson-extension](packages/geojson-extension) | `application/geo+json`                                             | `.geojson`, `.geo.json`                                    |
+| [katex-extension](packages/katex-extension)     | N/A                                                                | N/A                                                        |
+| [plotly-extension](packages/plotly-extension)   | `application/vnd.plotly.v1+json`                                   | `.plotly`, `.plotly.json`                                  |
+| [vega2-extension](packages/vega2-extension)     | `application/vnd.vega.v2+json`, `application/vnd.vegalite.v1+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` |
 
 ## Install
 

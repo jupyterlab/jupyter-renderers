@@ -18,8 +18,10 @@ function findEndOfMath(delimiter: string, text: string, startIndex: number) {
 
   while (index < text.length) {
     const character = text[index];
-    if (braceLevel <= 0 &&
-      text.slice(index, index + delimLength) === delimiter) {
+    if (
+      braceLevel <= 0 &&
+      text.slice(index, index + delimLength) === delimiter
+    ) {
       return index;
     } else if (character === '\\') {
       index++;
@@ -33,7 +35,12 @@ function findEndOfMath(delimiter: string, text: string, startIndex: number) {
   return -1;
 }
 
-function splitAtDelimiters(startData: IParseData[], leftDelim: string, rightDelim: string, display: boolean) {
+function splitAtDelimiters(
+  startData: IParseData[],
+  leftDelim: string,
+  rightDelim: string,
+  display: boolean
+) {
   const finalData: IParseData[] = [];
 
   for (let i = 0; i < startData.length; i++) {
@@ -73,20 +80,17 @@ function splitAtDelimiters(startData: IParseData[], leftDelim: string, rightDeli
           nextIndex = findEndOfMath(
             rightDelim,
             text,
-            currIndex + leftDelim.length);
+            currIndex + leftDelim.length
+          );
           if (nextIndex === -1) {
             break;
           }
 
           finalData.push({
             type: 'math',
-            data: text.slice(
-              currIndex + leftDelim.length,
-              nextIndex),
-            rawData: text.slice(
-              currIndex,
-              nextIndex + rightDelim.length),
-            display: display,
+            data: text.slice(currIndex + leftDelim.length, nextIndex),
+            rawData: text.slice(currIndex, nextIndex + rightDelim.length),
+            display: display
           });
 
           currIndex = nextIndex + rightDelim.length;
@@ -108,12 +112,15 @@ function splitAtDelimiters(startData: IParseData[], leftDelim: string, rightDeli
 }
 
 function splitWithDelimiters(text: string, delimiters: IDelimiter[]) {
-  let data: IParseData[] = [{type: 'text', data: text, display: false}];
+  let data: IParseData[] = [{ type: 'text', data: text, display: false }];
   for (let i = 0; i < delimiters.length; i++) {
     const delimiter = delimiters[i];
     data = splitAtDelimiters(
-      data, delimiter.left, delimiter.right,
-      delimiter.display || false);
+      data,
+      delimiter.left,
+      delimiter.right,
+      delimiter.display || false
+    );
   }
   return data;
 }
@@ -136,7 +143,7 @@ function renderMathInText(text: string, optionsCopy: IAutoRenderOptions) {
       optionsCopy.displayMode = data[i].display;
       try {
         katex.render(math, span, optionsCopy);
-      } catch(err) {
+      } catch (err) {
         fragment.appendChild(document.createTextNode(data[i].rawData));
         continue;
       }
@@ -156,8 +163,9 @@ function renderElem(elem: Node, optionsCopy: IAutoRenderOptions) {
       elem.replaceChild(frag, childNode);
     } else if (childNode.nodeType === 1) {
       // Element node
-      const shouldRender = optionsCopy.ignoredTags.indexOf(
-        childNode.nodeName.toLowerCase()) === -1;
+      const shouldRender =
+        optionsCopy.ignoredTags.indexOf(childNode.nodeName.toLowerCase()) ===
+        -1;
 
       if (shouldRender) {
         renderElem(childNode, optionsCopy);
@@ -165,17 +173,15 @@ function renderElem(elem: Node, optionsCopy: IAutoRenderOptions) {
     }
     // Otherwise, it's something else, and ignore it.
   }
-};
+}
 
-export
-interface IAutoRenderOptions extends katex.KatexOptions {
+export interface IAutoRenderOptions extends katex.KatexOptions {
   readonly delimiters: IDelimiter[];
   readonly ignoredTags: string[];
   readonly throwOnError: boolean;
 }
 
-export
-interface IDelimiter {
+export interface IDelimiter {
   left: string;
   right: string;
   display: boolean;
@@ -183,26 +189,25 @@ interface IDelimiter {
 
 const defaultAutoRenderOptions: IAutoRenderOptions = {
   delimiters: [
-    {left: '$$', right: '$$', display: true},
-    {left: '\\[', right: '\\]', display: true},
-    {left: '\\(', right: '\\)', display: false},
-    {left: '$', right: '$', display: false},
-    {left: '\\begin{equation}', right: '\\end{equation}', display: true}
+    { left: '$$', right: '$$', display: true },
+    { left: '\\[', right: '\\]', display: true },
+    { left: '\\(', right: '\\)', display: false },
+    { left: '$', right: '$', display: false },
+    { left: '\\begin{equation}', right: '\\end{equation}', display: true }
   ],
 
-  ignoredTags: [
-    'script', 'noscript', 'style', 'textarea', 'pre', 'code',
-  ],
+  ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
   errorColor: '#CC0000',
-  throwOnError: false,
+  throwOnError: false
 };
 
-
-export
-function renderMathInElement(elem: HTMLElement, options: IAutoRenderOptions = defaultAutoRenderOptions) {
+export function renderMathInElement(
+  elem: HTMLElement,
+  options: IAutoRenderOptions = defaultAutoRenderOptions
+) {
   if (!elem) {
     throw new Error('No element provided to render');
   }
   const optionsCopy = { ...options };
   renderElem(elem, optionsCopy);
-};
+}

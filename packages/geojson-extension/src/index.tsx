@@ -1,17 +1,11 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
 
-import {
-  Widget
-} from '@phosphor/widgets';
+import { Widget } from '@phosphor/widgets';
 
-import {
-  Message
-} from '@phosphor/messaging';
+import { Message } from '@phosphor/messaging';
 
-import {
-  IRenderMime
-} from '@jupyterlab/rendermime-interfaces';
+import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
 import * as leaflet from 'leaflet';
 
@@ -36,8 +30,7 @@ const CSS_ICON_CLASS = 'jp-MaterialIcon jp-GeoJSONIcon';
 /**
  * The MIME type for GeoJSON.
  */
-export
-const MIME_TYPE = 'application/geo+json';
+export const MIME_TYPE = 'application/geo+json';
 
 /**
  * Set base path for leaflet images.
@@ -56,26 +49,25 @@ leaflet.Icon.Default.mergeOptions({
   shadowUrl: shadowUrl
 });
 
-
 /**
  * The url template that leaflet tile layers.
  * See http://leafletjs.com/reference-1.0.3.html#tilelayer
  */
-const URL_TEMPLATE: string = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const URL_TEMPLATE: string =
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
 /**
  * The options for leaflet tile layers.
  * See http://leafletjs.com/reference-1.0.3.html#tilelayer
  */
 const LAYER_OPTIONS: leaflet.TileLayerOptions = {
-  attribution: 'Map data (c) <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+  attribution:
+    'Map data (c) <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
   minZoom: 0,
   maxZoom: 18
 };
 
-
-export
-class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
+export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   /**
    * Create a new widget for rendering GeoJSON.
    */
@@ -88,7 +80,7 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     // window.resize events since we have individual phosphor resize
     // events.
     this._map = leaflet.map(this.node, {
-        trackResize: false
+      trackResize: false
     });
   }
 
@@ -107,20 +99,22 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const data = model.data[this._mimeType] as any | GeoJSON.GeoJsonObject;
-    const metadata = model.metadata[this._mimeType] as any || {};
+    const metadata = (model.metadata[this._mimeType] as any) || {};
     return new Promise<void>((resolve, reject) => {
       // Add leaflet tile layer to map
-      leaflet.tileLayer(
-        metadata.url_template || URL_TEMPLATE,
-        metadata.layer_options || LAYER_OPTIONS
-      ).addTo(this._map);
+      leaflet
+        .tileLayer(
+          metadata.url_template || URL_TEMPLATE,
+          metadata.layer_options || LAYER_OPTIONS
+        )
+        .addTo(this._map);
       // Create GeoJSON layer from data and add to map
       this._geoJSONLayer = leaflet.geoJSON(data).addTo(this._map);
       this.update();
       resolve();
     });
   }
-  
+
   /**
    * A message handler invoked on an `'after-attach'` message.
    */
@@ -129,31 +123,31 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
       // Disable scroll zoom by default to avoid conflicts with notebook scroll
       this._map.scrollWheelZoom.disable();
       // Enable scroll zoom on map focus
-      this._map.on('blur', (event) => {
+      this._map.on('blur', event => {
         this._map.scrollWheelZoom.disable();
       });
       // Disable scroll zoom on blur
-      this._map.on('focus', (event) => {
+      this._map.on('focus', event => {
         this._map.scrollWheelZoom.enable();
       });
     }
     this.update();
   }
-  
+
   /**
    * A message handler invoked on an `'after-show'` message.
    */
   protected onAfterShow(msg: Message): void {
     this.update();
   }
-    
+
   /**
    * A message handler invoked on a `'resize'` message.
    */
   protected onResize(msg: Widget.ResizeMessage): void {
     this.update();
   }
-  
+
   /**
    * A message handler invoked on an `'update-request'` message.
    */
@@ -169,17 +163,14 @@ class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   private _mimeType: string;
 }
 
-
 /**
  * A mime renderer factory for GeoJSON data.
  */
-export
-const rendererFactory: IRenderMime.IRendererFactory = {
+export const rendererFactory: IRenderMime.IRendererFactory = {
   safe: true,
   mimeTypes: [MIME_TYPE],
   createRenderer: options => new RenderedGeoJSON(options)
 };
-
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
   {
@@ -187,12 +178,14 @@ const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
     rendererFactory,
     rank: 0,
     dataType: 'json',
-    fileTypes: [{
-      name: 'geojson',
-      mimeTypes: [MIME_TYPE],
-      extensions: ['.geojson', '.geo.json'],
-      iconClass: CSS_ICON_CLASS
-    }],
+    fileTypes: [
+      {
+        name: 'geojson',
+        mimeTypes: [MIME_TYPE],
+        extensions: ['.geojson', '.geo.json'],
+        iconClass: CSS_ICON_CLASS
+      }
+    ],
     documentWidgetFactoryOptions: {
       name: 'GeoJSON',
       primaryFileType: 'geojson',

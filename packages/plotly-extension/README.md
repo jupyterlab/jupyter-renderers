@@ -50,7 +50,7 @@ To render using the [plotly Python library](https://github.com/plotly/plotly.py)
 ```python
 import plotly
 from plotly.offline import iplot
-    
+
 trace = plotly.graph_objs.Heatmap(z=[[1, 20, 30],
                       [20, 1, 60],
                       [30, 60, 1]])
