@@ -1,4 +1,6 @@
-export interface ToJSONOptions {
+import * as React from 'react';
+
+interface ToJSONOptions {
   absolutePaths: boolean | FilterList;
   absoluteBase: string;
   attributes: boolean | FilterList;
@@ -12,32 +14,32 @@ export interface ToJSONOptions {
   stringify: boolean;
 }
 
-export interface ToDOMOptions {
+interface ToDOMOptions {
   noMeta: boolean;
 }
 
-export interface IndexedObject {
+interface IndexedObject {
   [key: string]: any;
 }
 
-export type Result = IndexedObject;
+type Result = IndexedObject;
 
-export type Item = IndexedObject | any[];
+type Item = IndexedObject | any[];
 
-export type FilterListShorthand = any[] | boolean;
+type FilterListShorthand = any[] | boolean;
 
-// export interface FilterListShorthand {
+// interface FilterListShorthand {
 //   [index: number]: string;
 //   0: boolean;
 // }
 
-export interface FilterListObject {
+interface FilterListObject {
   values: string[];
   exclude?: boolean;
   [key: string]: FilterListShorthand;
 }
 
-export type FilterList = FilterListShorthand | FilterListObject;
+type FilterList = FilterListShorthand | FilterListObject;
 
 /**
  * domJSON is a global variable to store two methods: `.toJSON()` to convert a DOM Node into a JSON object, and `.toDOM()` to turn that JSON object back into a DOM Node
@@ -93,7 +95,7 @@ const defaultsForToDOM = {
  * @private
  * @ignore
  */
-const banned = ['link', 'script']; //Consider (maybe) adding the following tags: iframe, html, audio, video, object
+const banned = ['link', 'script']; // Consider (maybe) adding the following tags: iframe, html, audio, video, object
 
 /**
  * A list of node properties that must be copied if they exist; there is no user option that will remove these
@@ -216,22 +218,22 @@ function boolDiff(
  * @ignore
  */
 function boolFilter(item: Item, filter: FilterList): Item {
-  //A "false" filter means we return an empty copy of item
+  // A "false" filter means we return an empty copy of item
   if (filter === false) {
     return item instanceof Array ? [] : {};
   }
 
   if (filter instanceof Array && filter.length) {
     if (typeof filter[0] === 'boolean') {
-      if (filter.length == 1) {
-        //There is a filter array, but its only a sigle boolean
+      if (filter.length === 1) {
+        // There is a filter array, but its only a sigle boolean
         if (filter[0] === true) {
           return copy(item);
         } else {
           return item instanceof Array ? [] : {};
         }
       } else {
-        //The filter operation has been set explicitly; true = difference
+        // The filter operation has been set explicitly; true = difference
         if (filter[0] === true) {
           return boolDiff(item as any[], filter.slice(1));
         } else {
@@ -239,7 +241,7 @@ function boolFilter(item: Item, filter: FilterList): Item {
         }
       }
     } else {
-      //There is no explicit operation on the filter, meaning it defaults to an intersection
+      // There is no explicit operation on the filter, meaning it defaults to an intersection
       return boolInter(item as any[], filter);
     }
   } else {
@@ -296,45 +298,45 @@ function toShorthand(
  * @ignore
  */
 function toAbsolute(value: string, origin: string): string {
-  let protocol, stack, parts;
-  //Sometimes, we get lucky and the DOM Node we're working on already has the absolute URL as a DOM property, so we can just use that
+  // Sometimes, we get lucky and the DOM Node we're working on already has the absolute URL as a DOM property, so we can just use that
   /*if (node[name]){
-    //We can just grab the compiled URL directly from the DOM element - easy peasy
+    // We can just grab the compiled URL directly from the DOM element - easy peasy
     let sub = node[name].indexOf(value);
     if (sub !== -1) {
       return node[name];
     }
   }*/
 
-  //Check to make sure we don't already have an absolute path, or even a dataURI
+  // Check to make sure we don't already have an absolute path, or even a dataURI
   if (value.match(/(?:^data\:|^[\w\-\+\.]*?\:\/\/|^\/\/)/i)) {
     return value;
   }
 
-  //If we are using the root URL, start from there
+  // If we are using the root URL, start from there
   if (value.charAt(0) === '/') {
     return origin + value.substr(1);
   }
 
-  //Uh-oh, the relative path is leading with a single or double dot ("./" or "../"); things get a bit harder...
-  protocol =
+  // Uh-oh, the relative path is leading with a single or double dot ("./" or "../"); things get a bit harder...
+  let protocol =
     origin.indexOf('://') > -1
       ? origin.substring(0, origin.indexOf('://') + 3)
       : '';
-  stack = (protocol.length ? origin.substring(protocol.length) : origin).split(
-    '/'
-  );
-  parts = value.split('/');
+  let stack = (protocol.length
+    ? origin.substring(protocol.length)
+    : origin
+  ).split('/');
+  let parts = value.split('/');
 
-  //The value after the last slash is ALWAYS considered a filename, not a directory, so always have trailing slashes on paths ending at directories!
+  // The value after the last slash is ALWAYS considered a filename, not a directory, so always have trailing slashes on paths ending at directories!
   stack.pop();
 
-  //Cycle through the relative path, changing the stack as we go
+  // Cycle through the relative path, changing the stack as we go
   for (let i = 0; i < parts.length; i++) {
-    if (parts[i] == '.') {
+    if (parts[i] === '.') {
       continue;
     }
-    if (parts[i] == '..') {
+    if (parts[i] === '..') {
       if (stack.length > 1) {
         stack.pop();
       }
@@ -354,17 +356,17 @@ function toAbsolute(value: string, origin: string): string {
  */
 function copyJSON(node: any, opts: ToJSONOptions): IndexedObject {
   let copy: IndexedObject = {};
-  //Copy all of the node's properties
+  // Copy all of the node's properties
   for (let n in node) {
-    //Make sure this is an own property, and isn't a live javascript function for security reasons
+    // Make sure this is an own property, and isn't a live javascript function for security reasons
     if (
       typeof node[n] !== 'undefined' &&
       typeof node[n] !== 'function' &&
       n.charAt(0).toLowerCase() === n.charAt(0)
     ) {
-      //Only allowed objects are arrays
+      // Only allowed objects are arrays
       if (typeof node[n] !== 'object' || node[n] instanceof Array) {
-        //If we are eliminating empty fields, make sure this value is not NULL or UNDEFINED
+        // If we are eliminating empty fields, make sure this value is not NULL or UNDEFINED
         if (opts.cull) {
           if (node[n] || node[n] === 0 || node[n] === false) {
             copy[n] = node[n];
@@ -398,7 +400,7 @@ function attrJSON(node: any, opts: ToJSONOptions): IndexedObject {
   }
   attributes = opts.attributes ? boolFilter(attributes, opts.attributes) : null;
 
-  //Add the attributes object, converting any specified absolute paths along the way
+  // Add the attributes object, converting any specified absolute paths along the way
   absAttr = boolFilter(attributes, opts.absolutePaths);
   for (let i in absAttr) {
     attributes[i] = toAbsolute(absAttr[i], opts.absoluteBase);
@@ -418,7 +420,7 @@ function styleJSON(
   node: any,
   opts: ToJSONOptions
 ): Item | IndexedObject | null {
-  //Grab the computed style
+  // Grab the computed style
   let style: IndexedObject;
   let css: IndexedObject = {};
   if (opts.computedStyle && node.style instanceof CSSStyleDeclaration) {
@@ -427,7 +429,7 @@ function styleJSON(
     return null;
   }
 
-  //Get the relevant properties from the computed style
+  // Get the relevant properties from the computed style
   for (let k in style) {
     if (
       k !== 'cssText' &&
@@ -435,12 +437,12 @@ function styleJSON(
       typeof style[k] === 'string' &&
       style[k].length
     ) {
-      //css.push(k+ ': ' +style[k]+ ';');
+      // css.push(k+ ': ' +style[k]+ ';');
       css[k] = style[k];
     }
   }
 
-  //Filter the style object
+  // Filter the style object
   return opts.computedStyle instanceof Array
     ? boolFilter(css, opts.computedStyle)
     : css;
@@ -458,14 +460,9 @@ function toJSON(
   opts: ToJSONOptions,
   depth: number
 ): Result | string {
-  let style,
-    kids,
-    kidCount,
-    thisChild,
-    children,
-    copy = copyJSON(node, opts);
+  let copy = copyJSON(node, opts);
 
-  //Some tags are not allowed
+  // Some tags are not allowed
   if (node.nodeType === 1) {
     for (let b in banned) {
       if (node.tagName.toLowerCase() === banned[b]) {
@@ -473,35 +470,36 @@ function toJSON(
       }
     }
   } else if (node.nodeType === 3 && !node.nodeValue.trim()) {
-    //Ignore empty buffer text nodes
+    // Ignore empty buffer text nodes
     return null;
   }
 
-  //Copy all attributes and styles, if allowed
+  // Copy all attributes and styles, if allowed
   if (opts.attributes && node.attributes) {
     copy.attributes = attrJSON(node, opts);
   }
-  if (opts.computedStyle && (style = styleJSON(node, opts))) {
+  let style = styleJSON(node, opts);
+  if (opts.computedStyle && style) {
     copy.style = style;
   }
 
-  //Should we continue iterating?
+  // Should we continue iterating?
   if (
     opts.deep === true ||
     (typeof opts.deep === 'number' && opts.deep > depth)
   ) {
-    //We should!
-    children = [];
-    kids = opts.htmlOnly ? node.children : node.childNodes;
-    kidCount = kids.length;
+    // We should!
+    let children = [];
+    let kids = opts.htmlOnly ? node.children : node.childNodes;
+    let kidCount = kids.length;
     for (let c = 0; c < kidCount; c++) {
-      thisChild = toJSON(kids[c], opts, depth + 1);
+      let thisChild = toJSON(kids[c], opts, depth + 1);
       if (thisChild) {
         children.push(thisChild);
       }
     }
 
-    //Append the children in the appropriate place
+    // Append the children in the appropriate place
     copy.childNodes = children;
   }
   return copy;
@@ -532,20 +530,20 @@ domJSON.toJSON = function(node: Node, opts: ToJSONOptions): Result | string {
   const requiring = required.slice();
   let ignoring = ignored.slice();
 
-  //Update the default options w/ the user's custom settings
+  // Update the default options w/ the user's custom settings
   const options = { ...defaultsForToJSON, ...opts };
 
-  //Convert all options that accept FilterList type inputs into the shorthand notation
+  // Convert all options that accept FilterList type inputs into the shorthand notation
   options.absolutePaths = toShorthand(options.absolutePaths);
   options.attributes = toShorthand(options.attributes);
   options.computedStyle = toShorthand(options.computedStyle);
   options.domProperties = toShorthand(options.domProperties);
   options.serialProperties = toShorthand(options.serialProperties);
 
-  //Make sure there is a base URL for absolute path conversions
+  // Make sure there is a base URL for absolute path conversions
   options.absoluteBase = window.location.origin + '/';
 
-  //Make lists of which DOM properties to skip and/or which are absolutely necessary
+  // Make lists of which DOM properties to skip and/or which are absolutely necessary
   if (options.serialProperties !== true) {
     if (
       options.serialProperties instanceof Array &&
@@ -585,10 +583,10 @@ domJSON.toJSON = function(node: Node, opts: ToJSONOptions): Result | string {
     }
   }
 
-  //Transform the node into an object literal
+  // Transform the node into an object literal
   const copy = toJSON(node, options, 0);
 
-  //Wrap our copy object in a nice object of its own to save some metadata
+  // Wrap our copy object in a nice object of its own to save some metadata
   if (options.metadata) {
     output.meta = {
       ...metadata,
@@ -611,7 +609,7 @@ domJSON.toJSON = function(node: Node, opts: ToJSONOptions): Result | string {
     output = copy as IndexedObject;
   }
 
-  //If opts.stringify is true, turn the output object into a JSON string
+  // If opts.stringify is true, turn the output object into a JSON string
   if (options.stringify) {
     return JSON.stringify(output);
   }
@@ -631,43 +629,43 @@ function createNode(type: number, doc: Document, data: any): Node | boolean {
     doc = doc.ownerDocument;
   }
   switch (type) {
-    case 1: //HTMLElement
+    case 1: // HTMLElement
       if (typeof data.tagName === 'string') {
         return doc.createElement(data.tagName);
       }
       return false;
 
-    case 3: //Text Node
+    case 3: // Text Node
       if (typeof data.nodeValue === 'string' && data.nodeValue.length) {
         return doc.createTextNode(data.nodeValue);
       }
       return doc.createTextNode('');
 
-    case 7: //Processing Instruction
+    case 7: // Processing Instruction
       if (data.hasOwnProperty('target') && data.hasOwnProperty('data')) {
         return doc.createProcessingInstruction(data.target, data.data);
       }
       return false;
 
-    case 8: //Comment Node
+    case 8: // Comment Node
       if (typeof data.nodeValue === 'string') {
         return doc.createComment(data.nodeValue);
       }
       return doc.createComment('');
 
-    case 9: //HTML Document
+    case 9: // HTML Document
       return doc.implementation.createHTMLDocument(data);
 
-    case 11: //Document Fragment
+    case 11: // Document Fragment
       return doc;
 
     default:
-      //Failed
+      // Failed
       return false;
   }
 }
 
-//Recursively convert a JSON object generated by domJSON to a DOM Node
+// Recursively convert a JSON object generated by domJSON to a DOM Node
 /**
  * Do the work of converting a JSON object/string generated by domJSON to a DOM Node
  * @param {Object} obj The JSON representation of the DOM Node we are about to create
@@ -677,7 +675,7 @@ function createNode(type: number, doc: Document, data: any): Node | boolean {
  * @ignore
  */
 function toDOM(obj: Result, parent: Node, doc: Document): Node | boolean {
-  //Create the node, if possible
+  // Create the node, if possible
   let node: any;
   if (obj.nodeType) {
     node = createNode(obj.nodeType, doc, obj) as Node;
@@ -686,7 +684,7 @@ function toDOM(obj: Result, parent: Node, doc: Document): Node | boolean {
     return false;
   }
 
-  //Copy all available properties that are not arrays or objects
+  // Copy all available properties that are not arrays or objects
   for (let x in obj) {
     if (
       typeof obj[x] !== 'object' &&
@@ -701,15 +699,15 @@ function toDOM(obj: Result, parent: Node, doc: Document): Node | boolean {
     }
   }
 
-  //If this is an HTMLElement, set the attributes
+  // If this is an HTMLElement, set the attributes
   if (obj.nodeType === 1 && obj.tagName) {
     if (obj.attributes) {
-      //Check for cross-origin
+      // Check for cross-origin
       /*src = obj.attributes.src ? 'src' : (obj.attributes.href ? 'href' : null);
       if (src) {
         obj.attributes[src] += ( (obj.attributes[src].indexOf('?') === -1) ? '?' : '&'+Math.random().toString(36).slice(-2)+'=' ) + Math.random().toString(36).slice(-4);
         obj.attributes.crossorigin = 'anonymous';
-        //node.setAttribute('crossorigin', 'anonymous');
+        // node.setAttribute('crossorigin', 'anonymous');
       }*/
       for (let a in obj.attributes) {
         node.setAttribute(a, obj.attributes[a]);
@@ -717,7 +715,7 @@ function toDOM(obj: Result, parent: Node, doc: Document): Node | boolean {
     }
   }
 
-  //Finally, if we have childNodes, recurse through them
+  // Finally, if we have childNodes, recurse through them
   if (obj.childNodes && obj.childNodes.length) {
     for (let c in obj.childNodes) {
       toDOM(obj.childNodes[c], node, doc);
@@ -735,14 +733,14 @@ function toDOM(obj: Result, parent: Node, doc: Document): Node | boolean {
  * @memberof domJSON
  */
 domJSON.toDOM = function(obj: Result, opts: ToDOMOptions): DocumentFragment {
-  //Parse the JSON string if necessary
+  // Parse the JSON string if necessary
   if (typeof obj === 'string') {
     obj = JSON.parse(obj);
   }
-  //Update the default options w/ the user's custom settings
+  // Update the default options w/ the user's custom settings
   const options = { ...defaultsForToDOM, ...opts };
 
-  //Create a document fragment, and away we go!
+  // Create a document fragment, and away we go!
   const node = document.createDocumentFragment();
   if (options.noMeta) {
     toDOM(obj, node, node as Document);
@@ -752,4 +750,47 @@ domJSON.toDOM = function(obj: Result, opts: ToDOMOptions): DocumentFragment {
   return node;
 };
 
-export default domJSON;
+export default function serializeEvent(
+  event: React.SyntheticEvent<any> | Event
+): any {
+  const blacklist = [
+    '_targetInst',
+    '_dispatchInstances',
+    'dispatchConfig',
+    'nativeEvent',
+    'currentTarget',
+    'relatedTarget',
+    'view',
+    'eventPhase',
+    'bubbles',
+    'cancelable',
+    'defaultPrevented',
+    'isTrusted',
+    'preventDefault',
+    'isDefaultPrevented',
+    'stopPropagation',
+    'isPropagationStopped'
+  ];
+  let _event: { [key: string]: any } = {};
+  for (let key in event) {
+    if (blacklist.indexOf(key) < 0) {
+      _event[key] = (event as any)[key];
+    }
+  }
+  return JSON.stringify(_event, (key: string, value: any) => {
+    if (!key) {
+      return value;
+    }
+    try {
+      JSON.stringify(value);
+      return value;
+    } catch (error) {
+      if (value instanceof Node) {
+        return domJSON.toJSON(value, {
+          metadata: false
+        });
+      }
+      return undefined;
+    }
+  });
+}

@@ -13,7 +13,7 @@ import * as ReactDOM from 'react-dom';
 
 import { default as VDOM, IVDOMElement } from '@nteract/transform-vdom';
 
-import domJSON from './serialize';
+import serializeEvent from './serialize';
 
 import '../style/index.css';
 
@@ -33,49 +33,6 @@ const CSS_ICON_CLASS = 'jp-MaterialIcon jp-VDOMIcon';
 export const MIME_TYPE = 'application/vdom.v1+json';
 
 type IAttributes = { [key: string]: any };
-
-function serializeEvent(event: React.SyntheticEvent<any> | Event): any {
-  const blacklist = [
-    '_targetInst',
-    '_dispatchInstances',
-    'dispatchConfig',
-    'nativeEvent',
-    'currentTarget',
-    'relatedTarget',
-    'view',
-    'eventPhase',
-    'bubbles',
-    'cancelable',
-    'defaultPrevented',
-    'isTrusted',
-    'preventDefault',
-    'isDefaultPrevented',
-    'stopPropagation',
-    'isPropagationStopped'
-  ];
-  let _event: { [key: string]: any } = {};
-  for (let key in event) {
-    if (blacklist.indexOf(key) < 0) {
-      _event[key] = (event as any)[key];
-    }
-  }
-  return JSON.stringify(_event, (key: string, value: any) => {
-    if (!key) {
-      return value;
-    }
-    try {
-      JSON.stringify(value);
-      return value;
-    } catch (error) {
-      if (value instanceof Node) {
-        return domJSON.toJSON(value, {
-          metadata: false
-        });
-      }
-      return undefined;
-    }
-  });
-}
 
 /**
  * A renderer for declarative virtual DOM content.
