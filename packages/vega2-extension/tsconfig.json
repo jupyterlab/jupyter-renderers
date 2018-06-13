@@ -1,14 +1,8 @@
 {
+  "extends": "../../tsconfigbase",
   "compilerOptions": {
-    "declaration": true,
-    "noImplicitAny": false,
-    "noEmitOnError": true,
-    "noUnusedLocals": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "target": "es2015",
-    "outDir": "./lib",
-    "lib": ["es2015", "dom"]
+    "outDir": "./build",
+    "types": ["node"]
   },
-  "include": ["src/*", "typings/*.d.ts"]
+  "include": ["src/*"]
 }
