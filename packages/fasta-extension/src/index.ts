@@ -9,7 +9,7 @@ import { Message } from '@phosphor/messaging';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import * as msa from 'msa';
+import msa from 'msa';
 
 import 'msa/css/msa.css';
 
@@ -76,7 +76,7 @@ export class RenderedData extends Widget implements IRenderMime.IRenderer {
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       let data = model.data[this._mimeType];
-      var seqs = this._parser.parse(data);
+      let seqs = this._parser.parse(data);
       this.msa.seqs.reset(seqs);
       this.msa.render();
       this.update();

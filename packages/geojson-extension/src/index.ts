@@ -7,15 +7,15 @@ import { Message } from '@phosphor/messaging';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import * as leaflet from 'leaflet';
+import leaflet from 'leaflet';
 
 import 'leaflet/dist/leaflet.css';
 
 import '../style/index.css';
 
-import * as iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
-import * as iconUrl from 'leaflet/dist/images/marker-icon.png';
-import * as shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+import iconUrl from 'leaflet/dist/images/marker-icon.png';
+import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
 /**
  * The CSS class to add to the GeoJSON Widget.
@@ -153,7 +153,9 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    */
   protected onUpdateRequest(msg: Message): void {
     // Update map size after update
-    if (this.isVisible) this._map.invalidateSize();
+    if (this.isVisible) {
+      this._map.invalidateSize();
+    }
     // Update map size after panel/window is resized
     this._map.fitBounds(this._geoJSONLayer.getBounds());
   }
