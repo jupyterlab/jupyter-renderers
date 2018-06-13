@@ -4,30 +4,21 @@
   "description": "KaTeX math renderer for JupyterLab",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "files": [
-    "lib/*.d.ts",
-    "lib/*.js",
-    "style/*.*"
-  ],
+  "files": ["lib/*.d.ts", "lib/*.js", "style/*.*"],
   "directories": {
     "lib": "lib/"
   },
-  "keywords": [
-    "jupyter",
-    "jupyterlab",
-    "jupyterlab-extension",
-    "katex"
-  ],
+  "keywords": ["jupyter", "jupyterlab", "jupyterlab-extension", "katex"],
   "dependencies": {
-    "@jupyterlab/application": "^0.16.3",
-    "@jupyterlab/rendermime": "^0.16.0",
+    "@jupyterlab/application": "^0.16.2",
+    "@jupyterlab/rendermime": "^0.16.2",
     "@jupyterlab/rendermime-interfaces": "^1.0.9",
     "katex": "^0.9.0"
   },
   "devDependencies": {
     "@types/katex": "^0.5.0",
     "rimraf": "~2.6.2",
-    "typescript": "~2.6.2"
+    "typescript": "~2.9.1"
   },
   "scripts": {
     "build": "tsc",
