@@ -1,6 +1,6 @@
 // Modified after the auto-render.js extension in katex/contrib.
 
-import * as katex from 'katex';
+import katex from 'katex';
 
 interface IParseData {
   type: 'text' | 'math' | 'string';

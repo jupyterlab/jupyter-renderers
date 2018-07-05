@@ -7,7 +7,7 @@ import { Message } from '@phosphor/messaging';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import * as Plotly from 'plotly.js/dist/plotly';
+import Plotly from 'plotly.js/dist/plotly';
 
 import '../style/index.css';
 
@@ -27,7 +27,7 @@ const CSS_ICON_CLASS = 'jp-MaterialIcon jp-PlotlyIcon';
  */
 export const MIME_TYPE = 'application/vnd.plotly.v1+json';
 
-interface PlotlySpec {
+interface IPlotlySpec {
   data: Plotly.Data;
   layout: Plotly.Layout;
   frames?: Plotly.Frame[];
@@ -49,7 +49,7 @@ export class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const { data, layout, frames } = model.data[this._mimeType] as
       | any
-      | PlotlySpec;
+      | IPlotlySpec;
     // const metadata = model.metadata[this._mimeType] as any || {};
     return Plotly.newPlot(this.node, data, layout).then(plot => {
       if (frames) {

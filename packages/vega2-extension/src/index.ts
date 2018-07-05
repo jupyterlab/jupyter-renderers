@@ -12,7 +12,7 @@ import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 /**
  * Import vega-embed in this manner due to how it is exported.
  */
-import embed = require('vega-embed-v2');
+import embed from 'vega-embed-v2';
 
 import '../style/index.css';
 

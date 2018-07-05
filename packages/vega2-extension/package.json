@@ -8,12 +8,7 @@
   },
   "license": "BSD-3-Clause",
   "author": "Project Jupyter",
-  "files": [
-    "lib/*.d.ts",
-    "lib/*.js.map",
-    "lib/*.js",
-    "style/*.css"
-  ],
+  "files": ["lib/*.d.ts", "lib/*.js.map", "lib/*.js", "style/*.css"],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
@@ -36,9 +31,9 @@
     "vega-embed-v2": "^0.0.3"
   },
   "devDependencies": {
-    "@types/node": "~8.0.47",
+    "@types/node": "~10.3.2",
     "rimraf": "~2.6.2",
-    "typescript": "~2.6.2"
+    "typescript": "~2.9.1"
   },
   "jupyterlab": {
     "mimeExtension": true
