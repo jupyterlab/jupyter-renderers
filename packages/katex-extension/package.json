@@ -10,9 +10,9 @@
   },
   "keywords": ["jupyter", "jupyterlab", "jupyterlab-extension", "katex"],
   "dependencies": {
-    "@jupyterlab/application": "^0.16.2",
-    "@jupyterlab/rendermime": "^0.16.2",
-    "@jupyterlab/rendermime-interfaces": "^1.0.9",
+    "@jupyterlab/application": "^0.17.0-1",
+    "@jupyterlab/rendermime": "^0.17.0-1",
+    "@jupyterlab/rendermime-interfaces": "^1.1.0-1",
     "katex": "^0.9.0"
   },
   "devDependencies": {

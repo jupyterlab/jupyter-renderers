@@ -13,10 +13,10 @@
     "mimeExtension": true
   },
   "dependencies": {
-    "@jupyterlab/rendermime-interfaces": "^1.0.9",
+    "@jupyterlab/rendermime-interfaces": "^1.1.0-1",
     "@phosphor/messaging": "^1.2.2",
-    "@phosphor/widgets": "^1.5.0",
-    "leaflet": "^1.2.0"
+    "@phosphor/widgets": "^1.6.0",
+    "leaflet": "^1.3.3"
   },
   "devDependencies": {
     "@types/leaflet": "^1.2.0",
