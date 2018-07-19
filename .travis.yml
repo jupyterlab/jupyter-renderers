@@ -31,5 +31,5 @@ script:
 - jupyter labextension link packages/plotly-extension --no-build
 - jupyter labextension link packages/vega2-extension --no-build
 - jupyter labextension link packages/vega3-extension --no-build
-- jupyter lab build 
+- NODE_OPTIONS=--max-old-space-size=16000 jupyter lab build 
 - python -m jupyterlab.selenium_check
