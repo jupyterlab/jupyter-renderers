@@ -1,14 +1,22 @@
 {
   "name": "@jupyterlab/geojson-extension",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "GeoJSON renderer for JupyterLab",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "files": ["lib/*.d.ts", "lib/*.js", "style/*.*"],
+  "files": [
+    "lib/*.d.ts",
+    "lib/*.js",
+    "style/*.*"
+  ],
   "directories": {
     "lib": "lib/"
   },
-  "keywords": ["jupyter", "jupyterlab", "jupyterlab-extension"],
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension"
+  ],
   "jupyterlab": {
     "mimeExtension": true
   },

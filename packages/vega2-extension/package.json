@@ -1,6 +1,6 @@
 {
   "name": "@jupyterlab/vega2-extension",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "JupyterLab - Vega 2 and Vega-Lite 1 Mime Renderer Extension",
   "homepage": "https://github.com/jupyterlab/jupyter-renderers",
   "bugs": {
@@ -8,7 +8,12 @@
   },
   "license": "BSD-3-Clause",
   "author": "Project Jupyter",
-  "files": ["lib/*.d.ts", "lib/*.js.map", "lib/*.js", "style/*.css"],
+  "files": [
+    "lib/*.d.ts",
+    "lib/*.js.map",
+    "lib/*.js",
+    "style/*.css"
+  ],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
