@@ -15,7 +15,7 @@
     "mimeExtension": true
   },
   "dependencies": {
-    "@jupyterlab/rendermime-interfaces": "^1.1.0-1",
+    "@jupyterlab/rendermime-interfaces": "^1.1.2",
     "@phosphor/messaging": "^1.2.2",
     "@phosphor/widgets": "^1.6.0",
     "msa": "^1.0.3"
