@@ -9,7 +9,7 @@ import { Message } from '@phosphor/messaging';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import msa from 'msa';
+import * as msa from 'msa';
 
 import 'msa/css/msa.css';
 
