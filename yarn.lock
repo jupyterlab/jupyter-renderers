@@ -2378,6 +2378,10 @@ eslint-plugin-prettier@^2.2.0:
     fast-diff "^1.1.1"
     jest-docblock "^21.0.0"
 
+esm@^3.0.34:
+  version "3.0.72"
+  resolved "https://registry.npmjs.org/esm/-/esm-3.0.72.tgz#8f71b3f54b978bbbcbb9788f7f3569a36578c136"
+
 esprima@^1.0.3:
   version "1.2.5"
   resolved "https://registry.npmjs.org/esprima/-/esprima-1.2.5.tgz#0993502feaf668138325756f30f9a51feeec11e9"
@@ -4575,6 +4579,12 @@ math-random@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/math-random/-/math-random-1.0.1.tgz#8b3aac588b8a66e4975e3cdea67f7bb329601fac"
 
+mathjax3@3.0.0-beta.1:
+  version "3.0.0-beta.1"
+  resolved "https://registry.npmjs.org/mathjax3/-/mathjax3-3.0.0-beta.1.tgz#5060ff5f406b4771e54ff893fdf51b47aad490bb"
+  dependencies:
+    esm "^3.0.34"
+
 matrix-camera-controller@^2.1.1, matrix-camera-controller@^2.1.3:
   version "2.1.3"
   resolved "https://registry.npmjs.org/matrix-camera-controller/-/matrix-camera-controller-2.1.3.tgz#35e5260cc1cd550962ba799f2d8d4e94b1a39370"
@@ -6006,7 +6016,7 @@ right-now@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/right-now/-/right-now-1.0.0.tgz#6e89609deebd7dcdaf8daecc9aea39cf585a0918"
 
-rimraf@^2.6.1, rimraf@~2.6.2:
+rimraf@^2.6.1, rimraf@^2.6.2, rimraf@~2.6.2:
   version "2.6.2"
   resolved "https://registry.npmjs.org/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
   dependencies:
