@@ -14,3 +14,8 @@
 .katex svg {
   height: inherit;
 }
+
+.jp-OutputArea-output.jp-RenderedLatex .katex-display {
+  text-align: left;
+  margin: 0;
+}
