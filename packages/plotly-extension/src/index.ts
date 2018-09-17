@@ -62,7 +62,11 @@ export class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
             height: this.node.offsetHeight
           }).then((url: string) => {
             const imageData = url.split(',')[1];
-            model.setData({ data: { ...data, 'image/png': imageData } });
+            if (model.data['image/png'] !== imageData) {
+              model.setData({
+                data: { ...model.data, 'image/png': imageData }
+              });
+            }
           });
         });
       }
@@ -73,7 +77,9 @@ export class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
         height: this.node.offsetHeight
       }).then((url: string) => {
         const imageData = url.split(',')[1];
-        model.setData({ data: { ...data, 'image/png': imageData } });
+        if (model.data['image/png'] !== imageData) {
+          model.setData({ data: { ...model.data, 'image/png': imageData } });
+        }
       });
     });
   }
