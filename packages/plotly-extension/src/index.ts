@@ -56,25 +56,40 @@ export class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
         return Plotly.addFrames(this.node, frames).then(() => {
           Plotly.animate(this.node);
           this.update();
-          return Plotly.toImage(plot, {
-            format: 'png',
-            width: this.node.offsetWidth,
-            height: this.node.offsetHeight
-          }).then((url: string) => {
-            const imageData = url.split(',')[1];
-            model.setData({ data: { ...data, 'image/png': imageData } });
-          });
+          if (this.node.offsetWidth > 0 && this.node.offsetHeight > 0) {
+            return Plotly.toImage(plot, {
+              format: 'png',
+              width: this.node.offsetWidth,
+              height: this.node.offsetHeight
+            }).then((url: string) => {
+              const imageData = url.split(',')[1];
+              if (model.data['image/png'] !== imageData) {
+                model.setData({
+                  data: { ...model.data, 'image/png': imageData }
+                });
+              }
+            });
+          }
         });
       }
       this.update();
-      return Plotly.toImage(plot, {
-        format: 'png',
-        width: this.node.offsetWidth,
-        height: this.node.offsetHeight
-      }).then((url: string) => {
-        const imageData = url.split(',')[1];
-        model.setData({ data: { ...data, 'image/png': imageData } });
-      });
+      if (this.node.offsetWidth > 0 && this.node.offsetHeight > 0) {
+        return Plotly.toImage(plot, {
+          format: 'png',
+          width: this.node.offsetWidth,
+          height: this.node.offsetHeight
+        }).then((url: string) => {
+          const imageData = url.split(',')[1];
+          if (model.data['image/png'] !== imageData) {
+            model.setData({
+              data: {
+                ...model.data,
+                'image/png': imageData
+              }
+            });
+          }
+        });
+      }
     });
   }
 
