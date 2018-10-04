@@ -2,25 +2,41 @@
   "name": "@jupyterlab/katex-extension",
   "version": "0.18.1",
   "description": "KaTeX math renderer for JupyterLab",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": [
-    "lib/*.d.ts",
-    "lib/*.js",
-    "style/*.*"
-  ],
-  "directories": {
-    "lib": "lib/"
-  },
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab-extension",
     "katex"
   ],
+  "homepage": "https://github.com/jupyterlab/jupyter-renderers",
+  "bugs": {
+    "url": "https://github.com/jupyterlab/jupyter-renderers/issues"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Project Jupyter",
+  "files": [
+    "lib/*.d.ts",
+    "lib/*.js",
+    "style/*.*"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jupyterlab/jupyter-renderers.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf lib",
+    "prepack": "npm run clean && npm run build",
+    "watch": "tsc -w"
+  },
   "dependencies": {
-    "@jupyterlab/application": "^0.18.0",
-    "@jupyterlab/rendermime": "^0.18.0",
+    "@jupyterlab/application": "^0.19.1-alpha.0",
+    "@jupyterlab/rendermime": "^0.19.1-alpha.0",
     "@jupyterlab/rendermime-interfaces": "^1.1.2",
     "katex": "^0.9.0"
   },
@@ -29,23 +45,7 @@
     "rimraf": "~2.6.2",
     "typescript": "~2.9.1"
   },
-  "scripts": {
-    "build": "tsc",
-    "clean": "rimraf lib",
-    "prepack": "npm run clean && npm run build",
-    "watch": "tsc -w"
-  },
   "jupyterlab": {
     "extension": true
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jupyterlab/jupyter-renderers.git"
-  },
-  "author": "Project Jupyter",
-  "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/jupyterlab/jupyter-renderers/issues"
-  },
-  "homepage": "https://github.com/jupyterlab/jupyter-renderers"
+  }
 }
