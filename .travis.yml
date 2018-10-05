@@ -7,10 +7,14 @@ install:
 - bash miniconda.sh -b -p $HOME/miniconda
 - export PATH="$HOME/miniconda/bin:$PATH"
 - hash -r
-- conda config --set always_yes yes --set changeps1 no
+- conda config --set always_yes yes --set changeps1 no --set show_channel_urls yes
+- conda config --remove channels defaults
+- conda config --add channels conda-forge
 - conda update -q conda
 - conda info -a
 - conda install nodejs notebook
+- which pip
+- pip --version
 - pip install --pre jupyterlab
 script:
 - yarn
