@@ -1,6 +1,6 @@
 {
   "name": "@jupyterlab/plotly-extension",
-  "version": "0.17.1",
+  "version": "0.18.0",
   "description": "Plotly renderer for JupyterLab",
   "keywords": [
     "jupyter",
