@@ -2,23 +2,36 @@
   "name": "@jupyterlab/geojson-extension",
   "version": "0.17.1",
   "description": "GeoJSON renderer for JupyterLab",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
-  "files": [
-    "lib/*.d.ts",
-    "lib/*.js",
-    "style/*.*"
-  ],
-  "directories": {
-    "lib": "lib/"
-  },
   "keywords": [
     "jupyter",
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "jupyterlab": {
-    "mimeExtension": true
+  "homepage": "https://github.com/jupyterlab/jupyter-renderers",
+  "bugs": {
+    "url": "https://github.com/jupyterlab/jupyter-renderers/issues"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Project Jupyter",
+  "files": [
+    "lib/*.d.ts",
+    "lib/*.js",
+    "style/*.*"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jupyterlab/jupyter-renderers.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf lib",
+    "prepack": "npm run clean && npm run build",
+    "watch": "tsc -w"
   },
   "dependencies": {
     "@jupyterlab/rendermime-interfaces": "^1.1.2",
@@ -29,22 +42,9 @@
   "devDependencies": {
     "@types/leaflet": "^1.2.0",
     "rimraf": "~2.6.2",
-    "typescript": "~2.9.1"
+    "typescript": "~3.1.1"
   },
-  "scripts": {
-    "build": "tsc",
-    "clean": "rimraf lib",
-    "prepack": "npm run clean && npm run build",
-    "watch": "tsc -w"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jupyterlab/jupyter-renderers.git"
-  },
-  "author": "Project Jupyter",
-  "license": "BSD-3-Clause",
-  "bugs": {
-    "url": "https://github.com/jupyterlab/jupyter-renderers/issues"
-  },
-  "homepage": "https://github.com/jupyterlab/jupyter-renderers"
+  "jupyterlab": {
+    "mimeExtension": true
+  }
 }
