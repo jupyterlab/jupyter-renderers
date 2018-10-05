@@ -9,7 +9,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es2015",
-    "outDir": "./lib",
+    "outDir": "lib",
+    "rootDir": "src",
     "lib": ["es2015", "dom"]
   },
   "include": ["src/*", "typings/*.d.ts"]
