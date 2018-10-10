@@ -1,0 +1,15 @@
+{
+  "title": "KaTeX",
+  "description": "KaTeX extension settings.",
+  "properties": {
+    "macros": {
+      "type": "object",
+      "title": "Macros",
+      "description":
+        "A collection of custom macros.\nEach macro is a property with a name like `\\name` (written `\\\\name`, escaping\nbackslash) which maps to a string that describes the expansion of the macro.\nSingle-character keys can also be included in which case the character will be\nredefined as the given macro (similar to TeX active characters).",
+      "default": {}
+    }
+  },
+  "additionalProperties": false,
+  "type": "object"
+}

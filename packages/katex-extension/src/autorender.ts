@@ -179,12 +179,17 @@ export interface IAutoRenderOptions extends katex.KatexOptions {
   readonly delimiters: IDelimiter[];
   readonly ignoredTags: string[];
   readonly throwOnError: boolean;
+  macros?: IMacros;
 }
 
 export interface IDelimiter {
   left: string;
   right: string;
   display: boolean;
+}
+
+export interface IMacros {
+  [s: string]: string;
 }
 
 const defaultAutoRenderOptions: IAutoRenderOptions = {
@@ -200,6 +205,10 @@ const defaultAutoRenderOptions: IAutoRenderOptions = {
   errorColor: '#CC0000',
   throwOnError: false
 };
+
+export function setMacros(macros: IMacros) {
+  defaultAutoRenderOptions.macros = macros;
+}
 
 export function renderMathInElement(
   elem: HTMLElement,
