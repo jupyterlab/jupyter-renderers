@@ -179,12 +179,17 @@ export interface IAutoRenderOptions extends katex.KatexOptions {
   readonly delimiters: IDelimiter[];
   readonly ignoredTags: string[];
   readonly throwOnError: boolean;
+  macros?: IMacros;
 }
 
 export interface IDelimiter {
   left: string;
   right: string;
   display: boolean;
+}
+
+export interface IMacros {
+  [s: string]: string;
 }
 
 const defaultAutoRenderOptions: IAutoRenderOptions = {
@@ -203,11 +208,11 @@ const defaultAutoRenderOptions: IAutoRenderOptions = {
 
 export function renderMathInElement(
   elem: HTMLElement,
-  options: IAutoRenderOptions = defaultAutoRenderOptions
+  options: Partial<IAutoRenderOptions> = {}
 ) {
   if (!elem) {
     throw new Error('No element provided to render');
   }
-  const optionsCopy = { ...options };
-  renderElem(elem, optionsCopy);
+  const fullOptions = { ...defaultAutoRenderOptions, ...options };
+  renderElem(elem, fullOptions);
 }
