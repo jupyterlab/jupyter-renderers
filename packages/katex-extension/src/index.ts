@@ -7,13 +7,19 @@ import { ILatexTypesetter } from '@jupyterlab/rendermime';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import { IMacros, renderMathInElement, setMacros } from './autorender';
+import { IMacros, renderMathInElement } from './autorender';
 
 import { ISettingRegistry } from '@jupyterlab/coreutils';
 
 import '../style/index.css';
 
 const katexPluginId = '@jupyterlab/katex-extension:plugin';
+
+interface IOptions {
+  macros?: IMacros;
+}
+
+const options: IOptions = {};
 
 /**
  * The KaTeX Typesetter.
@@ -23,7 +29,7 @@ export class KatexTypesetter implements IRenderMime.ILatexTypesetter {
    * Typeset the math in a node.
    */
   typeset(node: HTMLElement): void {
-    renderMathInElement(node);
+    renderMathInElement(node, options);
   }
 }
 
@@ -40,7 +46,7 @@ const katexPlugin: JupyterLabPlugin<ILatexTypesetter> = {
      */
     function updateSettings(settings: ISettingRegistry.ISettings): void {
       const macros = settings.get('macros').composite as IMacros;
-      setMacros(macros);
+      options.macros = macros;
     }
 
     settingRegistry

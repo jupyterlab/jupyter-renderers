@@ -206,17 +206,13 @@ const defaultAutoRenderOptions: IAutoRenderOptions = {
   throwOnError: false
 };
 
-export function setMacros(macros: IMacros) {
-  defaultAutoRenderOptions.macros = macros;
-}
-
 export function renderMathInElement(
   elem: HTMLElement,
-  options: IAutoRenderOptions = defaultAutoRenderOptions
+  options: Partial<IAutoRenderOptions> = {}
 ) {
   if (!elem) {
     throw new Error('No element provided to render');
   }
-  const optionsCopy = { ...options };
-  renderElem(elem, optionsCopy);
+  const fullOptions = { ...defaultAutoRenderOptions, ...options };
+  renderElem(elem, fullOptions);
 }
