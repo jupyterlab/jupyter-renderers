@@ -25,3 +25,5 @@ test/coverage
 docs/_build
 docs/api
 packages/services/examples/node/config.json
+
+lerna-debug.log
