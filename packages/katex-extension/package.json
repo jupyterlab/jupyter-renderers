@@ -39,7 +39,7 @@
     "@jupyterlab/application": "^0.19.1",
     "@jupyterlab/coreutils": "^2.2.1",
     "@jupyterlab/rendermime": "^0.19.1",
-    "@jupyterlab/rendermime-interfaces": "^1.1.2",
+    "@jupyterlab/rendermime-interfaces": "^1.2.1",
     "katex": "^0.9.0"
   },
   "devDependencies": {
