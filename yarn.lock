@@ -9988,6 +9988,10 @@ yargs@~6.3.0:
     y18n "^3.2.1"
     yargs-parser "^4.0.2"
 
+yarn@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.npmjs.org/yarn/-/yarn-1.6.0.tgz#9cec6f7986dc237d39ec705ce74d95155fe55d4b"
+
 zero-crossings@^1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/zero-crossings/-/zero-crossings-1.0.1.tgz#c562bd3113643f3443a245d12406b88b69b9a9ff"

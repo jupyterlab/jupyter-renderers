@@ -1,3 +1,9 @@
 #!/bin/bash
 
-jupyter labextension install @jupyterlab/fasta-extension @jupyterlab/geojson-extension @jupyterlab/katex-extension @jupyterlab/mathjax3-extension @jupyterlab/plotly-extension @jupyterlab/vega2-extension @jupyterlab/vega3-extension
+jupyter labextension disable @jupyterlab/vdom-extension
+
+jlpm install
+lerna boostrap
+jlpm build
+jupyter labextension install packages/fasta-extension packages/geojson-extension packages/katex-extension packages/plotly-extension packages/vega2-extension packages/vdom-experimental-extension
+

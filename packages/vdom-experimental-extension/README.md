@@ -1,6 +1,6 @@
 # vdom-experimental-extension
 
-[![Binder](https://beta.mybinder.org/badge.svg)](https://mybinder.org/v2/gh/gnestor/jupyter-renderers/binder-dev?urlpath=lab/tree/notebooks/vdom-experimental-extension.ipynb)
+[![Binder](https://beta.mybinder.org/badge.svg)](https://mybinder.org/v2/gh/gnestor/jupyter-renderers/vdom-experimental?urlpath=lab/tree/notebooks/vdom-experimental-extension.ipynb)
 
 A JupyterLab extension for rendering VirtualDOM using React
 
