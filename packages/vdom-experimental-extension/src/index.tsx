@@ -11,9 +11,9 @@ import * as React from 'react';
 
 import * as ReactDOM from 'react-dom';
 
-import { default as VDOM, IVDOMElement } from '@nteract/transform-vdom';
+import VDOM, { IVDOMElement } from '@nteract/transform-vdom';
 
-import serializeEvent from './serialize';
+import serializeEvent from './event-to-object';
 
 import '../style/index.css';
 
