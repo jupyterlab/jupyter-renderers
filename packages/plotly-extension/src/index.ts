@@ -47,11 +47,11 @@ export class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
    * Render Plotly into this widget's node.
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
-    const { data, layout, frames } = model.data[this._mimeType] as
+    const { data, layout, frames, config } = model.data[this._mimeType] as
       | any
       | IPlotlySpec;
     // const metadata = model.metadata[this._mimeType] as any || {};
-    return Plotly.newPlot(this.node, data, layout).then(plot => {
+    return Plotly.newPlot(this.node, data, layout, config).then(plot => {
       if (frames) {
         return Plotly.addFrames(this.node, frames).then(() => {
           Plotly.animate(this.node);
