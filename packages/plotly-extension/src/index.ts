@@ -51,30 +51,15 @@ export class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
       | any
       | IPlotlySpec;
     // const metadata = model.metadata[this._mimeType] as any || {};
-    return Plotly.newPlot(this.node, data, layout, config).then(plot => {
+    return Plotly.react(this.node, data, layout, config).then(plot => {
+      this.update();
       if (frames) {
-        return Plotly.addFrames(this.node, frames).then(() => {
+        Plotly.addFrames(this.node, frames).then(() => {
           Plotly.animate(this.node);
-          this.update();
-          if (this.node.offsetWidth > 0 && this.node.offsetHeight > 0) {
-            return Plotly.toImage(plot, {
-              format: 'png',
-              width: this.node.offsetWidth,
-              height: this.node.offsetHeight
-            }).then((url: string) => {
-              const imageData = url.split(',')[1];
-              if (model.data['image/png'] !== imageData) {
-                model.setData({
-                  data: { ...model.data, 'image/png': imageData }
-                });
-              }
-            });
-          }
         });
       }
-      this.update();
       if (this.node.offsetWidth > 0 && this.node.offsetHeight > 0) {
-        return Plotly.toImage(plot, {
+        Plotly.toImage(plot, {
           format: 'png',
           width: this.node.offsetWidth,
           height: this.node.offsetHeight
