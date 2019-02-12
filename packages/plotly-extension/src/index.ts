@@ -34,12 +34,12 @@ interface IPlotlySpec {
 }
 
 export class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
+  render_target: HTMLElement;
   /**
    * Create a new widget for rendering Plotly.
    */
   constructor(options: IRenderMime.IRendererOptions) {
     super();
-    this.addClass(CSS_CLASS);
     this._mimeType = options.mimeType;
   }
 
@@ -47,22 +47,31 @@ export class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
    * Render Plotly into this widget's node.
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
-    const { data, layout, frames, config } = model.data[this._mimeType] as
-      | any
-      | IPlotlySpec;
+    const { data, layout, frames, config, div_id } = model.data[
+      this._mimeType
+    ] as any | IPlotlySpec;
     // const metadata = model.metadata[this._mimeType] as any || {};
-    return Plotly.react(this.node, data, layout, config).then(plot => {
+    if (div_id == null) {
+      this.render_target = this.node;
+      this.addClass(CSS_CLASS);
+    } else {
+      this.render_target = document.getElementById(div_id);
+    }
+    return Plotly.react(this.render_target, data, layout, config).then(plot => {
       this.update();
       if (frames) {
-        Plotly.addFrames(this.node, frames).then(() => {
-          Plotly.animate(this.node);
+        Plotly.addFrames(this.render_target, frames).then(() => {
+          Plotly.animate(this.render_target);
         });
       }
-      if (this.node.offsetWidth > 0 && this.node.offsetHeight > 0) {
+      if (
+        this.render_target.offsetWidth > 0 &&
+        this.render_target.offsetHeight > 0
+      ) {
         Plotly.toImage(plot, {
           format: 'png',
-          width: this.node.offsetWidth,
-          height: this.node.offsetHeight
+          width: this.render_target.offsetWidth,
+          height: this.render_target.offsetHeight
         }).then((url: string) => {
           const imageData = url.split(',')[1];
           if (model.data['image/png'] !== imageData) {
@@ -97,8 +106,8 @@ export class RenderedPlotly extends Widget implements IRenderMime.IRenderer {
    */
   protected onUpdateRequest(msg: Message): void {
     if (this.isVisible) {
-      Plotly.redraw(this.node).then(() => {
-        Plotly.Plots.resize(this.node);
+      Plotly.redraw(this.render_target).then(() => {
+        Plotly.Plots.resize(this.render_target);
       });
     }
   }
