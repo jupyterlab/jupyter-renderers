@@ -36,9 +36,9 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@jupyterlab/application": "^0.19.1",
+    "@jupyterlab/application": "^1.0.0-alpha.3",
     "@jupyterlab/coreutils": "^2.2.1",
-    "@jupyterlab/rendermime": "^0.19.1",
+    "@jupyterlab/rendermime": "^1.0.0-alpha.3",
     "@jupyterlab/rendermime-interfaces": "^1.2.1",
     "katex": "^0.10.0"
   },

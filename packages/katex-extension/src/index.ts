@@ -1,7 +1,10 @@
 // Copyright (c) Jupyter Development Team.
 // Distributed under the terms of the Modified BSD License.
 
-import { JupyterLab, JupyterLabPlugin } from '@jupyterlab/application';
+import {
+  JupyterFrontEnd,
+  JupyterFrontEndPlugin
+} from '@jupyterlab/application';
 
 import { ILatexTypesetter } from '@jupyterlab/rendermime';
 
@@ -36,11 +39,14 @@ export class KatexTypesetter implements IRenderMime.ILatexTypesetter {
 /**
  * The KaTex extension.
  */
-const katexPlugin: JupyterLabPlugin<ILatexTypesetter> = {
+const katexPlugin: JupyterFrontEndPlugin<ILatexTypesetter> = {
   id: katexPluginId,
   requires: [ISettingRegistry],
   provides: ILatexTypesetter,
-  activate: (jupyterlab: JupyterLab, settingRegistry: ISettingRegistry) => {
+  activate: (
+    jupyterlab: JupyterFrontEnd,
+    settingRegistry: ISettingRegistry
+  ) => {
     /**
      * Update the setting values.
      */
