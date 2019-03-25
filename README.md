@@ -15,6 +15,7 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 | [plotly-extension](packages/plotly-extension)     | `application/vnd.plotly.v1+json`                                   | `.plotly`, `.plotly.json`                                  |
 | [vega2-extension](packages/vega2-extension)       | `application/vnd.vega.v2+json`, `application/vnd.vegalite.v1+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` |
 | [vega3-extension](packages/vega3-extension)       | `application/vnd.vega.v3+json`, `application/vnd.vegalite.v2+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` |
+| [vega4-extension](packages/vega4-extension)       | `application/vnd.vega.v4+json`, `application/vnd.vegalite.v2+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` |
 
 ## Install
 
@@ -25,6 +26,7 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 * plotly-extension: `jupyter labextension install @jupyterlab/plotly-extension`
 * vega2-extension: `jupyter labextension install @jupyterlab/vega2-extension`
 * vega3-extension: `jupyter labextension install @jupyterlab/vega3-extension`
+* vega4-extension: `jupyter labextension install @jupyterlab/vega4-extension`
 
 ## Contributing
 
