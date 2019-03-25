@@ -13,6 +13,8 @@ import * as VegaModuleType from 'vega-embed';
 
 import '../style/index.css';
 
+const vegaEmbed = VegaModuleType.default;
+
 /**
  * The CSS class to add to the Vega and Vega-Lite widget.
  */
@@ -76,8 +78,6 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
     const mode: VegaModuleType.Mode =
       this._mimeType === VEGA_MIME_TYPE ? 'vega' : 'vega-lite';
 
-    const vega =
-      Private.vega != null ? Private.vega : await Private.ensureVega();
     const path = await this._resolver.resolveUrl('');
     const baseURL = await this._resolver.getDownloadUrl(path);
 
@@ -87,7 +87,7 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
     this.node.innerHTML = '';
     this.node.appendChild(el);
 
-    this._result = await vega.default(el, spec, {
+    this._result = await vegaEmbed(el, spec, {
       actions: true,
       defaultStyle: true,
       ...embedOptions,
