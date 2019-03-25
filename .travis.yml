@@ -25,5 +25,7 @@ script:
 - jupyter labextension link packages/plotly-extension --no-build
 - jupyter labextension link packages/vega2-extension --no-build
 - jupyter labextension link packages/vega3-extension --no-build
+- jupyter labextension link packages/vega4-extension --no-build
+- jupyter labextension link packages/mathjax3-extension --no-build
 - NODE_OPTIONS=--max-old-space-size=16000 jupyter lab build
 - python -m jupyterlab.browser_check

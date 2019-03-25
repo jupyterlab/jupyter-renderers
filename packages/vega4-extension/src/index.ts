@@ -132,7 +132,7 @@ export const rendererFactory: IRenderMime.IRendererFactory = {
 const extension: IRenderMime.IExtension = {
   id: '@jupyterlab/vega-extension:factory',
   rendererFactory,
-  rank: 50, // prefer over vega 2 extension
+  rank: 58, // prefer over vega 3 extension
   dataType: 'json',
   documentWidgetFactoryOptions: [
     {
@@ -165,46 +165,3 @@ const extension: IRenderMime.IExtension = {
 };
 
 export default extension;
-
-/**
- * A namespace for private module data.
- */
-namespace Private {
-  /**
-   * A cached reference to the vega library.
-   */
-  export let vega: typeof VegaModuleType;
-
-  /**
-   * A Promise for the initial load of vega.
-   */
-  export let vegaReady: Promise<typeof VegaModuleType>;
-
-  /**
-   * Lazy-load and cache the vega-embed library
-   */
-  export function ensureVega(): Promise<typeof VegaModuleType> {
-    if (vegaReady) {
-      return vegaReady;
-    }
-
-    vegaReady = new Promise((resolve, reject) => {
-      require.ensure(
-        ['vega-embed'],
-        // see https://webpack.js.org/api/module-methods/#require-ensure
-        // this argument MUST be named `require` for the WebPack parser
-        require => {
-          vega = require('vega-embed') as typeof VegaModuleType;
-          resolve(vega);
-        },
-        (error: any) => {
-          console.error(error);
-          reject();
-        },
-        'vega'
-      );
-    });
-
-    return vegaReady;
-  }
-}
