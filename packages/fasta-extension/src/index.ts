@@ -11,7 +11,7 @@ import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
 import * as msa from 'msa';
 
-import 'msa/css/msa.css';
+import '../style/msa.css';
 
 import '../style/index.css';
 
