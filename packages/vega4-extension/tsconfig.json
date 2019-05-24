@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2015",
+    "outDir": "lib",
+    "rootDir": "src",
+    "lib": ["es2015", "dom"]
+  },
+  "include": ["src/*", "typings/*.d.ts"]
+}
