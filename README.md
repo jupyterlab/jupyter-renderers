@@ -16,6 +16,7 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 | [vega2-extension](packages/vega2-extension)       | `application/vnd.vega.v2+json`, `application/vnd.vegalite.v1+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega2-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega2-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega2-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega2-extension)             |
 | [vega3-extension](packages/vega3-extension)       | `application/vnd.vega.v3+json`, `application/vnd.vegalite.v2+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega3-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega3-extension)             |
 | [vega4-extension](packages/vega4-extension)       | `application/vnd.vega.v4+json`, `application/vnd.vegalite.v2+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega4-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega4-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega4-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega4-extension)             |
+| [vega5-extension](packages/vega5-extension)       | `application/vnd.vega.v5+json`, `application/vnd.vegalite.v2+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega5-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega5-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega5-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega5-extension)             |
 
 ## Install
 
@@ -27,6 +28,7 @@ This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-
 * vega2-extension: `jupyter labextension install @jupyterlab/vega2-extension`
 * vega3-extension: `jupyter labextension install @jupyterlab/vega3-extension`
 * vega4-extension: `jupyter labextension install @jupyterlab/vega4-extension`
+* vega5-extension: `jupyter labextension install @jupyterlab/vega5-extension`
 
 ## Contributing
 
