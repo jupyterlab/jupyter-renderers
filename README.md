@@ -2,7 +2,9 @@
 
 [![Binder](https://beta.mybinder.org/badge.svg)](https://mybinder.org/v2/gh/jupyterlab/jupyter-renderers/master?urlpath=lab/tree/notebooks)
 
-This is a [monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-like) that consists of generic renderers for common file types and mime types as well as renderer extensions for [JupyterLab](https://github.com/jupyterlab/jupyterlab).
+This is a
+[monorepo](https://github.com/lerna/lerna#what-does-a-lerna-repo-look-like) that
+consists of [JupyterLab](https://github.com/jupyterlab/jupyterlab) _mimerender extensions_ for common file and MIME types.
 
 ## Packages
 
@@ -94,3 +96,10 @@ jlpm run publish
 # If publishing a package for the first time
 npm access public @jupyterlab/<extension name>
 ```
+
+### Creating icons
+
+To create a JupyterLab icon for a new MIME or file type, you can use the Sketch
+file in this repo or [fork the file on
+Figma](https://www.figma.com/file/c2TwOvxAAXCzDccrybQKapZK/icons?node-id=0%3A1)
+and export your icon as an SVG. See the [Plotly icon](https://github.com/jupyterlab/jupyter-renderers/tree/master/packages/plotly-extension/style) for reference.
