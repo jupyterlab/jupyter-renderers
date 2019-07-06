@@ -9,11 +9,9 @@ import { Widget } from '@phosphor/widgets';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import * as VegaModuleType from 'vega-embed';
+import vegaEmbed, { Result, EmbedOptions, Mode } from 'vega-embed';
 
 import '../style/index.css';
-
-const vegaEmbed = VegaModuleType.default;
 
 /**
  * The CSS class to add to the Vega and Vega-Lite widget.
@@ -50,7 +48,7 @@ export const VEGALITE_MIME_TYPE = 'application/vnd.vegalite.v2+json';
  * A widget for rendering Vega or Vega-Lite data, for usage with rendermime.
  */
 export class RenderedVega extends Widget implements IRenderMime.IRenderer {
-  private _result: VegaModuleType.Result;
+  private _result: Result;
 
   /**
    * Create a new widget for rendering Vega/Vega-Lite.
@@ -71,12 +69,11 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
   async renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const spec = model.data[this._mimeType] as JSONObject;
     const metadata = model.metadata[this._mimeType] as {
-      embed_options?: VegaModuleType.EmbedOptions;
+      embed_options?: EmbedOptions;
     };
     const embedOptions =
       metadata && metadata.embed_options ? metadata.embed_options : {};
-    const mode: VegaModuleType.Mode =
-      this._mimeType === VEGA_MIME_TYPE ? 'vega' : 'vega-lite';
+    const mode: Mode = this._mimeType === VEGA_MIME_TYPE ? 'vega' : 'vega-lite';
 
     const path = await this._resolver.resolveUrl('');
     const baseURL = await this._resolver.getDownloadUrl(path);
@@ -136,16 +133,15 @@ const extension: IRenderMime.IExtension = {
   dataType: 'json',
   documentWidgetFactoryOptions: [
     {
-      name: 'Vega',
+      name: 'Vega 4',
       primaryFileType: 'vega4',
       fileTypes: ['vega4', 'json'],
       defaultFor: ['vega4']
     },
     {
-      name: 'Vega-Lite',
+      name: 'Vega-Lite 2',
       primaryFileType: 'vega-lite2',
-      fileTypes: ['vega-lite2', 'json'],
-      defaultFor: ['vega-lite2']
+      fileTypes: ['vega-lite2', 'json']
     }
   ],
   fileTypes: [
