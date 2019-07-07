@@ -1,6 +1,6 @@
 {
   "name": "@jupyterlab/geojson-extension",
-  "version": "0.18.1",
+  "version": "1.0.0",
   "description": "GeoJSON renderer for JupyterLab",
   "keywords": [
     "jupyter",
