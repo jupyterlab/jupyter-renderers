@@ -84,6 +84,10 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
     this.node.innerHTML = '';
     this.node.appendChild(el);
 
+    if (this._result) {
+      this._result.view.finalize();
+    }
+
     this._result = await vegaEmbed(el, spec, {
       actions: true,
       defaultStyle: true,
