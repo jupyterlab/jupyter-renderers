@@ -17,6 +17,10 @@ consists of [JupyterLab](https://github.com/jupyterlab/jupyterlab) _mimerender e
 | [vega2-extension](packages/vega2-extension)       | `application/vnd.vega.v2+json`, `application/vnd.vegalite.v1+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega2-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega2-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega2-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega2-extension)             |
 | [vega3-extension](packages/vega3-extension)       | `application/vnd.vega.v3+json`, `application/vnd.vegalite.v2+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega3-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega3-extension)             |
 
+## Looking for plotly-extension?
+
+[@jupyterlab/plotly-extension](https://www.npmjs.com/package/@jupyterlab/plotly-extension) is being deprecated. Please use the Plotly-supported [jupyterlab-plotly](https://www.npmjs.com/package/jupyterlab-plotly). See the [plotly.py README](https://github.com/plotly/plotly.py#jupyterlab-support-python-35) for more info.
+
 ## Install
 
 * fasta-extension: `jupyter labextension install @jupyterlab/fasta-extension`
