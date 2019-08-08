@@ -8,6 +8,8 @@ install:
 - export PATH="$HOME/miniconda/bin:$PATH"
 - hash -r
 - conda config --set always_yes yes --set changeps1 no --set show_channel_urls yes
+- conda config --set channel_priority strict
+- conda config --set add_pip_as_python_dependency yes
 - conda config --remove channels defaults
 - conda config --add channels conda-forge
 - conda update -q conda
