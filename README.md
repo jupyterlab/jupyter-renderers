@@ -17,7 +17,6 @@ consists of [JupyterLab](https://github.com/jupyterlab/jupyterlab) _mimerender e
 | [plotly-extension](packages/plotly-extension)     | `application/vnd.plotly.v1+json`                                   | `.plotly`, `.plotly.json`                                  | [![Version](https://img.shields.io/npm/v/@jupyterlab/plotly-extension.svg)](https://www.npmjs.com/package/@jupyterlab/plotly-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/plotly-extension.svg)](https://www.npmjs.com/package/@jupyterlab/plotly-extension)         |
 | [vega2-extension](packages/vega2-extension)       | `application/vnd.vega.v2+json`, `application/vnd.vegalite.v1+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega2-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega2-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega2-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega2-extension)             |
 | [vega3-extension](packages/vega3-extension)       | `application/vnd.vega.v3+json`, `application/vnd.vegalite.v2+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega3-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega3-extension)             |
-| [vega4-extension](packages/vega4-extension)       | `application/vnd.vega.v4+json`, `application/vnd.vegalite.v2+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega4-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega4-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega4-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega4-extension)             |
 
 ## Install
 
@@ -28,7 +27,6 @@ consists of [JupyterLab](https://github.com/jupyterlab/jupyterlab) _mimerender e
 * plotly-extension: `jupyter labextension install @jupyterlab/plotly-extension`
 * vega2-extension: `jupyter labextension install @jupyterlab/vega2-extension`
 * vega3-extension: `jupyter labextension install @jupyterlab/vega3-extension`
-* vega4-extension: `jupyter labextension install @jupyterlab/vega4-extension`
 
 ## Contributing
 
