@@ -24,7 +24,6 @@ script:
 - jupyter labextension link packages/fasta-extension --no-build
 - jupyter labextension link packages/geojson-extension --no-build
 - jupyter labextension link packages/katex-extension --no-build
-- jupyter labextension link packages/plotly-extension --no-build
 - jupyter labextension link packages/vega2-extension --no-build
 - jupyter labextension link packages/vega3-extension --no-build
 - jupyter labextension link packages/mathjax3-extension --no-build
