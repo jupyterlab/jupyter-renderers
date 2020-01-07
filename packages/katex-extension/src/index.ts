@@ -12,7 +12,7 @@ import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
 import { IMacros, renderMathInElement } from './autorender';
 
-import { ISettingRegistry } from '@jupyterlab/coreutils';
+import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
 import '../style/index.css';
 
