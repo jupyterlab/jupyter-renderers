@@ -1,6 +1,6 @@
 {
   "name": "@jupyterlab/katex-extension",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "KaTeX math renderer for JupyterLab",
   "keywords": [
     "jupyter",
@@ -37,9 +37,9 @@
   },
   "dependencies": {
     "@jupyterlab/application": "^2.0.0",
-    "@jupyterlab/settingregistry": "^2.0.0",
     "@jupyterlab/rendermime": "^2.0.0",
     "@jupyterlab/rendermime-interfaces": "^2.0.0",
+    "@jupyterlab/settingregistry": "^2.0.0",
     "katex": "^0.10.0"
   },
   "devDependencies": {
