@@ -7,6 +7,8 @@ import { Message } from '@lumino/messaging';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
+import { defaultSanitizer } from '@jupyterlab/apputils';
+
 import leaflet from 'leaflet';
 
 import 'leaflet/dist/leaflet.css';
@@ -117,7 +119,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
               popupContent += '<tr><td>' + p + ':</td><td><b>' + feature.properties[p] + '</b></td></tr>';
             }
             popupContent += '</table>';
-            layer.bindPopup(popupContent);
+            layer.bindPopup(defaultSanitizer.sanitize(popupContent));
           }
         }
       }).addTo(this._map);
