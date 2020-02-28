@@ -3,9 +3,9 @@
 | Distributed under the terms of the Modified BSD License.
 |----------------------------------------------------------------------------*/
 
-import { Widget } from '@phosphor/widgets';
+import { Widget } from '@lumino/widgets';
 
-import { Message } from '@phosphor/messaging';
+import { Message } from '@lumino/messaging';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
