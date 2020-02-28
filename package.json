@@ -5,7 +5,6 @@
     "link": "lerna exec --parallel -- jupyter labextension link . --no-build",
     "prettier": "prettier --write '{!(package),packages/*/!(package),packages/*/!(lib)/**}{.js,.jsx,.ts,.tsx,.css,.json,.md}'",
     "precommit": "lint-staged",
-    "publish": "lerna publish --git-remote jupyterlab",
     "watch": "lerna run --parallel watch"
   },
   "devDependencies": {
