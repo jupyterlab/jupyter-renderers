@@ -36,10 +36,10 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@jupyterlab/application": "^2.0.0-beta.2",
-    "@jupyterlab/settingregistry": "^2.0.0-beta.2",
-    "@jupyterlab/rendermime": "^2.0.0-beta.2",
-    "@jupyterlab/rendermime-interfaces": "^2.0.0-beta.2",
+    "@jupyterlab/application": "^2.0.0",
+    "@jupyterlab/settingregistry": "^2.0.0",
+    "@jupyterlab/rendermime": "^2.0.0",
+    "@jupyterlab/rendermime-interfaces": "^2.0.0",
     "katex": "^0.10.0"
   },
   "devDependencies": {
