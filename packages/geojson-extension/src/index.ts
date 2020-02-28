@@ -7,6 +7,8 @@ import { Message } from '@lumino/messaging';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
+import { defaultSanitizer } from '@jupyterlab/apputils';
+
 import leaflet from 'leaflet';
 
 import 'leaflet/dist/leaflet.css';
@@ -109,7 +111,18 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
         )
         .addTo(this._map);
       // Create GeoJSON layer from data and add to map
-      this._geoJSONLayer = leaflet.geoJSON(data).addTo(this._map);
+      this._geoJSONLayer= leaflet.geoJSON(data, {
+        onEachFeature: function (feature, layer) {
+          if (feature.properties) {
+            var popupContent = '<table>';
+            for (var p in feature.properties) {
+              popupContent += '<tr><td>' + p + ':</td><td><b>' + feature.properties[p] + '</b></td></tr>';
+            }
+            popupContent += '</table>';
+            layer.bindPopup(defaultSanitizer.sanitize(popupContent));
+          }
+        }
+      }).addTo(this._map);
       this.update();
       resolve();
     });
