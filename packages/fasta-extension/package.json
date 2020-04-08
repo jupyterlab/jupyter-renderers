@@ -1,6 +1,6 @@
 {
   "name": "@jupyterlab/fasta-extension",
-  "version": "2.1.0-a.0",
+  "version": "2.1.0",
   "description": "Fasta renderer for JupyterLab",
   "keywords": [
     "jupyter",
@@ -34,7 +34,7 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@jupyterlab/rendermime-interfaces": "^2.1.0-a.0",
+    "@jupyterlab/rendermime-interfaces": "^2.1.0",
     "@lumino/messaging": "^1.2.2",
     "@lumino/widgets": "^1.11.0",
     "msa": "^1.0.3"
