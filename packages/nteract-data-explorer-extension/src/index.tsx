@@ -4,7 +4,7 @@ import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 import { JSONObject } from '@lumino/coreutils';
 import { Message } from '@lumino/messaging';
 import { Widget } from '@lumino/widgets';
-import DataExplorer from '@nteract/data-explorer';
+import DataExplorer, { Props } from '@nteract/data-explorer';
 
 /**
  * The class name added to the extension.
@@ -94,10 +94,14 @@ export class DataExplorerWidget extends Widget
 
         clearInterval(timer);
         ReactDOM.render(
-          // @ts-ignore
           <DataExplorer
-            data={data}
-            metadata={model.metadata.dataExplorer || {}}
+            data={(data as unknown) as Props['data']}
+            metadata={
+              ((model.metadata.dataExplorer as unknown) as Props['metadata']) ||
+              {}
+            }
+            mediaType={MIME_TYPE}
+            initialView={'grid'}
             onMetadataChange={onMetadataChange}
           />,
           this.node,

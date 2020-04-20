@@ -1,12 +1,12 @@
 # nteract-data-explorer-extension
 
-A JupyterLab extension for rendering tabular-data-resource files based on [nteract Data Explorer](https://github.com/nteract/data-explorer).
+A JupyterLab extension for rendering data of tabular-data-resource type based on [nteract Data Explorer](https://github.com/nteract/data-explorer).
 
-![demo](http://g.recordit.co/SsWJCpKIJy.gif)
+![demo](http://g.recordit.co/RkMsk43K30.gif)
 
 ## Prerequisites
 
-- JupyterLab >=1.1.1
+- JupyterLab >= 1.1.1
 
 ## Install
 
