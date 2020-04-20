@@ -19,6 +19,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "resolutions": {
+    "@types/react": "~16.9.16"
+  },
   "lint-staged": {
     "{!(package),packages/*/!(package),packages/*/!(lib)/**}{.js,.jsx,.ts,.tsx,.css,.json,.md}": [
       "prettier --write",
