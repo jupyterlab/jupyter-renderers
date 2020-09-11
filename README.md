@@ -16,6 +16,7 @@ consists of [JupyterLab](https://github.com/jupyterlab/jupyterlab) _mimerender e
 | [mathjax3-extension](packages/mathjax3-extension) | N/A                                                                | N/A                                                        | [![Version](https://img.shields.io/npm/v/@jupyterlab/mathjax3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/mathjax3-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/mathjax3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/mathjax3-extension) |
 | [vega2-extension](packages/vega2-extension)       | `application/vnd.vega.v2+json`, `application/vnd.vegalite.v1+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega2-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega2-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega2-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega2-extension)             |
 | [vega3-extension](packages/vega3-extension)       | `application/vnd.vega.v3+json`, `application/vnd.vegalite.v2+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega3-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega3-extension)             |
+| [nteract-data-explorer-extension](packages/nteract-data-explorer-extension) | `application/vnd.dataresource+json` | `.tdr.json`, `.tdrjson` | |
 
 ## Looking for plotly-extension?
 
@@ -29,6 +30,7 @@ consists of [JupyterLab](https://github.com/jupyterlab/jupyterlab) _mimerender e
 * mathjax3-extension: `jupyter labextension install @jupyterlab/mathjax3-extension`
 * vega2-extension: `jupyter labextension install @jupyterlab/vega2-extension`
 * vega3-extension: `jupyter labextension install @jupyterlab/vega3-extension`
+* nteract-data-explorer-extension: `jupyter labextension install @jupyterlab/nteract-data-explorer-extension`
 
 ## Contributing
 
