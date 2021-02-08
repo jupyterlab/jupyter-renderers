@@ -2231,15 +2231,15 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@*:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-3.0.1.tgz#4595aec3530525e671fb6f85fb173df8ff8bf57a"
-  integrity sha512-UNgvDd+csKdc9GD4zjtkHKQbT8Aspt2jCBqNSPp53vAS0L1tS9sXB2TCEOPHJ7kt9bN/niWkYj8T3RQSoMXdSQ==
-
 commander@2, commander@^2.12.1, commander@^2.14.1, commander@^2.19.0, commander@^2.9.0:
   version "2.20.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.0.tgz#d58bb2b5c1ee8f87b0d340027e9e94e222c5a422"
   integrity sha512-7j2y+40w61zy6YC2iRNpUe/NwhNyoXrYpHMrSunaMG64nRnaf96zO/KMQR4OyN/UnE5KLyEBnKHd4aG3rskjpQ==
+
+commander@^6.0.0:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-6.2.1.tgz#0792eb682dfbc325999bb2b84fddddba110ac73c"
+  integrity sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==
 
 commander@~2.20.3:
   version "2.20.3"
@@ -5046,14 +5046,14 @@ marked@^1.1.1:
   resolved "https://registry.yarnpkg.com/marked/-/marked-1.2.7.tgz#6e14b595581d2319cdcf033a24caaf41455a01fb"
   integrity sha512-No11hFYcXr/zkBvL6qFmAp1z6BKY3zqLMHny/JN/ey+al7qwCM2+CMBL9BOgqMxZU36fz4cCWfn2poWIf7QRXA==
 
-mathjax-full@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/mathjax-full/-/mathjax-full-3.0.0.tgz#a16c5bf4ae5ae6797fccfbd6dd11cc59052570f1"
-  integrity sha512-DvTUi2WvrACXZRjjzS0EbXY2ssRD23yuSMHVYZNbRuCA5zFZvu0MZWFy8QRvNYwJ44hJirJCNOCii0W0Q1R62A==
+mathjax-full@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/mathjax-full/-/mathjax-full-3.1.2.tgz#53ac5b38252379d515d60e99092672b42725bf6a"
+  integrity sha512-jFCwRFdFwIOa8J7r6VZT0AIv9ZwbLQ9aPc9YZp695NTvv7XKU2NunJodA+zDWzElIFJ7mTsImyfe5R3QyRNZjw==
   dependencies:
     esm "^3.2.25"
-    mj-context-menu "^0.2.0"
-    speech-rule-engine "^3.0.0-beta.6"
+    mj-context-menu "^0.6.1"
+    speech-rule-engine "^3.1.1"
 
 mem@^1.1.0:
   version "1.1.0"
@@ -5257,10 +5257,10 @@ mixin-deep@^1.2.0:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
 
-mj-context-menu@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/mj-context-menu/-/mj-context-menu-0.2.0.tgz#e1947dbb1771ede33f0c9405ecca9b49d109b86d"
-  integrity sha512-yJxrWBHCjFZEHsZgfs7m5g9OSCNzsVYadW6f6lX3pgZL67vmodtSW/4zhsYmuDKweXfHs0M1kJge1uQIasWA+g==
+mj-context-menu@^0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/mj-context-menu/-/mj-context-menu-0.6.1.tgz#a043c5282bf7e1cf3821de07b13525ca6f85aa69"
+  integrity sha512-7NO5s6n10TIV96d4g2uDpG7ZDpIhMh0QNfGdJw/W47JswFcosz457wqz/b5sAKvl12sxINGFCn80NZHKwxQEXA==
 
 mkdirp-promise@^5.0.1:
   version "5.0.1"
@@ -6927,13 +6927,13 @@ spdx-license-ids@^3.0.0:
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.5.tgz#3694b5804567a458d3c8045842a6358632f62654"
   integrity sha512-J+FWzZoynJEXGphVIS+XEh3kFSjZX/1i9gFBaWQcB+/tmpe2qUsSBABpcxqxnAxFdiUFEgAX1bjYGQvIZmoz9Q==
 
-speech-rule-engine@^3.0.0-beta.6:
-  version "3.0.0-beta.6"
-  resolved "https://registry.yarnpkg.com/speech-rule-engine/-/speech-rule-engine-3.0.0-beta.6.tgz#77b0ed9570eccd0a5f71d387ae0da8221d720fd0"
-  integrity sha512-B7gcT53jAsKpx7WvFYQcyUlFmgS3Wa9KlDy0FY8SOTa+Wz5EqmI0MpCD5/fYm8/2qiCPp8HwZg+H3cBgM+sNVw==
+speech-rule-engine@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/speech-rule-engine/-/speech-rule-engine-3.1.1.tgz#d790cee416e17838712c7cff5ad00c7dfe2097be"
+  integrity sha512-FGX8B44yI3yGhmcw8nZ/by2ffUlZG6m5b/O3RULXsSiwhL/evL+jwQ6BXQxV3gGtOYptOFalTVCAFknAJgBKAg==
   dependencies:
-    commander "*"
-    wicked-good-xpath "*"
+    commander "^6.0.0"
+    wicked-good-xpath "^1.3.0"
     xmldom-sre "^0.1.31"
 
 split-string@^3.0.1, split-string@^3.0.2:
@@ -8388,7 +8388,7 @@ which@1, which@^1.2.10, which@^1.2.9, which@^1.3.1:
   dependencies:
     isexe "^2.0.0"
 
-wicked-good-xpath@*:
+wicked-good-xpath@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/wicked-good-xpath/-/wicked-good-xpath-1.3.0.tgz#81b0e95e8650e49c94b22298fff8686b5553cf6c"
   integrity sha1-gbDpXoZQ5JyUsiKY//hoa1VTz2w=
