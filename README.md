@@ -1,5 +1,6 @@
 # Jupyter Renderers
 
+![Github Actions Status](https://github.com/jupyterlab/jupyter-renderers/workflows/CI/badge.svg)
 [![Binder](https://beta.mybinder.org/badge.svg)](https://mybinder.org/v2/gh/jupyterlab/jupyter-renderers/master?urlpath=lab/tree/notebooks)
 
 This is a

@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install node
+      uses: actions/setup-node@v2
+      with:
+       node-version: '14.x'
+
+    - name: Install Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install JupyterLab
+      run: |
+        python -m pip install jupyterlab
+
+    - name: Install the extension
+      run: |
+        jlpm && jlpm run build
+
+        jupyter labextension link packages/fasta-extension --no-build
+        jupyter labextension link packages/geojson-extension --no-build
+        jupyter labextension link packages/katex-extension --no-build
+        jupyter labextension link packages/vega2-extension --no-build
+        jupyter labextension link packages/vega3-extension --no-build
+        jupyter labextension link packages/mathjax3-extension --no-build
+        jupyter lab build
+
+    - name: Check the extensions are installed
+      run: |
+        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/fasta-extension.*OK"
+        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/geojson-extension.*OK"
+        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/katex-extension.*OK"
+        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/vega2-extension.*OK"
+        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/vega3-extension.*OK"
+        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/mathjax3-extension.*OK"
+
+    - name: Browser check
+      run: python -m jupyterlab.browser_check
