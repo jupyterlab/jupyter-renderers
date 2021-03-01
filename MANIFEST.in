@@ -1,16 +1,16 @@
 include LICENSE
 include README.md
 include pyproject.toml
-include jupyter-config/jupyterlab-renderers.json
 
 include package.json
 include install.json
 include ts*.json
 include yarn.lock
 
-graft jupyterlab-renderers/labextension
+graft jupyterlab-renderers/labextensions
 
 # Javascript files
+graft packages
 graft src
 graft style
 prune **/node_modules
