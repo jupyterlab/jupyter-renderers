@@ -8,8 +8,8 @@ A JupyterLab extension for rendering
 
 ## Requirements
 
-* JupyterLab ^0.30.0
-* Node.js >= 5
+- JupyterLab ^0.30.0
+- Node.js >= 5
 
 ## Install
 
@@ -41,42 +41,3 @@ ATIGENLVVRRFATLKAGANGVVNGYIHTNGRVGVVIAAACDSAEVASKSRDLLRQICMH""")
 ```
 
 To render a `.fasta` file, simply open it.
-
-## Contributing
-
-### Install
-
-The `jlpm` command is JupyterLab's pinned version of
-[yarn](https://yarnpkg.com/) that is installed with JupyterLab. You may use
-`yarn` or `npm` in lieu of `jlpm` below.
-
-```bash
-# Clone the repo to your local environment
-git clone https://github.com/jupyterlab/jupyter-renderers.git
-cd jupyter-renderers
-# Install dependencies
-jlpm
-# Build Typescript source
-jlpm build
-# Link your development version of the extension with JupyterLab
-jupyter labextension link packages/fasta-extension
-# Rebuild Typescript source after making changes
-jlpm build
-# Rebuild JupyterLab after making any changes
-jupyter lab build
-```
-
-You can watch the jupyter-renderers directory and run JupyterLab in watch mode to watch for changes in the extension's source and automatically rebuild the extension and application.
-
-```bash
-# Run jupyterlab in watch mode in one terminal tab
-jupyter lab --watch
-# Watch the jupyter-renderers directory in another terminal tab
-jlpm watch
-```
-
-### Uninstall
-
-```bash
-jupyter labextension uninstall @jupyterlab/fasta-extension
-```

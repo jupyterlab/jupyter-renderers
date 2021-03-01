@@ -8,7 +8,7 @@ A JupyterLab extension for rendering Vega 3 and Vega-Lite 2
 
 ## Prerequisites
 
-* JupyterLab ^0.27.0
+- JupyterLab ^0.27.0
 
 ## Usage
 
@@ -103,7 +103,3 @@ chart
 ```
 
 To render a `.vl`, `.vg`, `vl.json` or `.vg.json` file, simply open it:
-
-## Development
-
-See the [JupyterLab Contributor Documentation](https://github.com/jupyterlab/jupyterlab/blob/master/CONTRIBUTING.md).
