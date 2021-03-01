@@ -5,6 +5,7 @@
   ],
   "scripts": {
     "build": "lerna run --parallel build",
+    "build:prod": "lerna run --parallel build:prod",
     "link": "lerna exec --parallel -- jupyter labextension link . --no-build",
     "precommit": "lint-staged",
     "prettier": "prettier --write '{!(package),packages/*/!(package),packages/*/!(lib)/**}{.js,.jsx,.ts,.tsx,.css,.json,.md}'",

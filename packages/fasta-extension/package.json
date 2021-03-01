@@ -25,25 +25,49 @@
   "files": [
     "lib/*.d.ts",
     "lib/*.js",
-    "style/*.*"
+    "style/*.*",
+    "style/index.js"
   ],
   "scripts": {
-    "build": "tsc",
-    "clean": "rimraf lib",
+    "build": "jlpm run build:lib && jlpm run build:labextension:dev",
+    "build:labextension": "jupyter labextension build .",
+    "build:labextension:dev": "jupyter labextension build --development True .",
+    "build:lib": "tsc",
+    "build:prod": "jlpm run build:lib && jlpm run build:labextension",
+    "clean": "jlpm run clean:lib",
+    "clean:all": "jlpm run clean:lib && jlpm run clean:labextension",
+    "clean:labextension": "rimraf ../../jupyterlab-renderers/labextensions/@jupyterlab/fasta-extension",
+    "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
+    "eslint": "eslint . --ext .ts,.tsx --fix",
+    "eslint:check": "eslint . --ext .ts,.tsx",
+    "install:extension": "jupyter labextension develop --overwrite .",
     "prepack": "npm run clean && npm run build",
-    "watch": "tsc -w"
+    "prepare": "jlpm run clean && jlpm run build:prod",
+    "watch": "run-p watch:src watch:labextension",
+    "watch:labextension": "jupyter labextension watch .",
+    "watch:src": "tsc -w"
   },
   "dependencies": {
-    "@jupyterlab/rendermime-interfaces": "^3.0.0",
-    "@lumino/messaging": "^1.2.2",
-    "@lumino/widgets": "^1.11.0",
+    "@jupyterlab/rendermime-interfaces": "^3.0.5",
+    "@lumino/messaging": "^1.4.3",
+    "@lumino/widgets": "^1.16.1",
     "msa": "^1.0.3"
   },
   "devDependencies": {
-    "rimraf": "~2.6.2",
+    "@jupyterlab/builder": "^3.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.1.1",
+    "rimraf": "^3.0.2",
     "typescript": "~4.1.3"
   },
   "jupyterlab": {
-    "mimeExtension": true
-  }
+    "mimeExtension": true,
+    "outputDir": "../../jupyterlab-renderers/labextensions/@jupyterlab/fasta-extension"
+  },
+  "styleModule": "style/index.js"
 }
