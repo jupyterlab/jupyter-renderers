@@ -24,7 +24,8 @@ package_data_spec = {
 }
 
 labextension_names = [
-    "@jupyterlab/fasta-extension"
+    "@jupyterlab/fasta-extension",
+    "@jupyterlab/geojson-extension"
 ]
 
 lab_path = (HERE / name / "labextensions")

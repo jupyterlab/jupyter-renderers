@@ -28,10 +28,23 @@
     "style/*.*"
   ],
   "scripts": {
-    "build": "tsc",
-    "clean": "rimraf lib",
+    "build": "jlpm run build:lib && jlpm run build:labextension:dev",
+    "build:labextension": "jupyter labextension build .",
+    "build:labextension:dev": "jupyter labextension build --development True .",
+    "build:lib": "tsc",
+    "build:prod": "jlpm run build:lib && jlpm run build:labextension",
+    "clean": "jlpm run clean:lib",
+    "clean:all": "jlpm run clean:lib && jlpm run clean:labextension",
+    "clean:labextension": "rimraf ../../jupyterlab-renderers/labextensions/@jupyterlab/geojson-extension",
+    "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
+    "eslint": "eslint . --ext .ts,.tsx --fix",
+    "eslint:check": "eslint . --ext .ts,.tsx",
+    "install:extension": "jupyter labextension develop --overwrite .",
     "prepack": "npm run clean && npm run build",
-    "watch": "tsc -w"
+    "prepare": "jlpm run clean && jlpm run build:prod",
+    "watch": "run-p watch:src watch:labextension",
+    "watch:labextension": "jupyter labextension watch .",
+    "watch:src": "tsc -w"
   },
   "dependencies": {
     "@jupyterlab/apputils": "^3.0.0",
@@ -41,11 +54,14 @@
     "leaflet": "^1.5.0"
   },
   "devDependencies": {
+    "@jupyterlab/builder": "^3.0.0",
     "@types/leaflet": "^1.4.0",
+    "npm-run-all": "^4.1.5",
     "rimraf": "~2.6.2",
     "typescript": "~4.1.3"
   },
   "jupyterlab": {
-    "mimeExtension": true
+    "mimeExtension": true,
+    "outputDir": "../../jupyterlab-renderers/labextensions/@jupyterlab/geojson-extension"
   }
 }
