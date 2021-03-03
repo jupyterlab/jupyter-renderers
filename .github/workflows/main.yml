@@ -32,12 +32,12 @@ jobs:
       run: |
         jlpm && jlpm run build
 
-        jupyter labextension link packages/fasta-extension --no-build
-        jupyter labextension link packages/geojson-extension --no-build
-        jupyter labextension link packages/katex-extension --no-build
-        jupyter labextension link packages/vega2-extension --no-build
-        jupyter labextension link packages/vega3-extension --no-build
-        jupyter labextension link packages/mathjax3-extension --no-build
+        jupyter labextension install ./packages/fasta-extension --no-build
+        jupyter labextension install ./packages/geojson-extension --no-build
+        jupyter labextension install ./packages/katex-extension --no-build
+        jupyter labextension install ./packages/vega2-extension --no-build
+        jupyter labextension install ./packages/vega3-extension --no-build
+        jupyter labextension install ./packages/mathjax3-extension --no-build
         jupyter lab build
 
     - name: Check the extensions are installed
