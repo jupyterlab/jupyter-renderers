@@ -1,5 +1,5 @@
 """
-jupyterlab-renderers setup
+jupyterlab-fasta setup
 """
 import json
 from pathlib import Path
@@ -16,37 +16,26 @@ import setuptools
 HERE = Path(__file__).parent.resolve()
 
 # The name of the project
-name = "jupyterlab-renderers"
+name = "jupyterlab-fasta"
 package = name.replace('-', '_')
+
+lab_path = (HERE / name / "labextension")
+
+# Representative files that should exist after a successful build
+jstargets = [
+    str(lab_path / "package.json"),
+]
 
 package_data_spec = {
     package: ["*"],
 }
 
-labextension_names = [
-    "@jupyterlab/fasta-extension",
-    "@jupyterlab/geojson-extension",
-    "@jupyterlab/katex-extension",
-    "@jupyterlab/mathjax3-extension",
-    "@jupyterlab/vega2-extension",
-    "@jupyterlab/vega3-extension",
+labext_name = "@jupyterlab/fasta-extension"
+
+data_files_spec = [
+    ("share/jupyter/labextensions/%s" % labext_name, str(lab_path), "**"),
+    ("share/jupyter/labextensions/%s" % labext_name, str(HERE), "install.json"),
 ]
-
-lab_path = (HERE / name / "labextensions")
-
-# Representative files that should exist after a successful build
-jstargets = []
-data_files_spec = []
-
-for labext_name in labextension_names:
-    ext_path = lab_path / labext_name
-    data_files_spec += [
-        ("share/jupyter/labextensions/%s" % labext_name, str(ext_path), "**"),
-        ("share/jupyter/labextensions/%s" % labext_name, str(HERE), "install.json"),
-    ]
-    jstargets += [
-        str(ext_path / "package.json"),
-    ]
 
 cmdclass = create_cmdclass("jsdeps",
     package_data_spec=package_data_spec,
@@ -66,15 +55,17 @@ else:
 
 long_description = (HERE / "README.md").read_text()
 
+# Get the package info from package.json
+pkg_json = json.loads((HERE / "package.json").read_bytes())
+
 setup_args = dict(
     name=name,
-    # TODO: do not hardcode here
-    version='3.0.0',
-    url="https://github.com/jupyterlab/jupyter-renderers",
-    author="Project Jupyter",
-    author_email="jupyter@googlegroups.com",
-    description="JupyterLab mimerender extensions for common file and MIME types.",
-    license="BSD-3-Clause",
+    version=pkg_json["version"],
+    url=pkg_json["homepage"],
+    author=pkg_json["author"]["name"],
+    author_email=pkg_json["author"]["email"],
+    description=pkg_json["description"],
+    license=pkg_json["license"],
     long_description=long_description,
     long_description_content_type="text/markdown",
     cmdclass=cmdclass,

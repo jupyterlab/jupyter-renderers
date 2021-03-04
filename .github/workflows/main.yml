@@ -49,16 +49,12 @@ jobs:
 
     - name: Install the extensions
       run: |
+        cd packages/fasta-extension
         python -m pip install .
 
     - name: Check the extensions are installed
       run: |
         jupyter labextension list 2>&1 | grep -ie "@jupyterlab/fasta-extension.*OK"
-        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/geojson-extension.*OK"
-        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/katex-extension.*OK"
-        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/vega2-extension.*OK"
-        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/vega3-extension.*OK"
-        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/mathjax3-extension.*OK"
 
     - name: Browser check
       run: python -m jupyterlab.browser_check

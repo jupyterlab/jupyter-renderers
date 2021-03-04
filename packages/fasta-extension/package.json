@@ -16,7 +16,10 @@
     "url": "https://github.com/jupyterlab/jupyter-renderers.git"
   },
   "license": "BSD-3-Clause",
-  "author": "Project Jupyter",
+  "author": {
+    "name": "Project Jupyter",
+    "email": "jupyter@googlegroups.com"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
@@ -61,7 +64,7 @@
   },
   "jupyterlab": {
     "mimeExtension": true,
-    "outputDir": "../../jupyterlab-renderers/labextensions/@jupyterlab/fasta-extension"
+    "outputDir": "jupyterlab-fasta/labextension"
   },
   "styleModule": "style/index.js"
 }
