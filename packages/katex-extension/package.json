@@ -17,7 +17,10 @@
     "url": "https://github.com/jupyterlab/jupyter-renderers.git"
   },
   "license": "BSD-3-Clause",
-  "author": "Project Jupyter",
+  "author": {
+    "name": "Project Jupyter",
+    "email": "jupyter@googlegroups.com"
+  },
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "directories": {
@@ -27,7 +30,8 @@
     "lib/*.d.ts",
     "lib/*.js",
     "schema/*.json",
-    "style/*.*"
+    "style/*.*",
+    "style/index.js"
   ],
   "scripts": {
     "build": "jlpm run build:lib && jlpm run build:labextension:dev",
@@ -37,7 +41,7 @@
     "build:prod": "jlpm run build:lib && jlpm run build:labextension",
     "clean": "jlpm run clean:lib",
     "clean:all": "jlpm run clean:lib && jlpm run clean:labextension",
-    "clean:labextension": "rimraf ../../jupyterlab-renderers/labextensions/@jupyterlab/katex-extension",
+    "clean:labextension": "rimraf ./jupyterlab-katex/labextension",
     "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
     "eslint": "eslint . --ext .ts,.tsx --fix",
     "eslint:check": "eslint . --ext .ts,.tsx",
@@ -49,24 +53,26 @@
     "watch:src": "tsc -w"
   },
   "dependencies": {
-    "@jupyterlab/application": "^3.0.0",
-    "@jupyterlab/rendermime": "^3.0.0",
-    "@jupyterlab/rendermime-interfaces": "^3.0.0",
-    "@jupyterlab/settingregistry": "^3.0.0",
+    "@jupyterlab/application": "^3.0.6",
+    "@jupyterlab/rendermime": "^3.0.6",
+    "@jupyterlab/rendermime-interfaces": "^3.0.5",
+    "@jupyterlab/settingregistry": "^3.0.3",
     "katex": "^0.12.0"
   },
   "devDependencies": {
     "@jupyterlab/builder": "^3.0.0",
     "@types/katex": "^0.11.0",
-    "rimraf": "~2.6.2",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
     "typescript": "~4.1.3"
   },
   "jupyterlab": {
     "extension": true,
-    "outputDir": "../../jupyterlab-renderers/labextensions/@jupyterlab/katex-extension",
+    "outputDir": "jupyterlab-katex/labextension",
     "schemaDir": "schema",
     "disabledExtensions": [
       "@jupyterlab/mathjax2-extension:plugin"
     ]
-  }
+  },
+  "styleModule": "style/index.js"
 }

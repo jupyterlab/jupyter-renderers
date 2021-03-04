@@ -1,5 +1,5 @@
 """
-jupyterlab-fasta setup
+jupyterlab-vega2 setup
 """
 import json
 from pathlib import Path
@@ -16,7 +16,7 @@ import setuptools
 HERE = Path(__file__).parent.resolve()
 
 # The name of the project
-name = "jupyterlab-fasta"
+name = "jupyterlab-vega2"
 
 lab_path = (HERE / name / "labextension")
 
@@ -29,7 +29,7 @@ package_data_spec = {
     name: ["*"],
 }
 
-labext_name = "@jupyterlab/fasta-extension"
+labext_name = "@jupyterlab/vega2-extension"
 
 data_files_spec = [
     ("share/jupyter/labextensions/%s" % labext_name, str(lab_path), "**"),
