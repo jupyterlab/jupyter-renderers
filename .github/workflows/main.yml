@@ -65,7 +65,7 @@ jobs:
 
     - name: Check the extensions are installed
       run: |
-        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/fasta-extension.*OK"
+        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/${{ matrix.extension }}-extension.*OK"
 
     - name: Browser check
       run: python -m jupyterlab.browser_check
