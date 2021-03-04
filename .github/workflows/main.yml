@@ -9,6 +9,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        extension:
+          - fasta
+          # - geojson
+          # - katex
+          # - mathjax3
+          # - vega2
+          # - vega3
+
     steps:
 
     - name: Checkout
@@ -49,7 +60,7 @@ jobs:
 
     - name: Install the extensions
       run: |
-        cd packages/fasta-extension
+        cd packages/${{ matrix.extension }}-extension
         python -m pip install .
 
     - name: Check the extensions are installed
