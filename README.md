@@ -62,10 +62,15 @@ The `jlpm` command is JupyterLab's pinned version of
 git clone https://github.com/jupyterlab/jupyter-renderers.git
 cd jupyter-renderers
 
+# install the fasta extension
+cd packages/fasta-extension
+
 # Install package in development mode
 pip install -e .
+
 # Link your development version of the extension with JupyterLab
 jupyter labextension develop . --overwrite
+
 # Rebuild the extensions TypeScript source after making changes
 jlpm run build
 ```
