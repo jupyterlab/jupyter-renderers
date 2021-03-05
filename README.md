@@ -24,13 +24,18 @@ consists of [JupyterLab](https://github.com/jupyterlab/jupyterlab) _mimerender e
 
 ## Install
 
-With JupyterLab 3.0, it is possible to install all the extensions at once with `pip` or `conda`:
+With JupyterLab 3.0, it is possible to install the prebuilt extensions with `pip`:
 
 ```bash
-pip install jupyterlab-renderers
+pip install jupyterlab-fasta
+pip install jupyterlab-geojson
+pip install jupyterlab-katex
+pip install jupyterlab-mathjax3
+pip install jupyterlab-vega2
+pip install jupyterlab-vega3
 ```
 
-It is possible to install the extension individually:
+It is also possible to install the extension from source using the `jupyter labextension install` command:
 
 - fasta-extension: `jupyter labextension install @jupyterlab/fasta-extension`
 - geojson-extension: `jupyter labextension install @jupyterlab/geojson-extension`
@@ -88,10 +93,11 @@ cd packages/fasta-extension
 jlpm run build
 ```
 
-You may also watch the `jupyter-renderers` directory for changes and automatically rebuild:
+You may also watch a particular extension directory for changes and automatically rebuild:
 
 ```bash
-# In one terminal tab, watch the jupyter-renderers directory
+# In one terminal tab, watch the jupyter-fasta directory
+cd packages/fasta-extension
 jlpm run watch
 
 # Run JupyterLab in another terminal
