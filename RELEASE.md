@@ -18,7 +18,7 @@ With JupyterLab 3.0 it is now possible to distribute extensions a Python package
 First, create a new environment:
 
 ```bash
-conda create -q -y -n jupyter-renderers-release -c conda-forge twine nodejs jupyter-packaging jupyterlab
+conda create -q -y -n jupyter-renderers-release -c conda-forge twine nodejs jupyter-packaging yarn jupyterlab
 conda activate jupyter-renderers-release
 ```
 
