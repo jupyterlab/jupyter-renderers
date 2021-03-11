@@ -22,10 +22,17 @@ conda create -q -y -n jupyter-renderers-release -c conda-forge twine nodejs jupy
 conda activate jupyter-renderers-release
 ```
 
-To publish the extensions on PyPI, run the following commands for each extension:
+To publish all of the extensions on PyPI, run the following command:
+
+```
+yarn run build-py
+twine upload dist/*
+```
+
+To publish only a single extension:
 
 ```bash
-cd packages/fasta-extension
+cd packages/<extension>
 
 # cleanup previous assets
 rm -r dist/
