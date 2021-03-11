@@ -25,6 +25,8 @@ conda activate jupyter-renderers-release
 To publish all of the extensions on PyPI, run the following command:
 
 ```
+git clean -dfx
+yarn
 yarn run build-py
 twine upload dist/*
 ```
