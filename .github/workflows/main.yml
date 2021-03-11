@@ -9,6 +9,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        extension:
+          - fasta
+          - geojson
+          - katex
+          - mathjax3
+          - vega2
+          - vega3
+
     steps:
 
     - name: Checkout
@@ -47,26 +58,14 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-yarn-
 
-    - name: Install the extension
+    - name: Install the extensions
       run: |
-        jlpm && jlpm run build
-
-        jupyter labextension install ./packages/fasta-extension --no-build
-        jupyter labextension install ./packages/geojson-extension --no-build
-        jupyter labextension install ./packages/katex-extension --no-build
-        jupyter labextension install ./packages/vega2-extension --no-build
-        jupyter labextension install ./packages/vega3-extension --no-build
-        jupyter labextension install ./packages/mathjax3-extension --no-build
-        jupyter lab build
+        cd packages/${{ matrix.extension }}-extension
+        python -m pip install .
 
     - name: Check the extensions are installed
       run: |
-        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/fasta-extension.*OK"
-        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/geojson-extension.*OK"
-        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/katex-extension.*OK"
-        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/vega2-extension.*OK"
-        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/vega3-extension.*OK"
-        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/mathjax3-extension.*OK"
+        jupyter labextension list 2>&1 | grep -ie "@jupyterlab/${{ matrix.extension }}-extension.*OK"
 
     - name: Browser check
       run: python -m jupyterlab.browser_check

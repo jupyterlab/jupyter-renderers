@@ -24,12 +24,27 @@ consists of [JupyterLab](https://github.com/jupyterlab/jupyterlab) _mimerender e
 
 ## Install
 
-* fasta-extension: `jupyter labextension install @jupyterlab/fasta-extension`
-* geojson-extension: `jupyter labextension install @jupyterlab/geojson-extension`
-* katex-extension: `jupyter labextension install @jupyterlab/katex-extension`
-* mathjax3-extension: `jupyter labextension install @jupyterlab/mathjax3-extension`
-* vega2-extension: `jupyter labextension install @jupyterlab/vega2-extension`
-* vega3-extension: `jupyter labextension install @jupyterlab/vega3-extension`
+With JupyterLab 3.0, it is possible to install the prebuilt extensions with `pip`:
+
+```bash
+pip install jupyterlab-fasta
+pip install jupyterlab-geojson
+pip install jupyterlab-katex
+pip install jupyterlab-mathjax3
+pip install jupyterlab-vega2
+pip install jupyterlab-vega3
+```
+
+It is also possible to install the extension from source using the `jupyter labextension install` command:
+
+- fasta-extension: `jupyter labextension install @jupyterlab/fasta-extension`
+- geojson-extension: `jupyter labextension install @jupyterlab/geojson-extension`
+- katex-extension: `jupyter labextension install @jupyterlab/katex-extension`
+- mathjax3-extension: `jupyter labextension install @jupyterlab/mathjax3-extension`
+- vega2-extension: `jupyter labextension install @jupyterlab/vega2-extension`
+- vega3-extension: `jupyter labextension install @jupyterlab/vega3-extension`
+
+JupyterLab 2.x only supports installing the extensions with the `jupyter labextension install` command.
 
 ## Contributing
 
@@ -39,7 +54,7 @@ JupyterLab follows the official [Jupyter Code of Conduct](https://github.com/jup
 
 ## Requirements
 
-* Node.js >= 4 (see [Installing Node.js and jlpm](https://github.com/jupyterlab/jupyterlab/blob/master/CONTRIBUTING.md#installing-nodejs-and-jlpm) in the JupyterLab docs)
+- Node.js >= 4 (see [Installing Node.js and jlpm](https://github.com/jupyterlab/jupyterlab/blob/master/CONTRIBUTING.md#installing-nodejs-and-jlpm) in the JupyterLab docs)
 
 ### Install
 
@@ -48,24 +63,21 @@ The `jlpm` command is JupyterLab's pinned version of
 `yarn` or `npm` in lieu of `jlpm` below.
 
 ```bash
+# Clone the repo to your local environment
 git clone https://github.com/jupyterlab/jupyter-renderers.git
 cd jupyter-renderers
-jlpm
-jlpm build
-```
 
-### Link extensions with JupyterLab
+# install the fasta extension
+cd packages/fasta-extension
 
-Link geojson-extension:
+# Install package in development mode
+pip install -e .
 
-```bash
-jupyter labextension link packages/geojson-extension
-```
+# Link your development version of the extension with JupyterLab
+jupyter labextension develop . --overwrite
 
-Link all extensions in `packages`:
-
-```bash
-jlpm run link
+# Rebuild the extensions TypeScript source after making changes
+jlpm run build
 ```
 
 ### Rebuilding extensions
@@ -73,21 +85,23 @@ jlpm run link
 After making changes to the source packages, the packages must be rebuilt:
 
 ```bash
-# Rebuild the source
-jlpm build
+# Rebuild all the extensions at once
+jlpm run build
 
-# Rebuild the JupyterLab staging directory
-jupyter lab build
+# To rebuilt a particular extension, for example the fasta extension
+cd packages/fasta-extension
+jlpm run build
 ```
 
-You may also watch the `jupyter-renderers` directory for changes and automatically rebuild:
+You may also watch a particular extension directory for changes and automatically rebuild:
 
 ```bash
-# In one terminal tab, watch the jupyter-renderers directory
-jlpm watch
+# In one terminal tab, watch the jupyter-fasta directory
+cd packages/fasta-extension
+jlpm run watch
 
-# In another terminal tab, run jupyterlab with the watch flag
-jupyter lab --watch
+# Run JupyterLab in another terminal
+jupyter lab
 ```
 
 ### Publishing packages

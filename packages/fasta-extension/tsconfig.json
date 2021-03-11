@@ -1,6 +1,15 @@
 {
-  "extends": "../../tsconfigbase",
   "compilerOptions": {
+    "declaration": true,
+    "noImplicitAny": true,
+    "noEmitOnError": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "preserveWatchOutput": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2015",
+    "lib": ["dom", "es2015"],
     "outDir": "lib",
     "rootDir": "src"
   },

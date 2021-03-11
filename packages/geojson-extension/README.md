@@ -1,4 +1,4 @@
-# geojson-extension
+# jupyterlab-geojson
 
 A JupyterLab extension for rendering GeoJSON
 
@@ -6,13 +6,12 @@ A JupyterLab extension for rendering GeoJSON
 
 ## Requirements
 
-* JupyterLab ^0.30.0
-* Node.js >= 5
+- JupyterLab >= 3.0
 
 ## Install
 
 ```bash
-jupyter labextension install @jupyterlab/geojson-extension
+pip install jupyterlab-geojson
 ```
 
 ## Usage
@@ -74,7 +73,9 @@ To render a `.geojson` or `.geo.json` file, simply open it.
 
 ## Contributing
 
-### Install
+### Development install
+
+Note: You will need NodeJS to build the extension package.
 
 The `jlpm` command is JupyterLab's pinned version of
 [yarn](https://yarnpkg.com/) that is installed with JupyterLab. You may use
@@ -82,31 +83,34 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-git clone https://github.com/jupyterlab/jupyter-renderers.git
-cd jupyter-renderers
-# Install dependencies
-jlpm
-# Build Typescript source
-jlpm build
+# Change directory to the jupyterlab-geojson directory
+# Install package in development mode
+pip install -e .
 # Link your development version of the extension with JupyterLab
-jupyter labextension link packages/geojson-extension
-# Rebuild Typescript source after making changes
-jlpm build
-# Rebuild JupyterLab after making any changes
-jupyter lab build
+jupyter labextension develop . --overwrite
+# Rebuild extension Typescript source after making changes
+jlpm run build
 ```
 
-You can watch the jupyter-renderers directory and run JupyterLab in watch mode to watch for changes in the extension's source and automatically rebuild the extension and application.
+You can watch the source directory and run JupyterLab at the same time in different terminals to watch for changes in the extension's source and automatically rebuild the extension.
 
 ```bash
-# Run jupyterlab in watch mode in one terminal tab
-jupyter lab --watch
-# Watch the jupyter-renderers directory in another terminal tab
-jlpm watch
+# Watch the source directory in one terminal, automatically rebuilding when needed
+jlpm run watch
+# Run JupyterLab in another terminal
+jupyter lab
+```
+
+With the watch command running, every saved change will immediately be built locally and available in your running JupyterLab. Refresh JupyterLab to load the change in your browser (you may need to wait several seconds for the extension to be rebuilt).
+
+By default, the `jlpm run build` command generates the source maps for this extension to make it easier to debug using the browser dev tools. To also generate source maps for the JupyterLab core extensions, you can run the following command:
+
+```bash
+jupyter lab build --minimize=False
 ```
 
 ### Uninstall
 
 ```bash
-jupyter labextension uninstall @jupyterlab/geojson-extension
+pip uninstall jupyterlab-geojson
 ```
