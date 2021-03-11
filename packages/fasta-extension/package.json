@@ -1,6 +1,6 @@
 {
   "name": "@jupyterlab/fasta-extension",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Fasta renderer for JupyterLab",
   "keywords": [
     "jupyter",
