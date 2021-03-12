@@ -5,7 +5,7 @@
   ],
   "scripts": {
     "build": "lerna run --parallel build",
-    "build-py": "rimraf dist && mkdir -p dist && lerna exec --concurrency 4 -- python setup.py sdist bdist_wheel && lerna exec --concurrency 4 -- mv dist/* ../../dist/",
+    "build-py": "rimraf dist && mkdir -p dist && lerna run --parallel clean:all && lerna exec --concurrency 4 -- python setup.py sdist bdist_wheel && lerna exec --concurrency 4 -- mv dist/* ../../dist/",
     "build:prod": "lerna run --parallel build:prod",
     "install-py": "lerna exec --concurrency 4 -- python -m pip install -e .",
     "install-ext": "lerna run install:extension",
