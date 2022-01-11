@@ -55,7 +55,7 @@
     "@jupyterlab/rendermime-interfaces": "^3.0.5",
     "@lumino/messaging": "^1.4.3",
     "@lumino/widgets": "^1.16.1",
-    "msa": "^1.0.3"
+    "@jlab-contrib/msa": "^1.1.2"
   },
   "devDependencies": {
     "@jupyterlab/builder": "^3.0.0",

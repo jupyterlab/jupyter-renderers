@@ -9,7 +9,7 @@ import { Message } from '@lumino/messaging';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import * as msa from 'msa';
+import * as msa from '@jlab-contrib/msa';
 
 import '../style/msa.css';
 
