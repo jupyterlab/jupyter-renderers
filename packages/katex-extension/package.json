@@ -41,9 +41,9 @@
     "build:prod": "jlpm run build:lib && jlpm run build:labextension",
     "clean": "jlpm run clean:lib",
     "clean:all": "jlpm run clean:lib && jlpm run clean:labextension && jlpm run clean:dist",
+    "clean:dist": "rimraf dist",
     "clean:labextension": "rimraf ./jupyterlab-katex/labextension",
     "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
-    "clean:dist": "rimraf dist",
     "eslint": "eslint . --ext .ts,.tsx --fix",
     "eslint:check": "eslint . --ext .ts,.tsx",
     "install:extension": "jupyter labextension develop --overwrite .",
@@ -54,14 +54,14 @@
     "watch:src": "tsc -w"
   },
   "dependencies": {
-    "@jupyterlab/application": "^3.0.6",
-    "@jupyterlab/rendermime": "^3.0.6",
-    "@jupyterlab/rendermime-interfaces": "^3.0.5",
-    "@jupyterlab/settingregistry": "^3.0.3",
+    "@jupyterlab/application": "^3.2.8",
+    "@jupyterlab/rendermime": "^3.2.8",
+    "@jupyterlab/rendermime-interfaces": "^3.2.8",
+    "@jupyterlab/settingregistry": "^3.2.8",
     "katex": "^0.12.0"
   },
   "devDependencies": {
-    "@jupyterlab/builder": "^3.0.0",
+    "@jupyterlab/builder": "^3.2.8",
     "@types/katex": "^0.11.0",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
