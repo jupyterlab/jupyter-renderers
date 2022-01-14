@@ -3,4 +3,4 @@
 | Distributed under the terms of the Modified BSD License.
 |----------------------------------------------------------------------------*/
 
-declare module 'msa';
+declare module '@jlab-contrib/msa';
