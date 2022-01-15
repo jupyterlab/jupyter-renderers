@@ -42,7 +42,7 @@ export class RenderedData extends Widget implements IRenderMime.IRenderer {
     this._mimeType = options.mimeType;
     this._parser = TYPES[this._mimeType].reader;
     this.addClass('jp-RenderedMSA');
-    let msaDiv = document.createElement('div');
+    const msaDiv = document.createElement('div');
     this.msa = new msa.msa({
       el: msaDiv,
       vis: {
@@ -75,8 +75,8 @@ export class RenderedData extends Widget implements IRenderMime.IRenderer {
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      let data = model.data[this._mimeType];
-      let seqs = this._parser.parse(data);
+      const data = model.data[this._mimeType];
+      const seqs = this._parser.parse(data);
       this.msa.seqs.reset(seqs);
       this.msa.render();
       this.update();
@@ -104,7 +104,7 @@ export class RenderedData extends Widget implements IRenderMime.IRenderer {
   protected onUpdateRequest(msg: Message): void {
     // Update size after update
     if (this.isVisible) {
-      let newWidth =
+      const newWidth =
         this.node.getBoundingClientRect().width -
         this.msa.g.zoomer.getLeftBlockWidth();
       this.msa.g.zoomer.set('alignmentWidth', newWidth);

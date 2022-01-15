@@ -59,7 +59,7 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
     this.addClass(VEGA_COMMON_CLASS);
 
     // Handle things related to the MIME type.
-    let mimeType = (this._mimeType = options.mimeType);
+    const mimeType = (this._mimeType = options.mimeType);
     if (mimeType === VEGA_MIME_TYPE) {
       this.addClass(VEGA_CLASS);
       this._mode = 'vega';
@@ -73,7 +73,7 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
    * Render Vega/Vega-Lite into this widget's node.
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
-    let data = model.data[this._mimeType] as ReadonlyJSONObject;
+    const data = model.data[this._mimeType] as ReadonlyJSONObject;
     let updatedData: JSONObject;
     if (this._mode === 'vega-lite') {
       updatedData = Private.updateVegaLiteDefaults(data);
@@ -81,7 +81,7 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
       updatedData = data as JSONObject;
     }
 
-    let embedSpec = {
+    const embedSpec = {
       mode: this._mode,
       spec: updatedData,
     };
@@ -95,8 +95,10 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
 
           // Save png data in MIME bundle along with original MIME data.
           if (!model.data['image/png']) {
-            let imageData = result.view.toImageURL().split(',')[1] as JSONValue;
-            let newData = { ...model.data, 'image/png': imageData };
+            const imageData = result.view
+              .toImageURL()
+              .split(',')[1] as JSONValue;
+            const newData = { ...model.data, 'image/png': imageData };
             model.setData({ data: newData });
           }
           resolve(undefined);
@@ -203,11 +205,11 @@ namespace Private {
    * large data.
    */
   export function updateVegaLiteDefaults(spec: ReadonlyJSONObject): JSONObject {
-    let config = spec.config as JSONObject;
+    const config = spec.config as JSONObject;
     if (!config) {
       return { ...{ config: { cell: defaultCellConfig } }, ...spec };
     }
-    let cell = config.cell as JSONObject;
+    const cell = config.cell as JSONObject;
     if (cell) {
       return {
         ...{

@@ -62,6 +62,7 @@ function splitAtDelimiters(
         lookingForLeft = false;
       }
 
+      // eslint-disable-next-line no-constant-condition
       while (true) {
         if (lookingForLeft) {
           nextIndex = text.indexOf(leftDelim, currIndex);
@@ -209,7 +210,7 @@ const defaultAutoRenderOptions: IAutoRenderOptions = {
 export function renderMathInElement(
   elem: HTMLElement,
   options: Partial<IAutoRenderOptions> = {}
-) {
+): void {
   if (!elem) {
     throw new Error('No element provided to render');
   }

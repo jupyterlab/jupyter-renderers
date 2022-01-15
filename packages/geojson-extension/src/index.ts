@@ -55,8 +55,7 @@ leaflet.Icon.Default.mergeOptions({
  * The url template that leaflet tile layers.
  * See http://leafletjs.com/reference-1.0.3.html#tilelayer
  */
-const URL_TEMPLATE: string =
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const URL_TEMPLATE = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
 /**
  * The options for leaflet tile layers.
@@ -115,8 +114,8 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
         .geoJSON(data, {
           onEachFeature: function (feature, layer) {
             if (feature.properties) {
-              var popupContent = '<table>';
-              for (var p in feature.properties) {
+              let popupContent = '<table>';
+              for (const p in feature.properties) {
                 popupContent +=
                   '<tr><td>' +
                   p +
