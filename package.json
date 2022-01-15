@@ -17,11 +17,10 @@
     "update-dependency": "update-dependency --lerna",
     "watch": "lerna run --parallel watch"
   },
-  "lint-staged": {
-    "{!(package),packages/*/!(package),packages/*/!(lib)/**}{.js,.jsx,.ts,.tsx,.css,.json,.md}": [
-      "prettier --write",
-      "git add"
-    ]
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "devDependencies": {
     "@jupyterlab/buildutils": "^3.2.8",
