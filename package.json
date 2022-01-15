@@ -7,6 +7,8 @@
     "build": "lerna run --parallel build",
     "build-py": "rimraf dist && mkdir -p dist && lerna run --parallel clean:all && lerna exec --concurrency 4 -- python setup.py sdist bdist_wheel && lerna exec --concurrency 4 -- mv dist/* ../../dist/",
     "build:prod": "lerna run --parallel build:prod",
+    "eslint": "eslint . --ext .ts,.tsx --fix",
+    "eslint:check": "eslint . --ext .ts,.tsx",
     "install-ext": "lerna run install:extension",
     "install-py": "lerna exec --concurrency 4 -- python -m pip install -e .",
     "link": "lerna exec --parallel -- jupyter labextension link . --no-build",
@@ -23,13 +25,15 @@
   },
   "devDependencies": {
     "@jupyterlab/buildutils": "^3.2.8",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
     "husky": "^7.0.4",
     "lerna": "^4.0.0",
     "lint-staged": "^12.1.7",
     "prettier": "^2.5.1",
-    "rimraf": "^3.0.2",
-    "tslint": "^5.9.1",
-    "tslint-config-prettier": "^1.9.0",
-    "tslint-plugin-prettier": "^1.3.0"
+    "rimraf": "^3.0.2"
   }
 }
