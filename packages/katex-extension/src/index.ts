@@ -3,7 +3,7 @@
 
 import {
   JupyterFrontEnd,
-  JupyterFrontEndPlugin
+  JupyterFrontEndPlugin,
 } from '@jupyterlab/application';
 
 import { ILatexTypesetter } from '@jupyterlab/rendermime';
@@ -57,7 +57,7 @@ const katexPlugin: JupyterFrontEndPlugin<ILatexTypesetter> = {
 
     settingRegistry
       .load(katexPluginId)
-      .then(settings => {
+      .then((settings) => {
         settings.changed.connect(updateSettings);
         updateSettings(settings);
       })
@@ -66,7 +66,7 @@ const katexPlugin: JupyterFrontEndPlugin<ILatexTypesetter> = {
       });
     return new KatexTypesetter();
   },
-  autoStart: true
+  autoStart: true,
 };
 
 export default katexPlugin;

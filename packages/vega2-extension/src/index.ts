@@ -83,10 +83,10 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
 
     let embedSpec = {
       mode: this._mode,
-      spec: updatedData
+      spec: updatedData,
     };
 
-    return Private.ensureMod().then(embedFunc => {
+    return Private.ensureMod().then((embedFunc) => {
       return new Promise<void>((resolve, reject) => {
         embedFunc(this.node, embedSpec, (error: any, result: any): any => {
           if (error) {
@@ -115,7 +115,7 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
 export const rendererFactory: IRenderMime.IRendererFactory = {
   safe: true,
   mimeTypes: [VEGA_MIME_TYPE, VEGALITE_MIME_TYPE],
-  createRenderer: options => new RenderedVega(options)
+  createRenderer: (options) => new RenderedVega(options),
 };
 
 const extension: IRenderMime.IExtension = {
@@ -128,29 +128,29 @@ const extension: IRenderMime.IExtension = {
       name: 'Vega 2',
       primaryFileType: 'vega2',
       fileTypes: ['vega2', 'json'],
-      defaultFor: ['vega2']
+      defaultFor: ['vega2'],
     },
     {
       name: 'Vega-Lite 1',
       primaryFileType: 'vega-lite1',
       fileTypes: ['vega-lite1', 'json'],
-      defaultFor: ['vega-lite1']
-    }
+      defaultFor: ['vega-lite1'],
+    },
   ],
   fileTypes: [
     {
       mimeTypes: [VEGA_MIME_TYPE],
       name: 'vega2',
       extensions: ['.vg', '.vg.json', '.vega'],
-      iconClass: 'jp-MaterialIcon jp-VegaIcon'
+      iconClass: 'jp-MaterialIcon jp-VegaIcon',
     },
     {
       mimeTypes: [VEGALITE_MIME_TYPE],
       name: 'vega-lite1',
       extensions: ['.vl', '.vl.json', '.vegalite'],
-      iconClass: 'jp-MaterialIcon jp-VegaIcon'
-    }
-  ]
+      iconClass: 'jp-MaterialIcon jp-VegaIcon',
+    },
+  ],
 };
 
 export default extension;
@@ -164,7 +164,7 @@ namespace Private {
    */
   const defaultCellConfig: JSONObject = {
     width: 400,
-    height: 400 / 1.5
+    height: 400 / 1.5,
   };
 
   /**
@@ -212,14 +212,14 @@ namespace Private {
       return {
         ...{
           config: { ...{ cell: { ...defaultCellConfig, ...cell } } },
-          ...config
+          ...config,
         },
-        ...spec
+        ...spec,
       };
     } else {
       return {
         ...{ config: { ...{ cell: { ...defaultCellConfig } } }, ...config },
-        ...spec
+        ...spec,
       };
     }
   }
