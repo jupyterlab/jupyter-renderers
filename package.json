@@ -13,7 +13,8 @@
     "install-py": "lerna exec --concurrency 4 -- python -m pip install -e .",
     "link": "lerna exec --parallel -- jupyter labextension link . --no-build",
     "precommit": "lint-staged",
-    "prettier": "prettier --write '{!(package),packages/*/!(package),packages/*/!(lib)/**}{.js,.jsx,.ts,.tsx,.css,.json,.md}'",
+    "prettier": "prettier --write \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
+    "prettier:check": "prettier --list-different \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
     "update-dependency": "update-dependency --lerna",
     "watch": "lerna run --parallel watch"
   },
