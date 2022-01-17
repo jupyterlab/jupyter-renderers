@@ -59,7 +59,7 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
     this.addClass(VEGA_COMMON_CLASS);
 
     // Handle things related to the MIME type.
-    let mimeType = (this._mimeType = options.mimeType);
+    const mimeType = (this._mimeType = options.mimeType);
     if (mimeType === VEGA_MIME_TYPE) {
       this.addClass(VEGA_CLASS);
       this._mode = 'vega';
@@ -73,7 +73,7 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
    * Render Vega/Vega-Lite into this widget's node.
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
-    let data = model.data[this._mimeType] as ReadonlyJSONObject;
+    const data = model.data[this._mimeType] as ReadonlyJSONObject;
     let updatedData: JSONObject;
     if (this._mode === 'vega-lite') {
       updatedData = Private.updateVegaLiteDefaults(data);
@@ -81,12 +81,12 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
       updatedData = data as JSONObject;
     }
 
-    let embedSpec = {
+    const embedSpec = {
       mode: this._mode,
-      spec: updatedData
+      spec: updatedData,
     };
 
-    return Private.ensureMod().then(embedFunc => {
+    return Private.ensureMod().then((embedFunc) => {
       return new Promise<void>((resolve, reject) => {
         embedFunc(this.node, embedSpec, (error: any, result: any): any => {
           if (error) {
@@ -95,8 +95,10 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
 
           // Save png data in MIME bundle along with original MIME data.
           if (!model.data['image/png']) {
-            let imageData = result.view.toImageURL().split(',')[1] as JSONValue;
-            let newData = { ...model.data, 'image/png': imageData };
+            const imageData = result.view
+              .toImageURL()
+              .split(',')[1] as JSONValue;
+            const newData = { ...model.data, 'image/png': imageData };
             model.setData({ data: newData });
           }
           resolve(undefined);
@@ -115,7 +117,7 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
 export const rendererFactory: IRenderMime.IRendererFactory = {
   safe: true,
   mimeTypes: [VEGA_MIME_TYPE, VEGALITE_MIME_TYPE],
-  createRenderer: options => new RenderedVega(options)
+  createRenderer: (options) => new RenderedVega(options),
 };
 
 const extension: IRenderMime.IExtension = {
@@ -128,29 +130,29 @@ const extension: IRenderMime.IExtension = {
       name: 'Vega 2',
       primaryFileType: 'vega2',
       fileTypes: ['vega2', 'json'],
-      defaultFor: ['vega2']
+      defaultFor: ['vega2'],
     },
     {
       name: 'Vega-Lite 1',
       primaryFileType: 'vega-lite1',
       fileTypes: ['vega-lite1', 'json'],
-      defaultFor: ['vega-lite1']
-    }
+      defaultFor: ['vega-lite1'],
+    },
   ],
   fileTypes: [
     {
       mimeTypes: [VEGA_MIME_TYPE],
       name: 'vega2',
       extensions: ['.vg', '.vg.json', '.vega'],
-      iconClass: 'jp-MaterialIcon jp-VegaIcon'
+      iconClass: 'jp-MaterialIcon jp-VegaIcon',
     },
     {
       mimeTypes: [VEGALITE_MIME_TYPE],
       name: 'vega-lite1',
       extensions: ['.vl', '.vl.json', '.vegalite'],
-      iconClass: 'jp-MaterialIcon jp-VegaIcon'
-    }
-  ]
+      iconClass: 'jp-MaterialIcon jp-VegaIcon',
+    },
+  ],
 };
 
 export default extension;
@@ -164,7 +166,7 @@ namespace Private {
    */
   const defaultCellConfig: JSONObject = {
     width: 400,
-    height: 400 / 1.5
+    height: 400 / 1.5,
   };
 
   /**
@@ -203,23 +205,23 @@ namespace Private {
    * large data.
    */
   export function updateVegaLiteDefaults(spec: ReadonlyJSONObject): JSONObject {
-    let config = spec.config as JSONObject;
+    const config = spec.config as JSONObject;
     if (!config) {
       return { ...{ config: { cell: defaultCellConfig } }, ...spec };
     }
-    let cell = config.cell as JSONObject;
+    const cell = config.cell as JSONObject;
     if (cell) {
       return {
         ...{
           config: { ...{ cell: { ...defaultCellConfig, ...cell } } },
-          ...config
+          ...config,
         },
-        ...spec
+        ...spec,
       };
     } else {
       return {
         ...{ config: { ...{ cell: { ...defaultCellConfig } } }, ...config },
-        ...spec
+        ...spec,
       };
     }
   }

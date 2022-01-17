@@ -57,11 +57,12 @@ function splitAtDelimiters(
         finalData.push({
           type: 'text',
           data: text.slice(0, currIndex),
-          display
+          display,
         });
         lookingForLeft = false;
       }
 
+      // eslint-disable-next-line no-constant-condition
       while (true) {
         if (lookingForLeft) {
           nextIndex = text.indexOf(leftDelim, currIndex);
@@ -72,7 +73,7 @@ function splitAtDelimiters(
           finalData.push({
             type: 'text',
             data: text.slice(currIndex, nextIndex),
-            display
+            display,
           });
 
           currIndex = nextIndex;
@@ -90,7 +91,7 @@ function splitAtDelimiters(
             type: 'math',
             data: text.slice(currIndex + leftDelim.length, nextIndex),
             rawData: text.slice(currIndex, nextIndex + rightDelim.length),
-            display: display
+            display: display,
           });
 
           currIndex = nextIndex + rightDelim.length;
@@ -102,7 +103,7 @@ function splitAtDelimiters(
       finalData.push({
         type: 'text',
         data: text.slice(currIndex),
-        display
+        display,
       });
     } else {
       finalData.push(startData[i]);
@@ -198,18 +199,18 @@ const defaultAutoRenderOptions: IAutoRenderOptions = {
     { left: '\\[', right: '\\]', display: true },
     { left: '\\(', right: '\\)', display: false },
     { left: '$', right: '$', display: false },
-    { left: '\\begin{equation}', right: '\\end{equation}', display: true }
+    { left: '\\begin{equation}', right: '\\end{equation}', display: true },
   ],
 
   ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
   errorColor: '#CC0000',
-  throwOnError: false
+  throwOnError: false,
 };
 
 export function renderMathInElement(
   elem: HTMLElement,
   options: Partial<IAutoRenderOptions> = {}
-) {
+): void {
   if (!elem) {
     throw new Error('No element provided to render');
   }

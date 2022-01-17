@@ -48,15 +48,14 @@ delete (leaflet.Icon.Default.prototype as any)['_getIconUrl'];
 leaflet.Icon.Default.mergeOptions({
   iconRetinaUrl: iconRetinaUrl,
   iconUrl: iconUrl,
-  shadowUrl: shadowUrl
+  shadowUrl: shadowUrl,
 });
 
 /**
  * The url template that leaflet tile layers.
  * See http://leafletjs.com/reference-1.0.3.html#tilelayer
  */
-const URL_TEMPLATE: string =
-  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const URL_TEMPLATE = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
 /**
  * The options for leaflet tile layers.
@@ -66,7 +65,7 @@ const LAYER_OPTIONS: leaflet.TileLayerOptions = {
   attribution:
     'Map data (c) <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
   minZoom: 0,
-  maxZoom: 18
+  maxZoom: 18,
 };
 
 export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
@@ -82,7 +81,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     // window.resize events since we have individual phosphor resize
     // events.
     this._map = leaflet.map(this.node, {
-      trackResize: false
+      trackResize: false,
     });
   }
 
@@ -111,18 +110,25 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
         )
         .addTo(this._map);
       // Create GeoJSON layer from data and add to map
-      this._geoJSONLayer= leaflet.geoJSON(data, {
-        onEachFeature: function (feature, layer) {
-          if (feature.properties) {
-            var popupContent = '<table>';
-            for (var p in feature.properties) {
-              popupContent += '<tr><td>' + p + ':</td><td><b>' + feature.properties[p] + '</b></td></tr>';
+      this._geoJSONLayer = leaflet
+        .geoJSON(data, {
+          onEachFeature: function (feature, layer) {
+            if (feature.properties) {
+              let popupContent = '<table>';
+              for (const p in feature.properties) {
+                popupContent +=
+                  '<tr><td>' +
+                  p +
+                  ':</td><td><b>' +
+                  feature.properties[p] +
+                  '</b></td></tr>';
+              }
+              popupContent += '</table>';
+              layer.bindPopup(defaultSanitizer.sanitize(popupContent));
             }
-            popupContent += '</table>';
-            layer.bindPopup(defaultSanitizer.sanitize(popupContent));
-          }
-        }
-      }).addTo(this._map);
+          },
+        })
+        .addTo(this._map);
       this.update();
       resolve();
     });
@@ -136,11 +142,11 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
       // Disable scroll zoom by default to avoid conflicts with notebook scroll
       this._map.scrollWheelZoom.disable();
       // Enable scroll zoom on map focus
-      this._map.on('blur', event => {
+      this._map.on('blur', (event) => {
         this._map.scrollWheelZoom.disable();
       });
       // Disable scroll zoom on blur
-      this._map.on('focus', event => {
+      this._map.on('focus', (event) => {
         this._map.scrollWheelZoom.enable();
       });
     }
@@ -184,7 +190,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
 export const rendererFactory: IRenderMime.IRendererFactory = {
   safe: true,
   mimeTypes: [MIME_TYPE],
-  createRenderer: options => new RenderedGeoJSON(options)
+  createRenderer: (options) => new RenderedGeoJSON(options),
 };
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
@@ -198,16 +204,16 @@ const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
         name: 'geojson',
         mimeTypes: [MIME_TYPE],
         extensions: ['.geojson', '.geo.json'],
-        iconClass: CSS_ICON_CLASS
-      }
+        iconClass: CSS_ICON_CLASS,
+      },
     ],
     documentWidgetFactoryOptions: {
       name: 'GeoJSON',
       primaryFileType: 'geojson',
       fileTypes: ['geojson', 'json'],
-      defaultFor: ['geojson']
-    }
-  }
+      defaultFor: ['geojson'],
+    },
+  },
 ];
 
 export default extensions;

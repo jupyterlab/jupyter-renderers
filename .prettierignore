@@ -1,0 +1,9 @@
+node_modules
+**/node_modules
+**/lib
+**/package.json
+**/static
+**/labextension
+build
+ipynb_checkpoints
+notebooks/

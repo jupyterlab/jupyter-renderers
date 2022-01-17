@@ -21,13 +21,13 @@ const TYPES: {
   'application/vnd.fasta.fasta': {
     name: 'Fasta',
     extensions: ['.fasta', '.fa'],
-    reader: msa.io.fasta
+    reader: msa.io.fasta,
   },
   'application/vnd.clustal.clustal': {
     name: 'Clustal',
     extensions: ['.clustal', '.aln'],
-    reader: msa.io.clustal
-  }
+    reader: msa.io.clustal,
+  },
 };
 
 /**
@@ -42,7 +42,7 @@ export class RenderedData extends Widget implements IRenderMime.IRenderer {
     this._mimeType = options.mimeType;
     this._parser = TYPES[this._mimeType].reader;
     this.addClass('jp-RenderedMSA');
-    let msaDiv = document.createElement('div');
+    const msaDiv = document.createElement('div');
     this.msa = new msa.msa({
       el: msaDiv,
       vis: {
@@ -53,8 +53,8 @@ export class RenderedData extends Widget implements IRenderMime.IRenderer {
         overviewbox: true,
         seqlogo: false,
         gapHeader: false,
-        leftHeader: true
-      }
+        leftHeader: true,
+      },
     });
 
     // The menu doesn't work correctly in the absolutely positioned panel, so
@@ -75,8 +75,8 @@ export class RenderedData extends Widget implements IRenderMime.IRenderer {
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      let data = model.data[this._mimeType];
-      let seqs = this._parser.parse(data);
+      const data = model.data[this._mimeType];
+      const seqs = this._parser.parse(data);
       this.msa.seqs.reset(seqs);
       this.msa.render();
       this.update();
@@ -104,7 +104,7 @@ export class RenderedData extends Widget implements IRenderMime.IRenderer {
   protected onUpdateRequest(msg: Message): void {
     // Update size after update
     if (this.isVisible) {
-      let newWidth =
+      const newWidth =
         this.node.getBoundingClientRect().width -
         this.msa.g.zoomer.getLeftBlockWidth();
       this.msa.g.zoomer.set('alignmentWidth', newWidth);
@@ -123,10 +123,10 @@ export class RenderedData extends Widget implements IRenderMime.IRenderer {
 export const rendererFactory: IRenderMime.IRendererFactory = {
   safe: false,
   mimeTypes: Object.keys(TYPES),
-  createRenderer: options => new RenderedData(options)
+  createRenderer: (options) => new RenderedData(options),
 };
 
-const extensions = Object.keys(TYPES).map(k => {
+const extensions = Object.keys(TYPES).map((k) => {
   const { name } = TYPES[k];
   return {
     id: `jupyterlab-fasta:${name}`,
@@ -138,15 +138,15 @@ const extensions = Object.keys(TYPES).map(k => {
         name,
         extensions: TYPES[k].extensions,
         mimeTypes: [k],
-        iconClass: 'jp-MaterialIcon jp-MSAIcon'
-      }
+        iconClass: 'jp-MaterialIcon jp-MSAIcon',
+      },
     ],
     documentWidgetFactoryOptions: {
       name,
       primaryFileType: name,
       fileTypes: [name],
-      defaultFor: [name]
-    }
+      defaultFor: [name],
+    },
   } as IRenderMime.IExtension;
 });
 
