@@ -1259,15 +1259,15 @@
     "@lumino/signaling" "^1.10.1"
     "@lumino/virtualdom" "^1.14.1"
 
-"@lumino/coreutils@^1.12.0", "@lumino/coreutils@^1.8.0":
+"@lumino/coreutils@^1.12.0", "@lumino/coreutils@^1.5.3", "@lumino/coreutils@^1.8.0":
   version "1.12.0"
   resolved "https://registry.yarnpkg.com/@lumino/coreutils/-/coreutils-1.12.0.tgz#fbdef760f736eaf2bd396a5c6fc3a68a4b449b15"
   integrity sha512-DSglh4ylmLi820CNx9soJmDJCpUgymckdWeGWuN0Ash5g60oQvrQDfosVxEhzmNvtvXv45WZEqSBzDP6E5SEmQ==
 
-"@lumino/coreutils@^1.5.3":
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/@lumino/coreutils/-/coreutils-1.5.3.tgz#89dd7b7f381642a1bf568910c5b62c7bde705d71"
-  integrity sha512-G72jJ6sgOwAUuilz+cri7LpHIJxllK+qz+YZUC3fyyWHK7oRlZemcc43jZAVE+tagTdMxKYSQWNIVzM5lI8sWw==
+"@lumino/coreutils@~1.8.0":
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/@lumino/coreutils/-/coreutils-1.8.2.tgz#e303a3b12a319f0f304b835269ca85319346d219"
+  integrity sha512-IPlQEU9yJ/ysaEYiTqb25xKnKgAANiRy5huC2fPWuJtNfhjl8fyWsj8knTJC6XmI09NzhP8ZAyMAZjTFPYnyaw==
 
 "@lumino/disposable@^1.10.1", "@lumino/disposable@^1.7.0":
   version "1.10.1"
