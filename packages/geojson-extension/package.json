@@ -29,8 +29,7 @@
     "lib/*.d.ts",
     "lib/*.js",
     "style/*.*",
-    "style/index.js",
-    "src/tilelayers_options.json"
+    "style/index.js"
   ],
   "scripts": {
     "build": "jlpm run build:lib && jlpm run build:labextension:dev",

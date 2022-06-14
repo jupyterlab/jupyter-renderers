@@ -1,0 +1,38 @@
+{"Thunderforest": {
+    "keyString":"apikey",
+    "name": "Thunderforest"
+  },
+  "OpenWeatherMap": {
+    "keyString":"apiKey",
+    "name": "OpenWeatherMap"
+  },
+  "MapTiler": {
+    "keyString": "key",
+  "name": "MapTiler"
+  },
+  "MapBox": {
+    "keyString": "accessToken",
+    "name": "MapBox"
+  },
+  "Jawg": {
+    "keyString": "accessToken",
+    "name": "Jawg"
+  },
+  "TomTom": {
+    "keyString": "apikey",
+    "name": "TomTom"
+  },
+  "HEREv3": {
+    "keyString": "apiKey",
+    "name": "HEREv3"
+  },
+  "HERE": {
+    "keyString": "apiKey",
+    "name": "HERE"
+  },
+  "AzureMaps": {
+    "keyString": "subscriptionKey",
+    "name": "AzureMaps"
+  }
+
+}
