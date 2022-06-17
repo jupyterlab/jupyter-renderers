@@ -3,11 +3,19 @@
 
 import { Widget } from '@lumino/widgets';
 
+import { CommandPalette } from '@lumino/widgets';
+
 import { Message } from '@lumino/messaging';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import { defaultSanitizer } from '@jupyterlab/apputils';
+import { defaultSanitizer, Dialog, showDialog } from '@jupyterlab/apputils';
+
+
+import { CommandRegistry } from '@lumino/commands';
+
+//import { defaultSanitizer} from '@jupyterlab/apputils';
+
 
 import leaflet from 'leaflet';
 
@@ -18,9 +26,24 @@ import '../style/index.css';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
-var tilelayers_data = require('./providers.json')
-var access_data = require('./access_data.json')
-console.log(access_data)
+const tilelayers_data = require('./providers.json')
+const providers_text = JSON.stringify(tilelayers_data,null,4);
+const access_data = require('./access_data.json')
+
+
+
+
+/************************************************** */
+/*************************************************** */
+/*************************************************** */
+/**************************************************** */
+/*************************************************** */
+/**************************************************** */
+/*************************************************** */
+/**************************************************** */
+/*************************************************** */
+/**************************************************** */
+
 /**
  * The CSS class to add to the GeoJSON Widget.
  */
@@ -70,40 +93,91 @@ leaflet.Icon.Default.mergeOptions({
  // maxZoom: 18,
 //};
 
-var key_value =[];
-for (let [key, val] of Object.entries(tilelayers_data)){
-  var APIname = key
-  if (Object.keys(val).includes('url')){
 
-    if (Object.keys(access_data).includes(APIname)){
-      console.log('APIkey needed')
-    }
-    else{
-      var name = tilelayers_data[key].name
-      var layer = leaflet.tileLayer(tilelayers_data[key].url, tilelayers_data[key]);
-      key_value.push([name,layer])
-    }
-  }
 
-  else{
-  var newData = val;
 
-    for (let newKey of Object.keys(newData)) {
-      if (Object.keys(access_data).includes(APIname)){
-        console.log('APIkey needed')
-      }
-      else{
-      var name = tilelayers_data[key][newKey].name
-      var layer = leaflet.tileLayer(tilelayers_data[key][newKey].url, tilelayers_data[key][newKey]);
-      key_value.push([name,layer])
+export class DropDownList extends Widget implements Dialog.IBodyWidget<string> {
+  constructor(item: Object = {}, placeHolder: string ='') {
+    super();
+
+    const nameList =[]
+    this._selectList = document.createElement("select");
+    this.node.appendChild(this._selectList)
+
+
+
+    for (let [key, val] of Object.entries(item)){
+      if (Object.keys(val).includes('url')){
+        const name = tilelayers_data[key].name
+        nameList.push(name)
+      } else{
+        const newData = val;
+        for (let newKey of Object.keys(newData)) {
+          const name = tilelayers_data[key][newKey].name
+          nameList.push(name)
+        }
       }
     }
+
+    for (let i = 0; i < nameList.length; i++){
+      var option = document.createElement("option");
+      option.value = nameList[i];
+      option.text = nameList[i] ;
+      this._selectList.appendChild(option);
   }
+  }
+
+
+  getValue(): string {
+    return this._selectList.value;
+  }
+  private _selectList: HTMLSelectElement;
+
 }
 
-const baseMaps = Object.fromEntries(key_value);
-var overlayMaps = {}
-var layer_control = leaflet.control.layers(baseMaps, overlayMaps)
+export class TextInput extends Widget implements Dialog.IBodyWidget<string> {
+  constructor(placeHolder: string = '') {
+    super();
+
+    this._urlInput = document.createElement('input');
+    this._urlInput.type = "password"
+    this._urlInput.placeholder = placeHolder;
+    this.node.appendChild(this._urlInput);
+  }
+  getValue(): string {
+    return this._urlInput.value;
+  }
+  private _urlInput: HTMLInputElement;
+
+}
+
+
+export class TilelayerInput extends Widget implements Dialog.IBodyWidget<string> {
+  constructor(placeHolder: string = '') {
+    super();
+
+    this._dialogText = document.createElement('div');
+    //this._fileText.className = "dialog-content";
+    this._dialogText.textContent ='Please enter a tilelayer name'
+    this.node.appendChild(this._dialogText);
+
+    this._urlInput = document.createElement('input');
+    this._urlInput.placeholder = placeHolder;
+    this.node.appendChild(this._urlInput);
+
+    this._fileText = document.createElement('div');
+    //this._fileText.className = "file-content";
+    this._fileText.textContent = providers_text
+    this.node.appendChild(this._fileText);
+  }
+  getValue(): string {
+    return this._urlInput.value;
+  }
+  private _urlInput: HTMLInputElement;
+  private _fileText: HTMLDivElement;
+  private _dialogText: HTMLDivElement;
+}
+
 
 export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   /**
@@ -120,7 +194,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     this._map = leaflet.map(this.node, {
       trackResize: false,
     });
-  }
+}
 
   /**
    * Dispose of the widget.
@@ -137,18 +211,103 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const data = model.data[this._mimeType] as any | GeoJSON.GeoJsonObject;
-    //const metadata = (model.metadata[this._mimeType] as any) || {};
     return new Promise<void>((resolve, reject) => {
-    //----------------------A SINGLE TILELAYER ---------------------------------------
-      // Add leaflet tile layer to map
-     // leaflet
-       // .tileLayer(
-          //metadata.url_template || URL_TEMPLATE,
-          //metadata.layer_options || LAYER_OPTIONS
-        //)
-      //----------------------SWITCH BETWEEN TILELAYERS ------------------------------
-        // Add a layer_control to switch betweem tilelayers
-        layer_control.addTo(this._map);
+      //---------------------SELECT A SINGLE TILELAYER WITH ITS NAME AND ADD IT-------------------------------------------------------
+
+      const paletteButton = document.createElement("button");
+      paletteButton.className = "button-container";
+      //this.node.append(paletteButton);
+      paletteButton.style.left= '150px'
+      paletteButton.innerHTML = "palette";
+      const commands = new CommandRegistry();
+
+      paletteButton.onclick =()=> showDialog(
+        {
+          title: 'Select your tilelayer please',
+          body: new CommandPalette({commands}),
+          buttons: [Dialog.cancelButton(), Dialog.okButton()]
+
+        })
+
+      const tilelayerButton = document.createElement("button");
+      tilelayerButton.className = "button-container";
+      this.node.append(tilelayerButton);
+      tilelayerButton.style.right = '0px'
+      tilelayerButton.innerHTML = "tilelayers";
+
+
+
+      tilelayerButton.onclick =()=> showDialog(
+        {
+          title: 'Select your tilelayer please',
+          body: new DropDownList(tilelayers_data),
+          buttons: [Dialog.cancelButton(), Dialog.okButton()]
+
+        }).then(result =>{
+          console.log('result.value: ', result.value)
+          const input_name = result.value;
+          //if (tilelayersList.includes(input_name)){
+            if (input_name.includes('.')){
+              const APIname = input_name.split('.')[0]
+              const subname = input_name.split('.')[1]
+              if(Object.keys(access_data).includes(APIname) ){
+                          /******************************* */
+              showDialog(
+                {
+                  title :'Enter the APIkey please',
+                  body: new TextInput(),
+                  buttons: [Dialog.cancelButton(), Dialog.okButton()]
+                  }).then(result =>{
+                const code = access_data[APIname].keyString
+                tilelayers_data[APIname][subname][code] = result.value
+                const layer = leaflet.tileLayer(tilelayers_data[APIname][subname].url, tilelayers_data[APIname][subname])
+                layer.addTo(this._map)
+                  }
+                )
+            /******************************* */
+              }
+              else{
+                const layer = leaflet.tileLayer(tilelayers_data[APIname][subname].url, tilelayers_data[APIname][subname])
+                layer.addTo(this._map)
+              }
+
+            }else{
+              const APIname = input_name
+              if(Object.keys(access_data).includes(APIname) ){
+                /******************************* */
+                showDialog(
+                  {
+                    title: 'Enter the APIKEY please',
+                    body: new TextInput(),
+                    buttons: [Dialog.cancelButton(), Dialog.okButton()]
+                  }).then(result =>{
+                    const code = access_data[APIname].keyString
+                    tilelayers_data[APIname][code] = result.value
+                    const layer = leaflet.tileLayer(tilelayers_data[APIname].url, tilelayers_data[APIname])
+                    layer.addTo(this._map)
+                  }
+                  )
+              /******************************* */
+              } else {
+              const layer = leaflet.tileLayer(tilelayers_data[APIname].url, tilelayers_data[APIname])
+              layer.addTo(this._map)
+              }
+            }
+          }
+          //else{
+            //showDialog(
+              //{
+                //title: 'The tilelayer name is invalid',
+                //body: '',
+                //buttons: [Dialog.cancelButton(), Dialog.okButton()]
+              //})
+
+          //}
+        //}
+        );
+
+
+
       //------------------------------------------------------------------------------
       // Create GeoJSON layer from data and add to map
       this._geoJSONLayer = leaflet

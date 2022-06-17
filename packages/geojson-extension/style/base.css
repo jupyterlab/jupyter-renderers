@@ -29,3 +29,33 @@
 .jp-GeoJSONIcon {
   background-image: var(--jp-icon-geojson);
 }
+
+.button-container {
+  position: absolute;
+  margin-left: auto;
+  font-size:  11px;
+  font-family: 'Arial';
+  height:50px;
+  width:40px;
+  color: white;
+  background-color: rgb(53, 111, 220);
+
+}
+.input-content{
+  font-family: 'Monospace';
+  font-size:  6px;
+
+
+}
+.file-content{
+  font-family: 'Monospace';
+  font-size:  6px;
+  background-color: rgb(53, 111, 220);
+  color : white;
+}
+.dialog-content{
+  font-family: 'Arial';
+  font-size:  16px;
+  color: rgb(53, 111, 220);
+
+}
