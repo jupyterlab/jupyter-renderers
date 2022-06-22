@@ -33,29 +33,21 @@
 .button-container {
   position: absolute;
   margin-left: auto;
-  font-size:  11px;
+  font-size: 12px;
   font-family: 'Arial';
-  height:50px;
-  width:40px;
+  height: 80px;
+  width: 70px;
   color: white;
   background-color: rgb(53, 111, 220);
-
 }
-.input-content{
-  font-family: 'Monospace';
-  font-size:  6px;
 
-
-}
-.file-content{
-  font-family: 'Monospace';
-  font-size:  6px;
-  background-color: rgb(53, 111, 220);
-  color : white;
-}
-.dialog-content{
+.input-content {
   font-family: 'Arial';
-  font-size:  16px;
-  color: rgb(53, 111, 220);
+  font-size: 12px;
+  /*background-color: rgb(53, 111, 220);*/
+  color: black;
+}
 
+.select-list {
+  overflow: auto;
 }

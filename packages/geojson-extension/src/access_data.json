@@ -1,14 +1,15 @@
-{"Thunderforest": {
-    "keyString":"apikey",
+{
+  "Thunderforest": {
+    "keyString": "apikey",
     "name": "Thunderforest"
   },
   "OpenWeatherMap": {
-    "keyString":"apiKey",
+    "keyString": "apiKey",
     "name": "OpenWeatherMap"
   },
   "MapTiler": {
     "keyString": "key",
-  "name": "MapTiler"
+    "name": "MapTiler"
   },
   "MapBox": {
     "keyString": "accessToken",
@@ -34,5 +35,4 @@
     "keyString": "subscriptionKey",
     "name": "AzureMaps"
   }
-
 }
