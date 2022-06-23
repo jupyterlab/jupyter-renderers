@@ -7,7 +7,7 @@ import { Message } from '@lumino/messaging';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import {view} from 'geoverview';
+import { view } from 'geoverview';
 
 import '../style/index.css';
 
@@ -83,8 +83,6 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    */
   protected onUpdateRequest(msg: Message): void {
     // Update map size after update
-    if (this.isVisible) {
-    }
   }
 
   private _mimeType: string;
