@@ -2,22 +2,31 @@
 // Distributed under the terms of the Modified BSD License.
 
 import { Widget } from '@lumino/widgets';
-
 import { Message } from '@lumino/messaging';
-
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
-
-import { defaultSanitizer } from '@jupyterlab/apputils';
-
+import { defaultSanitizer, Dialog, showDialog } from '@jupyterlab/apputils';
 import leaflet from 'leaflet';
-
 import 'leaflet/dist/leaflet.css';
-
 import '../style/index.css';
-
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+
+const tilelayers_data = require('./providers.json');
+const access_data = require('./access_data.json');
+const nameList: Array<string> = [];
+for (const [key, val] of Object.entries(tilelayers_data )){
+  if (Object.keys(val).includes('url')) {
+    const name = tilelayers_data[key].name;
+    nameList.push(name);
+  } else {
+  const newData = val;
+  for (const newKey of Object.keys(newData)) {
+    const name = tilelayers_data[key][newKey].name;
+    nameList.push(name);
+  }
+}
+}
 
 /**
  * The CSS class to add to the GeoJSON Widget.
@@ -51,22 +60,40 @@ leaflet.Icon.Default.mergeOptions({
   shadowUrl: shadowUrl,
 });
 
-/**
- * The url template that leaflet tile layers.
- * See http://leafletjs.com/reference-1.0.3.html#tilelayer
- */
-const URL_TEMPLATE = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+export class DropDownList extends Widget implements Dialog.IBodyWidget<string> {
+  constructor(list: Array<string> = []) {
+    super();
 
-/**
- * The options for leaflet tile layers.
- * See http://leafletjs.com/reference-1.0.3.html#tilelayer
- */
-const LAYER_OPTIONS: leaflet.TileLayerOptions = {
-  attribution:
-    'Map data (c) <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-  minZoom: 0,
-  maxZoom: 18,
-};
+    this._selectList = document.createElement('select');
+    this.node.appendChild(this._selectList);
+
+    for (let i = 0; i < list.length; i++){
+      const option = document.createElement('option');
+      option.value = list[i];
+      option.text = list[i];
+      this._selectList.appendChild(option);
+    }
+  }
+
+  getValue(): string {
+    return this._selectList.value;
+  }
+  private _selectList: HTMLSelectElement;
+}
+
+export class TextInput extends Widget implements Dialog.IBodyWidget<string> {
+  constructor(placeHolder: string) {
+    super();
+    this._urlInput = document.createElement('input');
+    this._urlInput.type = 'password';
+    this._urlInput.placeholder = placeHolder;
+    this.node.appendChild(this._urlInput);
+  }
+  getValue(): string {
+    return this._urlInput.value;
+  }
+  private _urlInput: HTMLInputElement;
+}
 
 export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   /**
@@ -100,15 +127,69 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const data = model.data[this._mimeType] as any | GeoJSON.GeoJsonObject;
-    const metadata = (model.metadata[this._mimeType] as any) || {};
     return new Promise<void>((resolve, reject) => {
-      // Add leaflet tile layer to map
-      leaflet
-        .tileLayer(
-          metadata.url_template || URL_TEMPLATE,
-          metadata.layer_options || LAYER_OPTIONS
-        )
-        .addTo(this._map);
+      //----------------------------------------------------------------------------
+
+      const tilelayerButton = document.createElement('button');
+      tilelayerButton.className = 'button-container';
+      this.node.append(tilelayerButton);
+      tilelayerButton.style.right = '0px';
+      tilelayerButton.innerHTML = 'Dropdown';
+
+      tilelayerButton.onclick =()=>
+      showDialog({
+          title: 'Select your tilelayer please',
+          body: new DropDownList(nameList),
+          buttons: [Dialog.cancelButton(), Dialog.okButton()],
+        }).then((result) => {
+          console.log('result.value: ', result.value);
+          const input_name = result.value;
+
+          if (input_name.includes('.')){
+            const APIname = input_name.split('.')[0];
+            const subname = input_name.split('.')[1];
+            if(Object.keys(access_data).includes(APIname) ){
+              showDialog(
+                {
+                title :'',
+                body: new TextInput('Enter the APIkey please'),
+                buttons: [Dialog.cancelButton(), Dialog.okButton()]
+                }).then((result) => {
+              const code = access_data[APIname].keyString;
+              tilelayers_data[APIname][subname][code] = result.value;
+              const layer = leaflet.tileLayer(tilelayers_data[APIname][subname].url, tilelayers_data[APIname][subname]);
+              layer.addTo(this._map);
+                }
+              )
+
+            } else {
+            const layer = leaflet.tileLayer(tilelayers_data[APIname][subname].url, tilelayers_data[APIname][subname]);
+            layer.addTo(this._map);
+            }
+
+            } else {
+              const APIname = input_name
+              if(Object.keys(access_data).includes(APIname) ){
+                showDialog(
+                  {
+                    title: '',
+                    body: new TextInput('Enter the APIKEY please'),
+                    buttons: [Dialog.cancelButton(), Dialog.okButton()]
+                  }).then((result) => {
+                    const code = access_data[APIname].keyString
+                    tilelayers_data[APIname][code] = result.value
+                    const layer = leaflet.tileLayer(tilelayers_data[APIname].url, tilelayers_data[APIname]);
+                    layer.addTo(this._map);
+                  }
+                  )
+              } else {
+              const layer = leaflet.tileLayer(tilelayers_data[APIname].url, tilelayers_data[APIname]);
+              layer.addTo(this._map);
+              }
+            }
+          }
+        );
+
       // Create GeoJSON layer from data and add to map
       this._geoJSONLayer = leaflet
         .geoJSON(data, {
