@@ -20,9 +20,5 @@
     "target": "es2017",
     "types": ["node"]
   },
-  "include": [
-    "src/*",
-    "src/providers.json",
-    "src/access_data.json"
-  ],
+  "include": ["src/*", "src/providers.json", "src/access_data.json"]
 }
