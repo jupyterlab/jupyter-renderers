@@ -12,20 +12,21 @@ import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
-const tilelayers_data = require('./providers.json');
-const access_data = require('./access_data.json');
+import * as providers from './providers.json';
+import * as access_d from './access_data.json';
+const tilelayers_data: { [key: string]: any } = providers;
+const access_data: { [key: string]: any } = access_d;
 const nameList: Array<string> = [];
-for (const [key, val] of Object.entries(tilelayers_data )){
-  if (Object.keys(val).includes('url')) {
-    const name = tilelayers_data[key].name;
+for (const val1 of Object.values(tilelayers_data)) {
+  if (Object.keys(val1).includes('url')) {
+    const name = val1.name;
     nameList.push(name);
   } else {
-  const newData = val;
-  for (const newKey of Object.keys(newData)) {
-    const name = tilelayers_data[key][newKey].name;
-    nameList.push(name);
+    for (const val2 of Object.values(val1)) {
+      const name = (val2 as any).name;
+      nameList.push(name);
+    }
   }
-}
 }
 
 /**
@@ -67,7 +68,7 @@ export class DropDownList extends Widget implements Dialog.IBodyWidget<string> {
     this._selectList = document.createElement('select');
     this.node.appendChild(this._selectList);
 
-    for (let i = 0; i < list.length; i++){
+    for (let i = 0; i < list.length; i++) {
       const option = document.createElement('option');
       option.value = list[i];
       option.text = list[i];
@@ -136,8 +137,8 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
       tilelayerButton.style.right = '0px';
       tilelayerButton.innerHTML = 'Dropdown';
 
-      tilelayerButton.onclick =()=>
-      showDialog({
+      tilelayerButton.onclick = () =>
+        showDialog({
           title: 'Select your tilelayer please',
           body: new DropDownList(nameList),
           buttons: [Dialog.cancelButton(), Dialog.okButton()],
@@ -145,50 +146,55 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
           console.log('result.value: ', result.value);
           const input_name = result.value;
 
-          if (input_name.includes('.')){
+          if (input_name.includes('.')) {
             const APIname = input_name.split('.')[0];
             const subname = input_name.split('.')[1];
-            if(Object.keys(access_data).includes(APIname) ){
-              showDialog(
-                {
-                title :'',
+            if (Object.keys(access_data).includes(APIname)) {
+              showDialog({
+                title: '',
                 body: new TextInput('Enter the APIkey please'),
-                buttons: [Dialog.cancelButton(), Dialog.okButton()]
-                }).then((result) => {
-              const code = access_data[APIname].keyString;
-              tilelayers_data[APIname][subname][code] = result.value;
-              const layer = leaflet.tileLayer(tilelayers_data[APIname][subname].url, tilelayers_data[APIname][subname]);
-              layer.addTo(this._map);
-                }
-              )
-
+                buttons: [Dialog.cancelButton(), Dialog.okButton()],
+              }).then((result) => {
+                const code = access_data[APIname].keyString;
+                tilelayers_data[APIname][subname][code] = result.value;
+                const layer = leaflet.tileLayer(
+                  tilelayers_data[APIname][subname].url,
+                  tilelayers_data[APIname][subname]
+                );
+                layer.addTo(this._map);
+              });
             } else {
-            const layer = leaflet.tileLayer(tilelayers_data[APIname][subname].url, tilelayers_data[APIname][subname]);
-            layer.addTo(this._map);
+              const layer = leaflet.tileLayer(
+                tilelayers_data[APIname][subname].url,
+                tilelayers_data[APIname][subname]
+              );
+              layer.addTo(this._map);
             }
-
+          } else {
+            const APIname = input_name;
+            if (Object.keys(access_data).includes(APIname)) {
+              showDialog({
+                title: '',
+                body: new TextInput('Enter the APIKEY please'),
+                buttons: [Dialog.cancelButton(), Dialog.okButton()],
+              }).then((result) => {
+                const code = access_data[APIname].keyString;
+                tilelayers_data[APIname][code] = result.value;
+                const layer = leaflet.tileLayer(
+                  tilelayers_data[APIname].url,
+                  tilelayers_data[APIname]
+                );
+                layer.addTo(this._map);
+              });
             } else {
-              const APIname = input_name
-              if(Object.keys(access_data).includes(APIname) ){
-                showDialog(
-                  {
-                    title: '',
-                    body: new TextInput('Enter the APIKEY please'),
-                    buttons: [Dialog.cancelButton(), Dialog.okButton()]
-                  }).then((result) => {
-                    const code = access_data[APIname].keyString
-                    tilelayers_data[APIname][code] = result.value
-                    const layer = leaflet.tileLayer(tilelayers_data[APIname].url, tilelayers_data[APIname]);
-                    layer.addTo(this._map);
-                  }
-                  )
-              } else {
-              const layer = leaflet.tileLayer(tilelayers_data[APIname].url, tilelayers_data[APIname]);
+              const layer = leaflet.tileLayer(
+                tilelayers_data[APIname].url,
+                tilelayers_data[APIname]
+              );
               layer.addTo(this._map);
-              }
             }
           }
-        );
+        });
 
       // Create GeoJSON layer from data and add to map
       this._geoJSONLayer = leaflet
