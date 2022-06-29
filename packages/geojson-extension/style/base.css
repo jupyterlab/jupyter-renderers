@@ -35,10 +35,13 @@
   margin-left: auto;
   font-size: 12px;
   font-family: 'Arial';
-  height: 80px;
-  width: 70px;
-  color: white;
-  background-color: rgb(53, 111, 220);
+  height: 32px;
+  width: 32px;
+  border: none;
+  color: black;
+  /*background-color: rgb(53, 111, 220);*/
+  z-index: 400;
+  opacity: 0.6;
 }
 
 .input-content {
@@ -50,4 +53,6 @@
 
 .select-list {
   overflow: auto;
+  font-family: 'Arial';
+  font-size: 12px;
 }

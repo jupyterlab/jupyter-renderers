@@ -11,6 +11,10 @@ import { defaultSanitizer, Dialog, showDialog } from '@jupyterlab/apputils';
 
 import { StringExt } from '@lumino/algorithm';
 
+import { layersIcon } from './icons';
+
+//import { jupyterIcon } from '@jupyterlab/ui-components';
+
 import leaflet from 'leaflet';
 
 import 'leaflet/dist/leaflet.css';
@@ -33,24 +37,17 @@ const nameList: Array<string> = [];
 for (const [key1, val1] of Object.entries(tilelayers_data)) {
   if (Object.keys(val1).includes('url')) {
     const name = tilelayers_data[key1].name;
-    if (name !== undefined && nameList.includes(name) === false) {
+    if (name !== undefined && !nameList.includes(name)) {
       nameList.push(name);
     }
   } else {
     for (const key2 of Object.keys(val1)) {
       const name = tilelayers_data[key1][key2].name;
-      if (name !== undefined && nameList.includes(name) === false) {
+      if (name !== undefined && !nameList.includes(name)) {
         nameList.push(name);
       }
     }
   }
-}
-
-/**
- * Normalize the query text for a fuzzy search.
- */
-function normalizeQuery(text: string): string {
-  return text.replace(/\s+/g, '').toLocaleLowerCase();
 }
 
 /**
@@ -85,15 +82,6 @@ leaflet.Icon.Default.mergeOptions({
   shadowUrl: shadowUrl,
 });
 
-/**
- * The namespace for the module implementation details.
- */
-
-//export namespace Search {
-/**
- * A search result object for a command item.
- */
-
 export interface IResult {
   /**
    * The value was matched.
@@ -106,7 +94,7 @@ export interface IResult {
   readonly indices: ReadonlyArray<number> | null;
 
   /**
-   * The indices of the matched characters.
+   * The string value of the item to be compared with the query, before applying to theLowerCase.
    */
   readonly valueWithCase: string;
 }
@@ -137,6 +125,12 @@ interface IScore {
 }
 
 /**
+ * Normalize the query text for a fuzzy search.
+ */
+function normalizeQuery(text: string): string {
+  return text.replace(/\s+/g, '').toLocaleLowerCase();
+}
+/**
  * Perform a fuzzy search on a single command item.
  */
 function fuzzySearch(item: string, query: string): IScore | null {
@@ -152,29 +146,17 @@ function fuzzySearch(item: string, query: string): IScore | null {
   const rgx = /\b\w/g;
 
   // Search the source by word boundary.
-  let rgxMatch = rgx.exec(value);
-  while (rgxMatch) {
-    // Find the next word boundary in the source.
-    rgxMatch = rgx.exec(value);
 
-    // Break if there is no more source context.
-    if (!rgxMatch) {
-      break;
-    }
+  // Find the next word boundary in the source.
+  const rgxMatch = rgx.exec(value);
 
-    // Run the string match on the relevant substring.
-    const match = StringExt.matchSumOfDeltas(value, query, rgxMatch.index);
+  // Run the string match on the relevant substring.
+  const match = StringExt.matchSumOfDeltas(value, query, rgxMatch.index);
 
-    // Break if there is no match.
-    if (!match) {
-      break;
-    }
-
-    // Update the match if the score is better.
-    if (match && match.score <= score) {
-      score = match.score;
-      indices = match.indices;
-    }
+  // Update the match if the score is better.
+  if (match && match.score <= score) {
+    score = match.score;
+    indices = match.indices;
   }
 
   // Bail if there was no match.
@@ -232,7 +214,6 @@ function matchItems(items: string[], query: string): IScore[] {
   // Return the final array of scores.
   return scores;
 }
-//}
 
 export class TilelayerPalette
   extends Widget
@@ -240,11 +221,12 @@ export class TilelayerPalette
 {
   constructor(list: Array<string> = []) {
     super();
-
+    this.node.style.height = '270px';
+    this.node.style.height = '400px';
     this._query = document.createElement('input');
     this._query.type = 'text';
     this._query.style.width = '400px';
-    this._query.placeholder = 'Give me your query';
+    this._query.placeholder = 'Enter your query';
     this.node.appendChild(this._query);
 
     this._selectList = document.createElement('select');
@@ -252,11 +234,10 @@ export class TilelayerPalette
     this._selectList.className = 'select-list';
 
     this._query.addEventListener('keyup', (event) => {
+      this._selectList.innerHTML = null;
       const results = search(nameList, this._query.value);
       this.node.appendChild(this._selectList);
-      this._selectList.innerHTML = null;
       this._selectList.size = results.length;
-
       for (let i = 0, n = results.length; i < n; ++i) {
         const option = document.createElement('option');
         option.value = results[i].valueWithCase;
@@ -276,8 +257,11 @@ export class TilelayerPalette
 export class TextInput extends Widget implements Dialog.IBodyWidget<string> {
   constructor(placeHolder = '') {
     super();
+    this.node.style.height = '270px';
+    this.node.style.height = '400px';
     this._urlInput = document.createElement('input');
     this._urlInput.type = 'password';
+    this._urlInput.style.width = '400px';
     this._urlInput.placeholder = placeHolder;
     this.node.appendChild(this._urlInput);
   }
@@ -320,19 +304,23 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const data = model.data[this._mimeType] as any | GeoJSON.GeoJsonObject;
     return new Promise<void>((resolve, reject) => {
-      const tilelayerButton = document.createElement('button');
-      tilelayerButton.className = 'button-container';
-      this.node.append(tilelayerButton);
-      tilelayerButton.style.right = '0px';
-      tilelayerButton.innerHTML = 'Tilelayers';
+      const button = document.createElement('button');
+      button.className = 'button-container';
+      this.node.append(button);
+      button.style.right = '0px';
+      layersIcon.element({
+        container: button,
+        height: '32px',
+        width: '32px',
+        marginRight: '0px',
+      });
 
-      tilelayerButton.onclick = () =>
+      button.onclick = () =>
         showDialog({
           title: '',
           body: new TilelayerPalette(nameList),
           buttons: [Dialog.cancelButton(), Dialog.okButton()],
         }).then((result) => {
-          console.log('result.value: ', result.value);
           const input_name = result.value;
 
           if (input_name.includes('.')) {
