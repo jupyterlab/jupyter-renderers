@@ -234,22 +234,31 @@ export class TilelayerPalette
     this._selectList.className = 'select-list';
 
     this._query.addEventListener('keyup', (event) => {
-      this._selectList.innerHTML = null;
-      const results = search(nameList, this._query.value);
-      this.node.appendChild(this._selectList);
-      this._selectList.size = results.length;
-      for (let i = 0, n = results.length; i < n; ++i) {
-        const option = document.createElement('option');
-        option.value = results[i].valueWithCase;
-        option.text = results[i].valueWithCase;
-        this._selectList.appendChild(option);
-      }
+      this.query_changed();
     });
+  }
+
+  query_changed() {
+    this._selectList.innerHTML = null;
+    const results = search(nameList, this._query.value);
+    this.node.appendChild(this._selectList);
+    this._selectList.size = results.length;
+    for (let i = 0, n = results.length; i < n; ++i) {
+      const option = document.createElement('option');
+      option.value = results[i].valueWithCase;
+      option.text = results[i].valueWithCase;
+      this._selectList.appendChild(option);
+    }
   }
 
   getValue(): string {
     return this._selectList.value;
   }
+
+  protected onAfterAttach(msg: Message): void {
+    this.query_changed();
+  }
+
   private _selectList: HTMLSelectElement;
   private _query: HTMLInputElement;
 }
