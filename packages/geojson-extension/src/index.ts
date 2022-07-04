@@ -285,8 +285,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     // events.
     this._map = leaflet.map(this.node, {
       trackResize: false,
-    }
-    );
+    });
     const layer = leaflet.tileLayer(
       tilelayers_data['OpenStreetMap']['Mapnik'].url,
       tilelayers_data['OpenStreetMap']['Mapnik']
