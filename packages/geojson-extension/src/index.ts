@@ -331,14 +331,14 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
           if (input_name.includes('.')) {
             const APIname = input_name.split('.')[0];
             const subname = input_name.split('.')[1];
-            if (Object.keys(access_data).includes(APIname)) {
+            if (access_data[APIname]!==undefined) {
               showDialog({
                 title: '',
-                body: new TextInput('Enter the APIkey please'),
+                body: new TextInput('Enter the API key please'),
                 buttons: [Dialog.cancelButton(), Dialog.okButton()],
               }).then((result) => {
-                const code = access_data[APIname].keyString;
-                tilelayers_data[APIname][subname][code] = result.value;
+                const APIkey = access_data[APIname];
+                tilelayers_data[APIname][subname][APIkey] = result.value;
                 const layer = leaflet.tileLayer(
                   tilelayers_data[APIname][subname].url,
                   tilelayers_data[APIname][subname]
@@ -354,13 +354,13 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
             }
           } else {
             const APIname = input_name;
-            if (Object.keys(access_data).includes(APIname)) {
+            if (access_data[APIname]!==undefined) {
               showDialog({
                 title: '',
-                body: new TextInput('Enter the APIKEY please'),
+                body: new TextInput('Enter the API key please'),
                 buttons: [Dialog.cancelButton(), Dialog.okButton()],
               }).then((result) => {
-                const APIkey = access_data[APIname].keyString;
+                const APIkey = access_data[APIname];
                 tilelayers_data[APIname][APIkey] = result.value;
                 const layer = leaflet.tileLayer(
                   tilelayers_data[APIname].url,

@@ -1,29 +1,20 @@
 {
-  "Thunderforest": {
-    "keyString": "apikey"
-  },
-  "OpenWeatherMap": {
-    "keyString": "apiKey"
-  },
-  "MapTiler": {
-    "keyString": "key"
-  },
-  "MapBox": {
-    "keyString": "accessToken"
-  },
-  "Jawg": {
-    "keyString": "accessToken"
-  },
-  "TomTom": {
-    "keyString": "apikey"
-  },
-  "HEREv3": {
-    "keyString": "apiKey"
-  },
-  "HERE": {
-    "keyString": "apiKey"
-  },
-  "AzureMaps": {
-    "keyString": "subscriptionKey"
-  }
+  "Thunderforest": "apikey"
+  ,
+  "OpenWeatherMap": "apiKey"
+  ,
+  "MapTiler": "key"
+  ,
+  "MapBox": "accessToken"
+ ,
+  "Jawg": "accessToken"
+  ,
+  "TomTom": "apikey"
+  ,
+  "HEREv3": "apiKey"
+  ,
+  "HERE": "apiKey"
+  ,
+  "AzureMaps":"subscriptionKey"
+
 }
