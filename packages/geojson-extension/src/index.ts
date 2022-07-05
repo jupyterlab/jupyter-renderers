@@ -13,8 +13,6 @@ import { StringExt } from '@lumino/algorithm';
 
 import { layersIcon } from './icons';
 
-//import { jupyterIcon } from '@jupyterlab/ui-components';
-
 import leaflet from 'leaflet';
 
 import 'leaflet/dist/leaflet.css';
@@ -44,7 +42,13 @@ for (const [key1, val1] of Object.entries(tilelayers_data)) {
     for (const key2 of Object.keys(val1)) {
       const name = tilelayers_data[key1][key2].name;
       if (name !== undefined && !nameList.includes(name)) {
-        nameList.push(name);
+        if (
+          name !== 'OpenStreetMap.BlackAndWhite' &&
+          !name.includes('HikeBike') &&
+          !name.includes('HERE.')
+        ) {
+          nameList.push(name);
+        }
       }
     }
   }
@@ -340,7 +344,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
           if (input_name.includes('.')) {
             const APIname = input_name.split('.')[0];
             const subname = input_name.split('.')[1];
-            if (access_data[APIname]!==undefined) {
+            if (access_data[APIname] !== undefined) {
               showDialog({
                 title: '',
                 body: new TextInput('Enter the API key please'),
@@ -363,7 +367,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
             }
           } else {
             const APIname = input_name;
-            if (access_data[APIname]!==undefined) {
+            if (access_data[APIname] !== undefined) {
               showDialog({
                 title: '',
                 body: new TextInput('Enter the API key please'),

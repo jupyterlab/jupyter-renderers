@@ -1,20 +1,11 @@
 {
-  "Thunderforest": "apikey"
-  ,
-  "OpenWeatherMap": "apiKey"
-  ,
-  "MapTiler": "key"
-  ,
-  "MapBox": "accessToken"
- ,
-  "Jawg": "accessToken"
-  ,
-  "TomTom": "apikey"
-  ,
-  "HEREv3": "apiKey"
-  ,
-  "HERE": "apiKey"
-  ,
-  "AzureMaps":"subscriptionKey"
-
+  "Thunderforest": "apikey",
+  "OpenWeatherMap": "apiKey",
+  "MapTiler": "key",
+  "MapBox": "accessToken",
+  "Jawg": "accessToken",
+  "TomTom": "apikey",
+  "HEREv3": "apiKey",
+  "HERE": "apiKey",
+  "AzureMaps": "subscriptionKey"
 }
