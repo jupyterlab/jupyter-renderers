@@ -352,14 +352,15 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
               }).then((result) => {
                 const APIkey = access_data[APIname];
                 tilelayers_data[APIname][subname][APIkey] = result.value;
+                console.log('url :', tilelayers_data[APIname][subname].url);
                 const layer = leaflet.tileLayer(
                   tilelayers_data[APIname][subname].url,
                   tilelayers_data[APIname][subname]
                 );
 
                 this._map.removeLayer(this._lastAddedLayer);
-                this._lastAddedLayer = layer;
                 layer.addTo(this._map);
+                this._lastAddedLayer = layer;
               });
             } else {
               const layer = leaflet.tileLayer(
@@ -367,8 +368,8 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
                 tilelayers_data[APIname][subname]
               );
               this._map.removeLayer(this._lastAddedLayer);
-              this._lastAddedLayer = layer;
               layer.addTo(this._map);
+              this._lastAddedLayer = layer;
             }
           } else {
             const APIname = input_name;
@@ -380,13 +381,14 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
               }).then((result) => {
                 const APIkey = access_data[APIname];
                 tilelayers_data[APIname][APIkey] = result.value;
+                console.log('url :', tilelayers_data[APIname].url);
                 const layer = leaflet.tileLayer(
                   tilelayers_data[APIname].url,
                   tilelayers_data[APIname]
                 );
                 this._map.removeLayer(this._lastAddedLayer);
-                this._lastAddedLayer = layer;
                 layer.addTo(this._map);
+                this._lastAddedLayer = layer;
               });
             } else {
               const layer = leaflet.tileLayer(
@@ -394,8 +396,8 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
                 tilelayers_data[APIname]
               );
               this._map.removeLayer(this._lastAddedLayer);
-              this._lastAddedLayer = layer;
               layer.addTo(this._map);
+              this._lastAddedLayer = layer;
             }
           }
         });
