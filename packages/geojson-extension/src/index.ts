@@ -352,7 +352,6 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
               }).then((result) => {
                 const APIkey = access_data[APIname];
                 tilelayers_data[APIname][subname][APIkey] = result.value;
-                console.log('url :', tilelayers_data[APIname][subname].url);
                 const layer = leaflet.tileLayer(
                   tilelayers_data[APIname][subname].url,
                   tilelayers_data[APIname][subname]
