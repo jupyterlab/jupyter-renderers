@@ -299,11 +299,11 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     this._map = leaflet.map(this.node, {
       trackResize: false,
     });
-    const layer = leaflet.tileLayer(
+    this._lastAddedLayer = leaflet.tileLayer(
       tilelayers_data['OpenStreetMap']['Mapnik'].url,
       tilelayers_data['OpenStreetMap']['Mapnik']
     );
-    layer.addTo(this._map);
+    this._lastAddedLayer.addTo(this._map);
   }
 
   /**
@@ -356,6 +356,9 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
                   tilelayers_data[APIname][subname].url,
                   tilelayers_data[APIname][subname]
                 );
+
+                this._map.removeLayer(this._lastAddedLayer);
+                this._lastAddedLayer = layer;
                 layer.addTo(this._map);
               });
             } else {
@@ -363,6 +366,8 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
                 tilelayers_data[APIname][subname].url,
                 tilelayers_data[APIname][subname]
               );
+              this._map.removeLayer(this._lastAddedLayer);
+              this._lastAddedLayer = layer;
               layer.addTo(this._map);
             }
           } else {
@@ -379,6 +384,8 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
                   tilelayers_data[APIname].url,
                   tilelayers_data[APIname]
                 );
+                this._map.removeLayer(this._lastAddedLayer);
+                this._lastAddedLayer = layer;
                 layer.addTo(this._map);
               });
             } else {
@@ -386,6 +393,8 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
                 tilelayers_data[APIname].url,
                 tilelayers_data[APIname]
               );
+              this._map.removeLayer(this._lastAddedLayer);
+              this._lastAddedLayer = layer;
               layer.addTo(this._map);
             }
           }
@@ -464,6 +473,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   private _map: leaflet.Map;
   private _geoJSONLayer: leaflet.GeoJSON;
   private _mimeType: string;
+  private _lastAddedLayer: leaflet.TileLayer;
 }
 
 /**
