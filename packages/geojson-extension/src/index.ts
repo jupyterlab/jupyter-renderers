@@ -270,8 +270,6 @@ export class TileLayerPalette
 export class TextInput extends Widget implements Dialog.IBodyWidget<string> {
   constructor(placeHolder = '') {
     super();
-    this.node.style.height = '270px';
-    this.node.style.height = '400px';
     this._urlInput = document.createElement('input');
     this._urlInput.className = 'jp-RenderedGeoJSONInput';
     this._urlInput.type = 'password';
