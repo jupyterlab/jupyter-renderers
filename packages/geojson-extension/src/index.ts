@@ -273,7 +273,7 @@ export class TextInput extends Widget implements Dialog.IBodyWidget<string> {
     this.node.style.height = '270px';
     this.node.style.height = '400px';
     this._urlInput = document.createElement('input');
-    this._urlInput.className ='jp-RenderedGeoJSONInput'
+    this._urlInput.className = 'jp-RenderedGeoJSONInput';
     this._urlInput.type = 'password';
     this._urlInput.style.width = '400px';
     this._urlInput.placeholder = placeHolder;
