@@ -219,7 +219,7 @@ function matchItems(items: string[], query: string): IScore[] {
   return scores;
 }
 
-export class TilelayerPalette
+export class TileLayerPalette
   extends Widget
   implements Dialog.IBodyWidget<string>
 {
@@ -230,12 +230,12 @@ export class TilelayerPalette
     this._query = document.createElement('input');
     this._query.type = 'text';
     this._query.style.width = '400px';
-    this._query.placeholder = 'Enter your query';
+    this._query.placeholder = 'Search for a tile layer';
     this.node.appendChild(this._query);
 
     this._selectList = document.createElement('select');
     this._selectList.style.width = '400px';
-    this._selectList.className = 'select-list';
+    this._selectList.className = 'jp-RenderedGeoJSONSelectList';
 
     this._query.addEventListener('keyup', (event) => {
       this.query_changed();
@@ -273,6 +273,7 @@ export class TextInput extends Widget implements Dialog.IBodyWidget<string> {
     this.node.style.height = '270px';
     this.node.style.height = '400px';
     this._urlInput = document.createElement('input');
+    this._urlInput.className ='jp-RenderedGeoJSONInput'
     this._urlInput.type = 'password';
     this._urlInput.style.width = '400px';
     this._urlInput.placeholder = placeHolder;
@@ -323,7 +324,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     const data = model.data[this._mimeType] as any | GeoJSON.GeoJsonObject;
     return new Promise<void>((resolve, reject) => {
       const button = document.createElement('button');
-      button.className = 'button-container';
+      button.className = 'jp-RenderedGeoJSONLayerIcon';
       this.node.append(button);
       button.style.right = '0px';
       layersIcon.element({
@@ -336,7 +337,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
       button.onclick = () =>
         showDialog({
           title: '',
-          body: new TilelayerPalette(nameList),
+          body: new TileLayerPalette(nameList),
           buttons: [Dialog.cancelButton(), Dialog.okButton()],
         }).then((result) => {
           const input_name = result.value;

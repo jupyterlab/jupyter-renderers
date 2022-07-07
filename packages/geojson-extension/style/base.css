@@ -26,11 +26,11 @@
 }
 
 /* Document icon */
-.jp-GeoJSONIcon {
+.jp-RenderedGeoJSONIcon {
   background-image: var(--jp-icon-geojson);
 }
 
-.button-container {
+.jp-RenderedGeoJSONLayerIcon {
   position: absolute;
   margin-left: auto;
   font-size: 12px;
@@ -39,19 +39,17 @@
   width: 32px;
   border: none;
   color: black;
-  /*background-color: rgb(53, 111, 220);*/
   z-index: 400;
   opacity: 0.6;
 }
 
-.input-content {
+.jp-RenderedGeoJSONInput {
   font-family: 'Arial';
   font-size: 12px;
-  /*background-color: rgb(53, 111, 220);*/
   color: black;
 }
 
-.select-list {
+.jp-RenderedGeoJSONSelectList {
   overflow: auto;
   font-family: 'Arial';
   font-size: 12px;
