@@ -113,7 +113,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
       // Create GeoJSON layer from data and add to map
       this._geoJSONLayer = leaflet
         .geoJSON(data, {
-          onEachFeature: function (feature, layer) {
+          onEachFeature: (feature, layer) => {
             if (feature.properties) {
               let popupContent = '<table>';
               for (const p in feature.properties) {
