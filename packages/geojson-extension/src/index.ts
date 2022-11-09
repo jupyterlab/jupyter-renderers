@@ -7,7 +7,7 @@ import { Message } from '@lumino/messaging';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import { defaultSanitizer, Dialog, showDialog } from '@jupyterlab/apputils';
+import { Dialog, ISanitizer, showDialog } from '@jupyterlab/apputils';
 
 import { StringExt } from '@lumino/algorithm';
 
@@ -291,6 +291,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     super();
     this.addClass(CSS_CLASS);
     this._mimeType = options.mimeType;
+    this._sanitizer = options.sanitizer;
     // Create leaflet map object
     // trackResize option set to false as it is not needed to track
     // window.resize events since we have individual phosphor resize
@@ -402,7 +403,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
       // Create GeoJSON layer from data and add to map
       this._geoJSONLayer = leaflet
         .geoJSON(data, {
-          onEachFeature: function (feature, layer) {
+          onEachFeature: (feature, layer) => {
             if (feature.properties) {
               let popupContent = '<table>';
               for (const p in feature.properties) {
@@ -414,7 +415,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
                   '</b></td></tr>';
               }
               popupContent += '</table>';
-              layer.bindPopup(defaultSanitizer.sanitize(popupContent));
+              layer.bindPopup(this._sanitizer.sanitize(popupContent));
             }
           },
         })
@@ -473,6 +474,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   private _geoJSONLayer: leaflet.GeoJSON;
   private _mimeType: string;
   private _lastAddedLayer: leaflet.TileLayer;
+  private _sanitizer: ISanitizer;
 }
 
 /**
