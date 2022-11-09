@@ -28,7 +28,7 @@
   "files": [
     "lib/*.d.ts",
     "lib/*.js",
-    "style/*.*",
+    "style/**/*",
     "src/*.json"
   ],
   "scripts": {
