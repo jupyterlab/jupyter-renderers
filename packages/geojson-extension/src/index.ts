@@ -7,7 +7,11 @@ import { Message } from '@lumino/messaging';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import { ISanitizer } from '@jupyterlab/apputils';
+import { Dialog, ISanitizer, showDialog } from '@jupyterlab/apputils';
+
+import { StringExt } from '@lumino/algorithm';
+
+import { layersIcon } from './icons';
 
 import leaflet from 'leaflet';
 
@@ -16,8 +20,39 @@ import 'leaflet/dist/leaflet.css';
 import '../style/index.css';
 
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
+
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+
+import * as providers from './providers.json';
+
+import * as access_d from './access_data.json';
+
+const tilelayers_data: { [key: string]: any } = providers;
+const access_data: { [key: string]: any } = access_d;
+const nameList: Array<string> = [];
+for (const [key1, val1] of Object.entries(tilelayers_data)) {
+  if (Object.keys(val1).includes('url')) {
+    const name = tilelayers_data[key1].name;
+    if (name !== undefined && !nameList.includes(name)) {
+      nameList.push(name);
+    }
+  } else {
+    for (const key2 of Object.keys(val1)) {
+      const name = tilelayers_data[key1][key2].name;
+      if (name !== undefined && !nameList.includes(name)) {
+        if (
+          name !== 'OpenStreetMap.BlackAndWhite' &&
+          !name.includes('HikeBike') &&
+          !name.includes('HERE.')
+        ) {
+          nameList.push(name);
+        }
+      }
+    }
+  }
+}
 
 /**
  * The CSS class to add to the GeoJSON Widget.
@@ -51,22 +86,202 @@ leaflet.Icon.Default.mergeOptions({
   shadowUrl: shadowUrl,
 });
 
-/**
- * The url template that leaflet tile layers.
- * See http://leafletjs.com/reference-1.0.3.html#tilelayer
- */
-const URL_TEMPLATE = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+export interface IResult {
+  /**
+   * The value was matched.
+   */
+  readonly value: string;
+
+  /**
+   * The indices of the matched characters.
+   */
+  readonly indices: ReadonlyArray<number> | null;
+
+  /**
+   * The string value of the item to be compared with the query, before applying to theLowerCase.
+   */
+  readonly valueWithCase: string;
+}
 
 /**
- * The options for leaflet tile layers.
- * See http://leafletjs.com/reference-1.0.3.html#tilelayer
+ * A text match score with associated with a string value item
  */
-const LAYER_OPTIONS: leaflet.TileLayerOptions = {
-  attribution:
-    'Map data (c) <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-  minZoom: 0,
-  maxZoom: 18,
-};
+interface IScore {
+  /**
+   * The numerical score for the text match.
+   */
+  score: number;
+
+  /**
+   * The indices of the matched characters.
+   */
+  indices: number[] | null;
+
+  /**
+   * The value associated with the match.
+   */
+  value: string;
+
+  /**
+   * The value associated with the match but with the capital letters included as required for the tilelayer name recognition.
+   */
+  valueWithCase: string;
+}
+
+/**
+ * Normalize the query text for a fuzzy search.
+ */
+function normalizeQuery(text: string): string {
+  return text.replace(/\s+/g, '').toLocaleLowerCase();
+}
+/**
+ * Perform a fuzzy search on a single command item.
+ */
+function fuzzySearch(item: string, query: string): IScore | null {
+  // Create the source text to be searched.
+  const value = item.toLocaleLowerCase();
+  const valueWithCase = item;
+
+  // Set up the match score and indices array.
+  let score = Infinity;
+  let indices: number[] | null = null;
+
+  // The regex for search word boundaries
+  const rgx = /\b\w/g;
+
+  // Search the source by word boundary.
+
+  // Find the next word boundary in the source.
+  const rgxMatch = rgx.exec(value);
+
+  // Run the string match on the relevant substring.
+  const match = StringExt.matchSumOfDeltas(value, query, rgxMatch.index);
+
+  // Update the match if the score is better.
+  if (match && match.score <= score) {
+    score = match.score;
+    indices = match.indices;
+  }
+
+  // Bail if there was no match.
+  if (!indices || score === Infinity) {
+    return null;
+  }
+
+  return { indices, score, value, valueWithCase };
+}
+
+/**
+ * Search an array of string values for fuzzy matches.
+ */
+export function search(items: string[], query: string): IResult[] {
+  return matchItems(items, query).sort((a, b) => a.score - b.score);
+}
+
+/**
+ * Perform a fuzzy match on an array of command items.
+ */
+function matchItems(items: string[], query: string): IScore[] {
+  // Normalize the query text to lower case with no whitespace.
+  query = normalizeQuery(query);
+
+  // Create the array to hold the scores.
+  const scores: IScore[] = [];
+
+  // Iterate over the items and match against the query.
+  for (let i = 0, n = items.length; i < n; ++i) {
+    const item = items[i];
+
+    // If the query is empty, all items are matched by default.
+    if (!query) {
+      scores.push({
+        indices: null,
+        score: 0,
+        value: item,
+        valueWithCase: item,
+      });
+      continue;
+    }
+
+    // Run the fuzzy search for the item and query.
+    const score = fuzzySearch(item, query);
+
+    // Ignore the item if it is not a match.
+    if (!score) {
+      continue;
+    }
+
+    // Add the score to the results.
+    scores.push(score);
+  }
+
+  // Return the final array of scores.
+  return scores;
+}
+
+export class TileLayerPalette
+  extends Widget
+  implements Dialog.IBodyWidget<string>
+{
+  constructor(list: Array<string> = []) {
+    super();
+    this.node.style.height = '270px';
+    this.node.style.height = '400px';
+    this._query = document.createElement('input');
+    this._query.type = 'text';
+    this._query.style.width = '400px';
+    this._query.placeholder = 'Search for a tile layer';
+    this.node.appendChild(this._query);
+
+    this._selectList = document.createElement('select');
+    this._selectList.style.width = '400px';
+    this._selectList.className = 'jp-RenderedGeoJSONSelectList';
+
+    this._query.addEventListener('keyup', (event) => {
+      this.query_changed();
+    });
+  }
+
+  query_changed() {
+    this._selectList.innerHTML = null;
+    const results = search(nameList, this._query.value);
+    this.node.appendChild(this._selectList);
+    this._selectList.size = results.length;
+    for (let i = 0, n = results.length; i < n; ++i) {
+      const option = document.createElement('option');
+      option.value = results[i].valueWithCase;
+      option.text = results[i].valueWithCase;
+      this._selectList.appendChild(option);
+    }
+  }
+
+  getValue(): string {
+    return this._selectList.value;
+  }
+
+  protected onAfterAttach(msg: Message): void {
+    this.query_changed();
+  }
+
+  private _selectList: HTMLSelectElement;
+  private _query: HTMLInputElement;
+}
+
+export class TextInput extends Widget implements Dialog.IBodyWidget<string> {
+  constructor(placeHolder = '') {
+    super();
+    this._urlInput = document.createElement('input');
+    this._urlInput.className = 'jp-RenderedGeoJSONInput';
+    this._urlInput.type = 'password';
+    this._urlInput.style.width = '400px';
+    this._urlInput.placeholder = placeHolder;
+    this.node.appendChild(this._urlInput);
+  }
+  getValue(): string {
+    return this._urlInput.value;
+  }
+  private _urlInput: HTMLInputElement;
+}
 
 export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   /**
@@ -84,6 +299,11 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     this._map = leaflet.map(this.node, {
       trackResize: false,
     });
+    this._lastAddedLayer = leaflet.tileLayer(
+      tilelayers_data['OpenStreetMap']['Mapnik'].url,
+      tilelayers_data['OpenStreetMap']['Mapnik']
+    );
+    this._lastAddedLayer.addTo(this._map);
   }
 
   /**
@@ -101,15 +321,85 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    */
   renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const data = model.data[this._mimeType] as any | GeoJSON.GeoJsonObject;
-    const metadata = (model.metadata[this._mimeType] as any) || {};
     return new Promise<void>((resolve, reject) => {
-      // Add leaflet tile layer to map
-      leaflet
-        .tileLayer(
-          metadata.url_template || URL_TEMPLATE,
-          metadata.layer_options || LAYER_OPTIONS
-        )
-        .addTo(this._map);
+      const button = document.createElement('button');
+      button.className = 'jp-RenderedGeoJSONLayerIcon';
+      this.node.append(button);
+      button.style.right = '0px';
+      layersIcon.element({
+        container: button,
+        height: '32px',
+        width: '32px',
+        marginRight: '0px',
+      });
+
+      button.onclick = () =>
+        showDialog({
+          title: '',
+          body: new TileLayerPalette(nameList),
+          buttons: [Dialog.cancelButton(), Dialog.okButton()],
+        }).then((result) => {
+          const input_name = result.value;
+
+          if (input_name.includes('.')) {
+            const APIname = input_name.split('.')[0];
+            const subname = input_name.split('.')[1];
+            if (access_data[APIname] !== undefined) {
+              showDialog({
+                title: '',
+                body: new TextInput('Enter the API key please'),
+                buttons: [Dialog.cancelButton(), Dialog.okButton()],
+              }).then((result) => {
+                const APIkey = access_data[APIname];
+                tilelayers_data[APIname][subname][APIkey] = result.value;
+                const layer = leaflet.tileLayer(
+                  tilelayers_data[APIname][subname].url,
+                  tilelayers_data[APIname][subname]
+                );
+
+                this._map.removeLayer(this._lastAddedLayer);
+                layer.addTo(this._map);
+                this._lastAddedLayer = layer;
+              });
+            } else {
+              const layer = leaflet.tileLayer(
+                tilelayers_data[APIname][subname].url,
+                tilelayers_data[APIname][subname]
+              );
+              this._map.removeLayer(this._lastAddedLayer);
+              layer.addTo(this._map);
+              this._lastAddedLayer = layer;
+            }
+          } else {
+            const APIname = input_name;
+            if (access_data[APIname] !== undefined) {
+              showDialog({
+                title: '',
+                body: new TextInput('Enter the API key please'),
+                buttons: [Dialog.cancelButton(), Dialog.okButton()],
+              }).then((result) => {
+                const APIkey = access_data[APIname];
+                tilelayers_data[APIname][APIkey] = result.value;
+                const layer = leaflet.tileLayer(
+                  tilelayers_data[APIname].url,
+                  tilelayers_data[APIname]
+                );
+                this._map.removeLayer(this._lastAddedLayer);
+                layer.addTo(this._map);
+                this._lastAddedLayer = layer;
+              });
+            } else {
+              const layer = leaflet.tileLayer(
+                tilelayers_data[APIname].url,
+                tilelayers_data[APIname]
+              );
+              this._map.removeLayer(this._lastAddedLayer);
+              layer.addTo(this._map);
+              this._lastAddedLayer = layer;
+            }
+          }
+        });
+
       // Create GeoJSON layer from data and add to map
       this._geoJSONLayer = leaflet
         .geoJSON(data, {
@@ -183,6 +473,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   private _map: leaflet.Map;
   private _geoJSONLayer: leaflet.GeoJSON;
   private _mimeType: string;
+  private _lastAddedLayer: leaflet.TileLayer;
   private _sanitizer: ISanitizer;
 }
 

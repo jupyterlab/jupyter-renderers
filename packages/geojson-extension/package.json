@@ -28,8 +28,8 @@
   "files": [
     "lib/*.d.ts",
     "lib/*.js",
-    "style/*.*",
-    "style/index.js"
+    "style/**/*",
+    "src/*.json"
   ],
   "scripts": {
     "build": "jlpm run build:lib && jlpm run build:labextension:dev",

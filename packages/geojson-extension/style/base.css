@@ -26,6 +26,31 @@
 }
 
 /* Document icon */
-.jp-GeoJSONIcon {
+.jp-RenderedGeoJSONIcon {
   background-image: var(--jp-icon-geojson);
+}
+
+.jp-RenderedGeoJSONLayerIcon {
+  position: absolute;
+  margin-left: auto;
+  font-size: 12px;
+  font-family: 'Arial';
+  height: 32px;
+  width: 32px;
+  border: none;
+  color: black;
+  z-index: 400;
+  opacity: 0.6;
+}
+
+.jp-RenderedGeoJSONInput {
+  font-family: 'Arial';
+  font-size: 12px;
+  color: black;
+}
+
+.jp-RenderedGeoJSONSelectList {
+  overflow: auto;
+  font-family: 'Arial';
+  font-size: 12px;
 }
