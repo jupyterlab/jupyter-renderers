@@ -9,14 +9,14 @@ consists of [JupyterLab](https://github.com/jupyterlab/jupyterlab) _mimerender e
 
 ## Packages
 
-| Name                                              | Mime types                                                         | File extensions                                            | Info                                                                                                                                                                                                                                                                                       |
-| ------------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [fasta-extension](packages/fasta-extension)       | `application/vnd.fasta.fasta`                                      | `.fasta`                                                   | [![Version](https://img.shields.io/npm/v/@jupyterlab/fasta-extension.svg)](https://www.npmjs.com/package/@jupyterlab/fasta-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/fasta-extension.svg)](https://www.npmjs.com/package/@jupyterlab/fasta-extension)             |
-| [geojson-extension](packages/geojson-extension)   | `application/geo+json`                                             | `.geojson`, `.geo.json`                                    | [![Version](https://img.shields.io/npm/v/@jupyterlab/geojson-extension.svg)](https://www.npmjs.com/package/@jupyterlab/geojson-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/geojson-extension.svg)](https://www.npmjs.com/package/@jupyterlab/geojson-extension)     |
-| [katex-extension](packages/katex-extension)       | N/A                                                                | N/A                                                        | [![Version](https://img.shields.io/npm/v/@jupyterlab/katex-extension.svg)](https://www.npmjs.com/package/@jupyterlab/katex-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/katex-extension.svg)](https://www.npmjs.com/package/@jupyterlab/katex-extension)             |
-| [mathjax3-extension](packages/mathjax3-extension) | N/A                                                                | N/A                                                        | [![Version](https://img.shields.io/npm/v/@jupyterlab/mathjax3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/mathjax3-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/mathjax3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/mathjax3-extension) |
-| [vega2-extension](packages/vega2-extension)       | `application/vnd.vega.v2+json`, `application/vnd.vegalite.v1+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega2-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega2-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega2-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega2-extension)             |
-| [vega3-extension](packages/vega3-extension)       | `application/vnd.vega.v3+json`, `application/vnd.vegalite.v2+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/npm/v/@jupyterlab/vega3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega3-extension) [![Downloads](https://img.shields.io/npm/dm/@jupyterlab/vega3-extension.svg)](https://www.npmjs.com/package/@jupyterlab/vega3-extension)             |
+| Name                                              | Mime types                                                         | File extensions                                            | Info                                                                                                                            |
+| ------------------------------------------------- | ------------------------------------------------------------------ | ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| [fasta-extension](packages/fasta-extension)       | `application/vnd.fasta.fasta`                                      | `.fasta`                                                   | [![Version](https://img.shields.io/pypi/v/jupyterlab-fasta?style=flat-square)](https://pypi.org/project/jupyterlab-fasta/)      |
+| [geojson-extension](packages/geojson-extension)   | `application/geo+json`                                             | `.geojson`, `.geo.json`                                    | [![Version](https://img.shields.io/pypi/v/jupyterlab-geojson?style=flat-square)](https://pypi.org/project/jupyterlab-geojson)   |
+| [katex-extension](packages/katex-extension)       | N/A                                                                | N/A                                                        | [![Version](https://img.shields.io/pypi/v/jupyterlab-katex?style=flat-square)](https://pypi.org/project/jupyterlab-katex)       |
+| [mathjax3-extension](packages/mathjax3-extension) | N/A                                                                | N/A                                                        | [![Version](https://img.shields.io/pypi/v/jupyterlab-mathjax3?style=flat-square)](https://pypi.org/project/jupyterlab-mathjax3) |
+| [vega2-extension](packages/vega2-extension)       | `application/vnd.vega.v2+json`, `application/vnd.vegalite.v1+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/pypi/v/jupyterlab-vega2?style=flat-square)](https://pypi.org/project/jupyterlab-vega2)       |
+| [vega3-extension](packages/vega3-extension)       | `application/vnd.vega.v3+json`, `application/vnd.vegalite.v2+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/pypi/v/jupyterlab-vega3?style=flat-square)](https://pypi.org/project/jupyterlab-vega3)       |
 
 ## Looking for plotly-extension?
 
@@ -35,7 +35,8 @@ pip install jupyterlab-vega2
 pip install jupyterlab-vega3
 ```
 
-It is also possible to install the extension from source using the `jupyter labextension install` command:
+<details><summary>For versions prior to JupyterLab v3.0,</summary>
+it is also possible to install the extension from source using the `jupyter labextension install` command:
 
 - fasta-extension: `jupyter labextension install @jupyterlab/fasta-extension`
 - geojson-extension: `jupyter labextension install @jupyterlab/geojson-extension`
@@ -44,7 +45,7 @@ It is also possible to install the extension from source using the `jupyter labe
 - vega2-extension: `jupyter labextension install @jupyterlab/vega2-extension`
 - vega3-extension: `jupyter labextension install @jupyterlab/vega3-extension`
 
-JupyterLab 2.x only supports installing the extensions with the `jupyter labextension install` command.
+</details>
 
 ## Contributing
 
