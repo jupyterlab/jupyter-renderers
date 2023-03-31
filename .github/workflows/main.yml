@@ -28,14 +28,14 @@ jobs:
     - name: Base Setup
       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
+    - name: Install dependencies
+      run: python -m pip install -U "jupyterlab>=4.0.0b0,<5"
+
     - name: Lint the extension
       run: |
         set -eux
         jlpm
         jlpm run lint:check
-
-    - name: Install dependencies
-      run: python -m pip install -U "jupyterlab>=4.0.0b0,<5"
 
     - name: Build the extension
       working-directory: packages/${{ matrix.extension }}-extension
