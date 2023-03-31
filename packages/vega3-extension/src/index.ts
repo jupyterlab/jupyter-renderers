@@ -11,8 +11,6 @@ import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
 import vegaEmbed, { Mode, vega, EmbedOptions } from 'vega-embed';
 
-import '../style/index.css';
-
 /**
  * The CSS class to add to the Vega and Vega-Lite widget.
  */
@@ -54,7 +52,7 @@ export class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
   constructor(options: IRenderMime.IRendererOptions) {
     super();
     this._mimeType = options.mimeType;
-    this._resolver = options.resolver;
+    this._resolver = options.resolver!;
     this.addClass(VEGA_COMMON_CLASS);
     this.addClass(
       this._mimeType === VEGA_MIME_TYPE ? VEGA_CLASS : VEGALITE_CLASS
@@ -73,26 +71,26 @@ export class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
       metadata && metadata.embed_options ? metadata.embed_options : {};
     const mode: Mode = this._mimeType === VEGA_MIME_TYPE ? 'vega' : 'vega-lite';
     return this._resolver.resolveUrl('').then((path: string) => {
-      return this._resolver.getDownloadUrl(path).then((baseURL) => {
+      return this._resolver.getDownloadUrl(path).then(baseURL => {
         const loader = vega.loader({
-          baseURL,
+          baseURL
         });
         const options: EmbedOptions = {
           actions: true,
           ...embedOptions,
           mode,
-          loader,
+          loader
         };
         const el = document.createElement('div');
         this.node.innerHTML = ''; // clear the output before attaching a chart
         this.node.appendChild(el);
-        return vegaEmbed(el, data, options).then((result) => {
+        return vegaEmbed(el, data, options).then(result => {
           // Add png representation of vega chart to output
           if (!model.data['image/png']) {
-            return result.view.toImageURL('png').then((imageData) => {
+            return result.view.toImageURL('png').then(imageData => {
               const data = {
                 ...model.data,
-                'image/png': imageData.split(',')[1],
+                'image/png': imageData.split(',')[1]
               };
               model.setData({ data });
             });
@@ -113,7 +111,7 @@ export class RenderedVega3 extends Widget implements IRenderMime.IRenderer {
 export const rendererFactory: IRenderMime.IRendererFactory = {
   safe: true,
   mimeTypes: [VEGA_MIME_TYPE, VEGALITE_MIME_TYPE],
-  createRenderer: (options) => new RenderedVega3(options),
+  createRenderer: options => new RenderedVega3(options)
 };
 
 const extension: IRenderMime.IExtension = {
@@ -126,29 +124,29 @@ const extension: IRenderMime.IExtension = {
       name: 'Vega 3',
       primaryFileType: 'vega3',
       fileTypes: ['vega3', 'json'],
-      defaultFor: ['vega3'],
+      defaultFor: ['vega3']
     },
     {
       name: 'Vega-Lite 2',
       primaryFileType: 'vega-lite2',
       fileTypes: ['vega-lite2', 'json'],
-      defaultFor: ['vega-lite2'],
-    },
+      defaultFor: ['vega-lite2']
+    }
   ],
   fileTypes: [
     {
       mimeTypes: [VEGA_MIME_TYPE],
       name: 'vega3',
       extensions: ['.vg', '.vg.json', '.vega'],
-      iconClass: 'jp-MaterialIcon jp-VegaIcon',
+      iconClass: 'jp-MaterialIcon jp-VegaIcon'
     },
     {
       mimeTypes: [VEGALITE_MIME_TYPE],
       name: 'vega-lite2',
       extensions: ['.vl', '.vl.json', '.vegalite'],
-      iconClass: 'jp-MaterialIcon jp-VegaIcon',
-    },
-  ],
+      iconClass: 'jp-MaterialIcon jp-VegaIcon'
+    }
+  ]
 };
 
 export default extension;

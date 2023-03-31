@@ -111,3 +111,13 @@ dmypy.json
 
 # OSX files
 .DS_Store
+
+# Yarn cache
+.yarn/
+
+# Integration tests
+ui-tests/test-results/
+ui-tests/playwright-report/
+
+packages/*/*/_version.py
+packages/*/*/labextension

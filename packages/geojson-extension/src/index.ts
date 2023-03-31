@@ -15,10 +15,6 @@ import { layersIcon } from './icons';
 
 import leaflet from 'leaflet';
 
-import 'leaflet/dist/leaflet.css';
-
-import '../style/index.css';
-
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
@@ -83,7 +79,7 @@ delete (leaflet.Icon.Default.prototype as any)['_getIconUrl'];
 leaflet.Icon.Default.mergeOptions({
   iconRetinaUrl: iconRetinaUrl,
   iconUrl: iconUrl,
-  shadowUrl: shadowUrl,
+  shadowUrl: shadowUrl
 });
 
 export interface IResult {
@@ -155,7 +151,7 @@ function fuzzySearch(item: string, query: string): IScore | null {
   const rgxMatch = rgx.exec(value);
 
   // Run the string match on the relevant substring.
-  const match = StringExt.matchSumOfDeltas(value, query, rgxMatch.index);
+  const match = StringExt.matchSumOfDeltas(value, query, rgxMatch?.index);
 
   // Update the match if the score is better.
   if (match && match.score <= score) {
@@ -198,7 +194,7 @@ function matchItems(items: string[], query: string): IScore[] {
         indices: null,
         score: 0,
         value: item,
-        valueWithCase: item,
+        valueWithCase: item
       });
       continue;
     }
@@ -237,13 +233,13 @@ export class TileLayerPalette
     this._selectList.style.width = '400px';
     this._selectList.className = 'jp-RenderedGeoJSONSelectList';
 
-    this._query.addEventListener('keyup', (event) => {
+    this._query.addEventListener('keyup', event => {
       this.query_changed();
     });
   }
 
   query_changed() {
-    this._selectList.innerHTML = null;
+    this._selectList.innerHTML = '';
     const results = search(nameList, this._query.value);
     this.node.appendChild(this._selectList);
     this._selectList.size = results.length;
@@ -297,7 +293,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
     // window.resize events since we have individual phosphor resize
     // events.
     this._map = leaflet.map(this.node, {
-      trackResize: false,
+      trackResize: false
     });
     this._lastAddedLayer = leaflet.tileLayer(
       tilelayers_data['OpenStreetMap']['Mapnik'].url,
@@ -312,7 +308,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
   dispose(): void {
     // Dispose of leaflet map
     this._map.remove();
-    this._map = null;
+    this._map = null!;
     super.dispose();
   }
 
@@ -330,26 +326,26 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
         container: button,
         height: '32px',
         width: '32px',
-        marginRight: '0px',
+        marginRight: '0px'
       });
 
       button.onclick = () =>
         showDialog({
           title: '',
           body: new TileLayerPalette(nameList),
-          buttons: [Dialog.cancelButton(), Dialog.okButton()],
-        }).then((result) => {
+          buttons: [Dialog.cancelButton(), Dialog.okButton()]
+        }).then(result => {
           const input_name = result.value;
 
-          if (input_name.includes('.')) {
+          if (input_name?.includes('.')) {
             const APIname = input_name.split('.')[0];
             const subname = input_name.split('.')[1];
             if (access_data[APIname] !== undefined) {
               showDialog({
                 title: '',
                 body: new TextInput('Enter the API key please'),
-                buttons: [Dialog.cancelButton(), Dialog.okButton()],
-              }).then((result) => {
+                buttons: [Dialog.cancelButton(), Dialog.okButton()]
+              }).then(result => {
                 const APIkey = access_data[APIname];
                 tilelayers_data[APIname][subname][APIkey] = result.value;
                 const layer = leaflet.tileLayer(
@@ -371,13 +367,13 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
               this._lastAddedLayer = layer;
             }
           } else {
-            const APIname = input_name;
+            const APIname = input_name ?? '';
             if (access_data[APIname] !== undefined) {
               showDialog({
                 title: '',
                 body: new TextInput('Enter the API key please'),
-                buttons: [Dialog.cancelButton(), Dialog.okButton()],
-              }).then((result) => {
+                buttons: [Dialog.cancelButton(), Dialog.okButton()]
+              }).then(result => {
                 const APIkey = access_data[APIname];
                 tilelayers_data[APIname][APIkey] = result.value;
                 const layer = leaflet.tileLayer(
@@ -417,7 +413,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
               popupContent += '</table>';
               layer.bindPopup(this._sanitizer.sanitize(popupContent));
             }
-          },
+          }
         })
         .addTo(this._map);
       this.update();
@@ -429,15 +425,15 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
    * A message handler invoked on an `'after-attach'` message.
    */
   protected onAfterAttach(msg: Message): void {
-    if (this.parent.hasClass('jp-OutputArea-child')) {
+    if (this.parent?.hasClass('jp-OutputArea-child')) {
       // Disable scroll zoom by default to avoid conflicts with notebook scroll
       this._map.scrollWheelZoom.disable();
       // Enable scroll zoom on map focus
-      this._map.on('blur', (event) => {
+      this._map.on('blur', event => {
         this._map.scrollWheelZoom.disable();
       });
       // Disable scroll zoom on blur
-      this._map.on('focus', (event) => {
+      this._map.on('focus', event => {
         this._map.scrollWheelZoom.enable();
       });
     }
@@ -467,11 +463,13 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
       this._map.invalidateSize();
     }
     // Update map size after panel/window is resized
-    this._map.fitBounds(this._geoJSONLayer.getBounds());
+    if (this._geoJSONLayer) {
+      this._map.fitBounds(this._geoJSONLayer.getBounds());
+    }
   }
 
   private _map: leaflet.Map;
-  private _geoJSONLayer: leaflet.GeoJSON;
+  private _geoJSONLayer: leaflet.GeoJSON | null = null;
   private _mimeType: string;
   private _lastAddedLayer: leaflet.TileLayer;
   private _sanitizer: ISanitizer;
@@ -483,7 +481,7 @@ export class RenderedGeoJSON extends Widget implements IRenderMime.IRenderer {
 export const rendererFactory: IRenderMime.IRendererFactory = {
   safe: true,
   mimeTypes: [MIME_TYPE],
-  createRenderer: (options) => new RenderedGeoJSON(options),
+  createRenderer: options => new RenderedGeoJSON(options)
 };
 
 const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
@@ -497,16 +495,16 @@ const extensions: IRenderMime.IExtension | IRenderMime.IExtension[] = [
         name: 'geojson',
         mimeTypes: [MIME_TYPE],
         extensions: ['.geojson', '.geo.json'],
-        iconClass: CSS_ICON_CLASS,
-      },
+        iconClass: CSS_ICON_CLASS
+      }
     ],
     documentWidgetFactoryOptions: {
       name: 'GeoJSON',
       primaryFileType: 'geojson',
       fileTypes: ['geojson', 'json'],
-      defaultFor: ['geojson'],
-    },
-  },
+      defaultFor: ['geojson']
+    }
+  }
 ];
 
 export default extensions;

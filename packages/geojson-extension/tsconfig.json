@@ -16,9 +16,9 @@
     "outDir": "lib",
     "rootDir": "src",
     "strict": true,
-    "strictNullChecks": false,
-    "target": "es2017",
-    "types": ["node"]
+    "strictNullChecks": true,
+    "target": "ES2018",
+    "types": ["jest"]
   },
-  "include": ["src/*", "src/providers.json", "src/access_data.json"]
+  "include": ["src/*", "src/*.json"]
 }

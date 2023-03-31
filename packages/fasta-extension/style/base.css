@@ -3,6 +3,8 @@
   Distributed under the terms of the Modified BSD License.
 */
 
+@import 'msa.css';
+
 /* Add CSS variables to :root */
 :root {
   --jp-icon-msa: url('./msa.svg');

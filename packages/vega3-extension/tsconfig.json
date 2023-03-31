@@ -6,19 +6,20 @@
     "esModuleInterop": true,
     "incremental": true,
     "jsx": "react",
-    "module": "commonjs",
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmitOnError": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noUnusedLocals": true,
     "preserveWatchOutput": true,
     "resolveJsonModule": true,
     "outDir": "lib",
     "rootDir": "src",
     "skipLibCheck": true,
-    "strictNullChecks": false,
-    "target": "es2017",
-    "types": []
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "ES2018",
+    "types": ["jest"]
   },
-  "include": ["src/*", "typings/*.d.ts"]
+  "include": ["src/*"]
 }

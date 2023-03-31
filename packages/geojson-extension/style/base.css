@@ -3,6 +3,8 @@
   Distributed under the terms of the Modified BSD License.
 */
 
+@import url('~leaflet/dist/leaflet.css');
+
 /* Add CSS variables to :root */
 :root {
   --jp-icon-geojson: url('./icons/geojson.svg');
