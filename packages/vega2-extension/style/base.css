@@ -1,7 +1,9 @@
-/*-----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
 | Copyright (c) Jupyter Development Team.
 | Distributed under the terms of the Modified BSD License.
-|----------------------------------------------------------------------------*/
+|---------------------------------------------------------------------------- */
+
+/* stylelint-disable selector-class-pattern */
 
 .jp-RenderedVegaCommon .vega-actions a {
   margin-right: 8px;

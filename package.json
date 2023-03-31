@@ -16,7 +16,7 @@
     "prettier": "prettier --write \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
     "prettier:check": "prettier --list-different \"**/*{.ts,.tsx,.js,.jsx,.css,.json,.md}\"",
     "stylelint": "jlpm stylelint:check --fix",
-    "stylelint:check": "stylelint --cache \"{packages/*}/style/**/*.css\"",
+    "stylelint:check": "stylelint --cache \"packages/*/style/**/*.css\"",
     "stylelint:files": "stylelint --fix",
     "update-dependency": "update-dependency --lerna",
     "watch": "lerna run --parallel watch"
@@ -30,6 +30,11 @@
     "eslint-plugin-prettier": "^4.2.1",
     "lerna": "^6.6.0",
     "prettier": "^2.8.7",
-    "rimraf": "^4.4.1"
+    "rimraf": "^4.4.1",
+    "stylelint": "^14.9.1",
+    "stylelint-config-prettier": "^9.0.4",
+    "stylelint-config-recommended": "^8.0.0",
+    "stylelint-config-standard": "^26.0.0",
+    "stylelint-prettier": "^2.0.0"
   }
 }

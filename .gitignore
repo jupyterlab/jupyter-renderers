@@ -121,3 +121,4 @@ ui-tests/playwright-report/
 
 packages/*/*/_version.py
 packages/*/*/labextension
+.stylelintcache
