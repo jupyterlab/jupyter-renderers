@@ -60,7 +60,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: extension-artifacts
-        path: dist/jupyterlab_${{ matrix.extension }}*
+        path: packages/${{ matrix.extension }}-extension/dist/jupyterlab_${{ matrix.extension }}*
         if-no-files-found: error
 
   integration-tests:
