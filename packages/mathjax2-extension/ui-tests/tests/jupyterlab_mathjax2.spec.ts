@@ -1,6 +1,6 @@
 import { expect, test } from '@jupyterlab/galata';
 
-test('should display notebook katex equations', async ({page}) => {
+test('should display notebook mathjax2 equations', async ({page}) => {
   await page.menu.clickMenuItem('File>New>Notebook');
 
   await page.notebook.setCell(0, 'markdown', `$$
@@ -25,14 +25,14 @@ $$`)
 
   expect.soft(
     await outputs.nth(0).screenshot()
-  ).toMatchSnapshot('katex-notebook-1.png')
+  ).toMatchSnapshot('mathjax2-notebook-1.png')
   expect.soft(
     await outputs.nth(1).screenshot()
-  ).toMatchSnapshot('katex-notebook-2.png')
+  ).toMatchSnapshot('mathjax2-notebook-2.png')
   expect.soft(
     await outputs.nth(1).screenshot()
-  ).toMatchSnapshot('katex-notebook-3.png')
+  ).toMatchSnapshot('mathjax2-notebook-3.png')
   expect(
     await outputs.nth(2).screenshot()
-  ).toMatchSnapshot('katex-notebook-4.png')
+  ).toMatchSnapshot('mathjax2-notebook-4.png')
 })

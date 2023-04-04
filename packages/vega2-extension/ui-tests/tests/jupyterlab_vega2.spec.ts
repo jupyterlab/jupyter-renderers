@@ -1,24 +1,36 @@
 import { expect, test } from '@jupyterlab/galata';
 
-/**
- * Don't load JupyterLab webpage before running the tests.
- * This is required to ensure we capture all log messages.
- */
-test.use({ autoGoto: false });
+test('should display geojson data file', async ({ page }) => {
+  const filename = 'test.vega2.json';
+  await page.menu.clickMenuItem('File>New>Text File');
 
-test('should emit an activation console message', async ({ page }) => {
-  const logs: string[] = [];
+  await page.locator().fill(``);
 
-  page.on('console', message => {
-    logs.push(message.text());
-  });
+  await page.menu.clickMenuItem('File>Save Text');
 
-  await page.goto();
+  await page.menu.clickMenuItem('File>Rename Text…');
+
+  await page.locator().inputValue(filename);
+
+  await page.locator().click()
+
+  await page.filebrowser.open(filename);
 
   expect(
-    logs.filter(
-      s =>
-        s === 'JupyterLab extension @jupyterlab/vega2-extension is activated!'
-    )
-  ).toHaveLength(1);
+    await page.getByRole('main').locator('.jp-RenderedVega5').screenshot()
+  ).toMatchSnapshot('vega2-file.png');
 });
+
+test('should display notebook geojson output', async ({page}) => {
+  await page.menu.clickMenuItem('File>New>Notebook');
+
+  await page.notebook.setCell(0, 'code', ``)
+
+  await page.notebook.run();
+
+  const outputs = page.getByRole('main').locator('jp-RenderedVega5 jp-OutputArea-output');
+
+  expect(
+    await outputs.screenshot()
+  ).toMatchSnapshot('vega2-notebook-3.png')
+})
