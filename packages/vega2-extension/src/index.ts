@@ -3,7 +3,7 @@
 | Distributed under the terms of the Modified BSD License.
 |----------------------------------------------------------------------------*/
 
-import { JSONObject, ReadonlyJSONObject, JSONValue } from '@lumino/coreutils';
+import { JSONObject, ReadonlyJSONObject } from '@lumino/coreutils';
 
 import { Widget } from '@lumino/widgets';
 
@@ -65,7 +65,7 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
   /**
    * Render Vega/Vega-Lite into this widget's node.
    */
-  renderModel(model: IRenderMime.IMimeModel): Promise<void> {
+  async renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const data = model.data[this._mimeType] as ReadonlyJSONObject;
     let updatedData: JSONObject;
     if (this._mode === 'vega-lite') {
@@ -79,29 +79,15 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
       spec: updatedData
     };
 
-    return import('vega-embed-v2').then(embedFunc => {
-      return new Promise<void>((resolve, reject) => {
-        embedFunc.default(
-          this.node,
-          embedSpec,
-          (error: any, result: any): any => {
-            if (error) {
-              return reject(error);
-            }
-
-            // Save png data in MIME bundle along with original MIME data.
-            if (!model.data['image/png']) {
-              const imageData = result.view
-                .toImageURL()
-                .split(',')[1] as JSONValue;
-              const newData = { ...model.data, 'image/png': imageData };
-              model.setData({ data: newData });
-            }
-            resolve(undefined);
-          }
-        );
-      });
-    });
+    const embedFunc = await import('vega-embed-v2');
+    const result = await embedFunc.default(this.node, embedSpec);
+    if (!model.data['image/png']) {
+      const imageData = ((await result.view.toImageURL('png')) as string).split(
+        ','
+      )[1];
+      const newData = { ...model.data, 'image/png': imageData };
+      model.setData({ data: newData });
+    }
   }
 
   private _mimeType: string;

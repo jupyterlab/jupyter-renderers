@@ -9,7 +9,7 @@
     "build:prod": "lerna run --parallel build:prod",
     "eslint": "eslint . --ext .ts,.tsx --fix",
     "eslint:check": "eslint . --ext .ts,.tsx",
-    "install-ext": "lerna run install:extension",
+    "install-ext": "lerna run build:labextension:dev",
     "install-py": "lerna exec --concurrency 4 -- python -m pip install -e .",
     "lint": "jlpm && jlpm prettier && jlpm eslint && jlpm stylelint",
     "lint:check": "jlpm prettier:check && jlpm eslint:check && jlpm stylelint:check",

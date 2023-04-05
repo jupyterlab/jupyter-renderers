@@ -1,10 +1,61 @@
 import { expect, test } from '@jupyterlab/galata';
 
 test('should display fasta data file', async ({ page }) => {
-  const filename = 'test.fasta.json';
+  const filename = 'test.fasta';
   await page.menu.clickMenuItem('File>New>Text File');
 
-  await page.locator().fill(`>EU545988.1|Micronesia|2007-06
+  await page.getByRole('main').getByRole('textbox').fill(FASTA_EXAMPLE);
+
+  await page.menu.clickMenuItem('File>Save Text');
+
+  await page.locator('.jp-Dialog').getByRole('textbox').fill(filename);
+
+  await page.getByRole('button', { name: 'Rename' }).click();
+
+  await page.filebrowser.open(filename);
+
+  expect(
+    await page.getByRole('main').locator('.jp-RenderedMSA').screenshot()
+  ).toMatchSnapshot('fasta-file.png');
+});
+
+test('should display notebook fasta output', async ({ page }) => {
+  await page.menu.clickMenuItem('File>New>Notebook');
+
+  await page.getByRole('button', { name: 'Select' }).click();
+
+  await page
+    .getByRole('main')
+    .getByRole('textbox')
+    .fill(
+      `from IPython.display import display
+
+def Fasta(data=''):
+    bundle = {}
+    bundle['application/vnd.fasta.fasta'] = data
+    bundle['text/plain'] = data
+    display(bundle, raw=True)
+
+Fasta(""">SEQUENCE_1
+MTEITAAMVKELRESTGAGMMDCKNALSETNGDFDKAVQLLREKGLGKAAKKADRLAAEG
+LVSVKVSDDFTIAAMRPSYLSYEDLDMTFVENEYKALVAELEKENEERRRLKDPNKPEHK
+IPQFASRKQLSDAILKEAEEKIKEELKAQGKPEKIWDNIIPGKMNSFIADNSQLDSKLTL
+MGQFYVMDDKKTVEQVIAEKEKEFGGKIKIVEFICFEVGEGLEKKTEDFAAEVAAQL
+>SEQUENCE_2
+SATVSEINSETDFVAKNDQFIALTKDTTAHIQSNSLQSVEELHSSTINGVKFEEYLKSQI
+ATIGENLVVRRFATLKAGANGVVNGYIHTNGRVGVVIAAACDSAEVASKSRDLLRQICMH""")`
+    );
+
+  await page.notebook.run();
+
+  const output = page
+    .getByRole('main')
+    .locator('.jp-RenderedMSA.jp-OutputArea-output');
+
+  expect(await output.screenshot()).toMatchSnapshot('fasta-notebook.png');
+});
+
+const FASTA_EXAMPLE = `>EU545988.1|Micronesia|2007-06
 ------------------------------------------------------------
 -----------------------------------------------ATGAAAAACCCCA
 AAGAAGAAATCCGGAGGATCCGGATTGTCAATATGCTAAAACGCGGAGTAGCCCGTGTGA
@@ -2006,52 +2057,4 @@ GGCCTGAACTGGAGATCAG-----------------------------------------
 ------------------------------------------------------------
 ------------------------------------------------------------
 --------
-`);
-
-  await page.menu.clickMenuItem('File>Save Text');
-
-  await page.menu.clickMenuItem('File>Rename Text…');
-
-  await page.locator().inputValue(filename);
-
-  await page.locator().click()
-
-  await page.filebrowser.open(filename);
-
-  expect(
-    await page.getByRole('main').locator('.jp-RenderedMSA').screenshot()
-  ).toMatchSnapshot('fasta-file.png');
-});
-
-test('should display notebook fasta output', async ({ page }) => {
-  await page.menu.clickMenuItem('File>New>Notebook');
-
-  await page.notebook.setCell(
-    0,
-    'code',
-    `from IPython.display import display
-
-def Fasta(data=''):
-    bundle = {}
-    bundle['application/vnd.fasta.fasta'] = data
-    bundle['text/plain'] = data
-    display(bundle, raw=True)
-
-Fasta(""">SEQUENCE_1
-MTEITAAMVKELRESTGAGMMDCKNALSETNGDFDKAVQLLREKGLGKAAKKADRLAAEG
-LVSVKVSDDFTIAAMRPSYLSYEDLDMTFVENEYKALVAELEKENEERRRLKDPNKPEHK
-IPQFASRKQLSDAILKEAEEKIKEELKAQGKPEKIWDNIIPGKMNSFIADNSQLDSKLTL
-MGQFYVMDDKKTVEQVIAEKEKEFGGKIKIVEFICFEVGEGLEKKTEDFAAEVAAQL
->SEQUENCE_2
-SATVSEINSETDFVAKNDQFIALTKDTTAHIQSNSLQSVEELHSSTINGVKFEEYLKSQI
-ATIGENLVVRRFATLKAGANGVVNGYIHTNGRVGVVIAAACDSAEVASKSRDLLRQICMH""")`
-);
-
-  await page.notebook.run();
-
-  const output = page
-    .getByRole('main')
-    .locator('jp-RenderedMSA jp-OutputArea-output');
-
-  expect(await output.screenshot()).toMatchSnapshot('fasta-notebook.png');
-});
+`;

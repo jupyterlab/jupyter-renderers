@@ -3,6 +3,8 @@ import { expect, test } from '@jupyterlab/galata';
 test('should display notebook katex equations', async ({page}) => {
   await page.menu.clickMenuItem('File>New>Notebook');
 
+  await page.getByRole('button', { name: 'Select' }).click();
+
   await page.notebook.setCell(0, 'markdown', `$$
 f(x) = \\int_{-\\infty}^\\infty\\hat f(\\xi)\\,e^{2 \\pi i \\xi x}\\,d\\xi
 $$`)
@@ -21,7 +23,9 @@ $$`)
 
   await page.notebook.run();
 
-  const outputs = page.getByRole('main').locator('jp-RenderedMarkdown jp-OutputArea-output');
+  await page.pause()
+
+  const outputs = page.getByRole('main').locator('.jp-RenderedMarkdown.jp-MarkdownOutput');
 
   expect.soft(
     await outputs.nth(0).screenshot()
@@ -30,9 +34,9 @@ $$`)
     await outputs.nth(1).screenshot()
   ).toMatchSnapshot('katex-notebook-2.png')
   expect.soft(
-    await outputs.nth(1).screenshot()
+    await outputs.nth(2).screenshot()
   ).toMatchSnapshot('katex-notebook-3.png')
   expect(
-    await outputs.nth(2).screenshot()
+    await outputs.nth(3).screenshot()
   ).toMatchSnapshot('katex-notebook-4.png')
 })

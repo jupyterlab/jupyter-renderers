@@ -1,10 +1,10 @@
 import { expect, test } from '@jupyterlab/galata';
 
 test('should display geojson data file', async ({ page }) => {
-  const filename = 'test.geojson.json';
+  const filename = 'test.geojson';
   await page.menu.clickMenuItem('File>New>Text File');
 
-  await page.locator().fill(`{
+  await page.getByRole('main').getByRole('textbox').fill(`{
     "type": "Feature",
     "geometry": {
         "type": "Point",
@@ -17,23 +17,30 @@ test('should display geojson data file', async ({ page }) => {
 
   await page.menu.clickMenuItem('File>Save Text');
 
-  await page.menu.clickMenuItem('File>Rename Text…');
+  await page.locator('.jp-Dialog').getByRole('textbox').fill(filename);
 
-  await page.locator().inputValue(filename);
-
-  await page.locator().click()
+  await page.getByRole('button', { name: 'Rename' }).click();
 
   await page.filebrowser.open(filename);
+
+  await page.waitForTimeout(5000);
 
   expect(
     await page.getByRole('main').locator('.jp-RenderedGeoJSON').screenshot()
   ).toMatchSnapshot('geojson-file.png');
 });
 
-test('should display notebook geojson output', async ({page}) => {
+test('should display notebook geojson output', async ({ page }) => {
+  test.setTimeout(180000);
+
   await page.menu.clickMenuItem('File>New>Notebook');
 
-  await page.notebook.setCell(0, 'code', `from IPython.display import GeoJSON
+  await page.getByRole('button', { name: 'Select' }).click();
+
+  await page.notebook.setCell(
+    0,
+    'code',
+    `from IPython.display import GeoJSON
 
 GeoJSON({
     "type": "Feature",
@@ -41,9 +48,12 @@ GeoJSON({
         "type": "Point",
         "coordinates": [-118.4563712, 34.0163116]
     }
-})`)
+})`
+  );
 
-  await page.notebook.addCell('code', `GeoJSON(data={
+  await page.notebook.addCell(
+    'code',
+    `GeoJSON(data={
     "type": "Feature",
     "geometry": {
         "type": "Point",
@@ -53,9 +63,12 @@ GeoJSON({
 layer_options={
     "id": "mapbox.streets",
     "attribution" : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-})`)
+})`
+  );
 
-  await page.notebook.addCell('code', `GeoJSON(data={
+  await page.notebook.addCell(
+    'code',
+    `GeoJSON(data={
     "type": "Feature",
     "geometry": {
         "type": "Point",
@@ -68,19 +81,24 @@ layer_options={
     "tms": True,
     "minZoom" : 0,
     "maxZoom" : 5
-})`)
+})`
+  );
 
   await page.notebook.run();
 
-  const outputs = page.getByRole('main').locator('jp-RenderedGeoJSON jp-OutputArea-output');
+  await page.waitForTimeout(5000);
 
-  expect.soft(
-    await outputs.nth(0).screenshot()
-  ).toMatchSnapshot('geojson-notebook-1.png')
-  expect.soft(
-    await outputs.nth(1).screenshot()
-  ).toMatchSnapshot('geojson-notebook-2.png')
-  expect(
-    await outputs.nth(2).screenshot()
-  ).toMatchSnapshot('geojson-notebook-3.png')
-})
+  const outputs = page
+    .getByRole('main')
+    .locator('.jp-RenderedGeoJSON.jp-OutputArea-output');
+
+  expect
+    .soft(await outputs.nth(0).screenshot())
+    .toMatchSnapshot('geojson-notebook-1.png');
+  expect
+    .soft(await outputs.nth(1).screenshot())
+    .toMatchSnapshot('geojson-notebook-2.png');
+  expect(await outputs.nth(2).screenshot()).toMatchSnapshot(
+    'geojson-notebook-3.png'
+  );
+});

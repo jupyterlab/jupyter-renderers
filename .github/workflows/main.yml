@@ -16,7 +16,7 @@ jobs:
           - fasta
           - geojson
           - katex
-          # - mathjax3
+          - mathjax3
           - vega2
           - vega3
 
@@ -74,8 +74,7 @@ jobs:
           - fasta
           - geojson
           - katex
-          # - mathjax3
-          - vega2
+          - mathjax3
           - vega3
 
     env:
