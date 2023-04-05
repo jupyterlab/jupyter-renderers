@@ -16,7 +16,7 @@ jobs:
           - fasta
           - geojson
           - katex
-          - mathjax3
+          - mathjax2
           - vega2
           - vega3
 
@@ -74,8 +74,14 @@ jobs:
           - fasta
           - geojson
           - katex
-          - mathjax3
+          - mathjax2
           - vega3
+        jupyterlab:
+          # - "3.6"
+          - 4.0.0b0
+        # exclude:
+        #   - extension: mathjax2
+        #     jupyterlab: "3.6"
 
     env:
       PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/pw-browsers
@@ -95,7 +101,7 @@ jobs:
     - name: Install the extension
       run: |
         set -eux
-        python -m pip install "jupyterlab>=4.0.0b0,<5" jupyterlab_${{ matrix.extension }}*.whl
+        python -m pip install "jupyterlab~=${{ matrix.jupyterlab }}" jupyterlab_${{ matrix.extension }}*.whl
 
     - name: Install dependencies
       working-directory: packages/${{ matrix.extension }}-extension/ui-tests
