@@ -129,7 +129,7 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v3
       with:
-        name: jupyterlab_${{ matrix.extension }}-playwright-tests
+        name: jupyterlab_${{ matrix.extension }}-${{ matrix.jupyterlab }}-playwright-tests
         path: |
           packages/${{ matrix.extension }}-extension/ui-tests/test-results
           packages/${{ matrix.extension }}-extension/ui-tests/playwright-report
