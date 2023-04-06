@@ -10,9 +10,9 @@ import { ILatexTypesetter } from '@jupyterlab/rendermime';
 
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-import { IMacros, renderMathInElement } from './autorender';
-
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
+
+import { IMacros, renderMathInElement } from './autorender';
 
 const katexPluginId = '@jupyterlab/katex-extension:plugin';
 

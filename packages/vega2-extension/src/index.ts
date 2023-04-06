@@ -3,11 +3,11 @@
 | Distributed under the terms of the Modified BSD License.
 |----------------------------------------------------------------------------*/
 
+import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
+
 import { JSONObject, ReadonlyJSONObject } from '@lumino/coreutils';
 
 import { Widget } from '@lumino/widgets';
-
-import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
 /**
  * The CSS class to add to the Vega and Vega-Lite widget.

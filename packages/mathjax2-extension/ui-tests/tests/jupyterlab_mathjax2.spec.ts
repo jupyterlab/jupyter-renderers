@@ -36,11 +36,11 @@ $$`
 
   await page.notebook.run();
 
-  await page.pause();
-
   const outputs = page
     .getByRole('main')
     .locator('.jp-RenderedMarkdown.jp-MarkdownOutput');
+
+  await outputs.last().locator('.MathJax_Display').waitFor();
 
   expect
     .soft(await outputs.nth(0).screenshot())

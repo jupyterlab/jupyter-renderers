@@ -36,8 +36,6 @@ $$`
 
   await page.notebook.run();
 
-  await page.pause();
-
   const outputs = page
     .getByRole('main')
     .locator('.jp-RenderedMarkdown.jp-MarkdownOutput');

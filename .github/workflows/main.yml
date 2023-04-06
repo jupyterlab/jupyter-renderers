@@ -77,11 +77,11 @@ jobs:
           - mathjax2
           - vega3
         jupyterlab:
-          # - "3.6"
+          - "3.6"
           - 4.0.0b0
-        # exclude:
-        #   - extension: mathjax2
-        #     jupyterlab: "3.6"
+        exclude:
+          - extension: mathjax2
+            jupyterlab: "3.6"
 
     env:
       PLAYWRIGHT_BROWSERS_PATH: ${{ github.workspace }}/pw-browsers
