@@ -123,7 +123,12 @@ test('should display vega data file', async ({ page }) => {
 test('should display notebook vega output', async ({ page }) => {
   await page.menu.clickMenuItem('File>New>Notebook');
 
-  await page.getByRole('button', { name: 'Select' }).click();
+  const nButton = await page.getByRole('button', { name: 'Select' }).count();
+  if (nButton > 0) {
+    await page.getByRole('button', { name: 'Select' }).click();
+  } else {
+    await page.locator('.jp-Dialog button').getByText('Select').click();
+  }
 
   await page.getByRole('main').getByRole('textbox').fill(VEGA_NOTEBOOK_EXAMPLE);
 

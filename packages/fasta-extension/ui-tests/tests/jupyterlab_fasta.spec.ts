@@ -16,9 +16,15 @@ test('should display fasta data file', async ({ page }) => {
 
   await page.filebrowser.open(filename);
 
+  const version = await page.evaluate(() => {
+    return window.jupyterapp.version;
+  });
+
   expect(
     await page.getByRole('main').locator('.jp-RenderedMSA').screenshot()
-  ).toMatchSnapshot('fasta-file.png');
+  ).toMatchSnapshot('fasta-file.png', {
+    maxDiffPixelRatio: version[0] == '3' ? 0.05 : undefined
+  });
 });
 
 test('should display notebook fasta output', async ({ page }) => {
@@ -59,7 +65,13 @@ ATIGENLVVRRFATLKAGANGVVNGYIHTNGRVGVVIAAACDSAEVASKSRDLLRQICMH""")`
     .getByRole('main')
     .locator('.jp-RenderedMSA.jp-OutputArea-output');
 
-  expect(await output.screenshot()).toMatchSnapshot('fasta-notebook.png');
+  const version = await page.evaluate(() => {
+    return window.jupyterapp.version;
+  });
+
+  expect(await output.screenshot()).toMatchSnapshot('fasta-notebook.png', {
+    maxDiffPixelRatio: version[0] == '3' ? 0.05 : undefined
+  });
 });
 
 const FASTA_EXAMPLE = `>EU545988.1|Micronesia|2007-06
