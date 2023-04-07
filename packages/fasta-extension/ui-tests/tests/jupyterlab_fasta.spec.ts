@@ -16,15 +16,15 @@ test('should display fasta data file', async ({ page }) => {
 
   await page.filebrowser.open(filename);
 
+  const view = page.getByRole('main').locator('.jp-RenderedMSA');
+  expect(await view.innerHTML()).toMatchSnapshot('fasta-file.html');
+
   const version = await page.evaluate(() => {
     return window.jupyterapp.version;
   });
-
-  expect(
-    await page.getByRole('main').locator('.jp-RenderedMSA').screenshot()
-  ).toMatchSnapshot('fasta-file.png', {
-    maxDiffPixelRatio: version[0] == '3' ? 0.05 : undefined
-  });
+  if (version[0] != '3') {
+    expect(await view.screenshot()).toMatchSnapshot('fasta-file.png');
+  }
 });
 
 test('should display notebook fasta output', async ({ page }) => {
@@ -65,13 +65,15 @@ ATIGENLVVRRFATLKAGANGVVNGYIHTNGRVGVVIAAACDSAEVASKSRDLLRQICMH""")`
     .getByRole('main')
     .locator('.jp-RenderedMSA.jp-OutputArea-output');
 
+  expect(await output.innerHTML()).toMatchSnapshot('fasta-notebook.html');
+
   const version = await page.evaluate(() => {
     return window.jupyterapp.version;
   });
 
-  expect(await output.screenshot()).toMatchSnapshot('fasta-notebook.png', {
-    maxDiffPixelRatio: version[0] == '3' ? 0.05 : undefined
-  });
+  if (version[0] != '3') {
+    expect(await output.screenshot()).toMatchSnapshot('fasta-notebook.png');
+  }
 });
 
 const FASTA_EXAMPLE = `>EU545988.1|Micronesia|2007-06
