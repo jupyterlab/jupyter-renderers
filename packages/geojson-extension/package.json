@@ -59,16 +59,16 @@
     "watch:labextension": "jupyter labextension watch ."
   },
   "dependencies": {
-    "@jupyterlab/apputils": "^3.0.0 || ^4.0.0-beta.0",
-    "@jupyterlab/rendermime-interfaces": "^3.0.0 || ^3.8.0-beta.0",
-    "@jupyterlab/ui-components": "^3.0.0 || ^4.0.0-beta.0",
-    "@lumino/algorithm": "^1.0.0 || ^2.0.0",
+    "@jupyterlab/apputils": "^3.0.0 || ^4.0.0-beta.1",
+    "@jupyterlab/rendermime-interfaces": "^3.0.0 || ^3.8.0-beta.1",
+    "@jupyterlab/ui-components": "^3.0.0 || ^4.0.0-beta.1",
+    "@lumino/algorithm": "^1.0.0 || ^2.1.0",
     "@lumino/messaging": "^1.0.0 || ^2.0.0",
-    "@lumino/widgets": "^1.0.0 || ^2.0.0",
+    "@lumino/widgets": "^1.0.0 || ^2.1.0",
     "leaflet": "^1.5.0"
   },
   "devDependencies": {
-    "@jupyterlab/builder": "^4.0.0-beta.0",
+    "@jupyterlab/builder": "^4.0.0-beta.1",
     "@types/jest": "^29.2.0",
     "@types/json-schema": "^7.0.11",
     "@types/leaflet": "^1.4.0",
