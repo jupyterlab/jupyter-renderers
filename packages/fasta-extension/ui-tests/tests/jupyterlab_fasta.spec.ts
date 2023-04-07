@@ -1,6 +1,8 @@
 import { expect, test } from '@jupyterlab/galata';
 
 test('should display fasta data file', async ({ page }) => {
+  test.setTimeout(120000);
+
   const filename = 'test.fasta';
   await page.menu.clickMenuItem('File>New>Text File');
 

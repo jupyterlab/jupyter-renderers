@@ -107,7 +107,11 @@ jobs:
       working-directory: packages/${{ matrix.extension }}-extension/ui-tests
       env:
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-      run: jlpm install
+      run: |
+        if [[ "${{ matrix.jupyterlab }}" == "3.6" ]]; then
+          sed -i s/5.0.0-beta.0/4.0.0/ package.json
+        fi
+        jlpm install
 
     - name: Set up browser cache
       uses: actions/cache@v3
