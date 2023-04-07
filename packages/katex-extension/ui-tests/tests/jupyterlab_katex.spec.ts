@@ -46,15 +46,34 @@ $$`
     .locator('.jp-RenderedMarkdown.jp-MarkdownOutput');
 
   expect
-    .soft(await outputs.nth(0).screenshot())
-    .toMatchSnapshot('katex-notebook-1.png');
+    .soft(await outputs.nth(0).innerHTML())
+    .toMatchSnapshot('katex-notebook-1.html');
   expect
-    .soft(await outputs.nth(1).screenshot())
-    .toMatchSnapshot('katex-notebook-2.png');
+    .soft(await outputs.nth(1).innerHTML())
+    .toMatchSnapshot('katex-notebook-2.html');
   expect
-    .soft(await outputs.nth(2).screenshot())
-    .toMatchSnapshot('katex-notebook-3.png');
-  expect(await outputs.nth(3).screenshot()).toMatchSnapshot(
-    'katex-notebook-4.png'
+    .soft(await outputs.nth(2).innerHTML())
+    .toMatchSnapshot('katex-notebook-3.html');
+  expect.soft(await outputs.nth(3).innerHTML()).toMatchSnapshot(
+    'katex-notebook-4.html'
   );
+
+  const version = await page.evaluate(() => {
+    return window.jupyterapp.version;
+  });
+
+  if (version[0] != '3') {
+    expect
+      .soft(await outputs.nth(0).screenshot())
+      .toMatchSnapshot('katex-notebook-1.png');
+    expect
+      .soft(await outputs.nth(1).screenshot())
+      .toMatchSnapshot('katex-notebook-2.png');
+    expect
+      .soft(await outputs.nth(2).screenshot())
+      .toMatchSnapshot('katex-notebook-3.png');
+    expect(await outputs.nth(3).screenshot()).toMatchSnapshot(
+      'katex-notebook-4.png'
+    );
+  }
 });

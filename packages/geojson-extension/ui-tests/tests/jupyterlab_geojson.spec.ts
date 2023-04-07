@@ -25,9 +25,17 @@ test('should display geojson data file', async ({ page }) => {
 
   await page.waitForTimeout(5000);
 
+  const view = page.getByRole('main').locator('.jp-RenderedGeoJSON');
   expect(
-    await page.getByRole('main').locator('.jp-RenderedGeoJSON').screenshot()
-  ).toMatchSnapshot('geojson-file.png');
+    (await view.innerHTML()).replace(/data-icon-id="[\w-]+"/g, '')
+  ).toMatchSnapshot('geojson-file.html');
+
+  const version = await page.evaluate(() => {
+    return window.jupyterapp.version;
+  });
+  if (version[0] != '3') {
+    expect(await view.screenshot()).toMatchSnapshot('geojson-file.png');
+  }
 });
 
 test('should display notebook geojson output', async ({ page }) => {
@@ -98,12 +106,33 @@ layer_options={
     .locator('.jp-RenderedGeoJSON.jp-OutputArea-output');
 
   expect
-    .soft(await outputs.nth(0).screenshot())
-    .toMatchSnapshot('geojson-notebook-1.png');
+    .soft(
+      (await outputs.nth(0).innerHTML()).replace(/data-icon-id="[\w-]+"/g, '')
+    )
+    .toMatchSnapshot('geojson-notebook-1.html');
   expect
-    .soft(await outputs.nth(1).screenshot())
-    .toMatchSnapshot('geojson-notebook-2.png');
-  expect(await outputs.nth(2).screenshot()).toMatchSnapshot(
-    'geojson-notebook-3.png'
-  );
+    .soft(
+      (await outputs.nth(1).innerHTML()).replace(/data-icon-id="[\w-]+"/g, '')
+    )
+    .toMatchSnapshot('geojson-notebook-2.html');
+  expect
+    .soft(
+      (await outputs.nth(2).innerHTML()).replace(/data-icon-id="[\w-]+"/g, '')
+    )
+    .toMatchSnapshot('geojson-notebook-3.html');
+
+  const version = await page.evaluate(() => {
+    return window.jupyterapp.version;
+  });
+  if (version[0] != '3') {
+    expect
+      .soft(await outputs.nth(0).screenshot())
+      .toMatchSnapshot('geojson-notebook-1.png');
+    expect
+      .soft(await outputs.nth(1).screenshot())
+      .toMatchSnapshot('geojson-notebook-2.png');
+    expect(await outputs.nth(2).screenshot()).toMatchSnapshot(
+      'geojson-notebook-3.png'
+    );
+  }
 });

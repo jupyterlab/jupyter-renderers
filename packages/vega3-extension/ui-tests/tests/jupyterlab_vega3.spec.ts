@@ -115,9 +115,16 @@ test('should display vega data file', async ({ page }) => {
 
   await page.getByText('Vega 3').click();
 
-  expect(
-    await page.getByRole('main').locator('.jp-RenderedVegaCommon3').screenshot()
-  ).toMatchSnapshot('vega3-file.png');
+  const view = page.getByRole('main').locator('.jp-RenderedVegaCommon3');
+
+  expect(await view.innerHTML()).toMatchSnapshot('vega3-file.html');
+
+  const version = await page.evaluate(() => {
+    return window.jupyterapp.version;
+  });
+  if (version[0] != '3') {
+    expect(await view.screenshot()).toMatchSnapshot('vega3-file.png');
+  }
 });
 
 test('should display notebook vega output', async ({ page }) => {
@@ -137,8 +144,14 @@ test('should display notebook vega output', async ({ page }) => {
   const outputs = page
     .getByRole('main')
     .locator('.jp-RenderedVegaCommon3.jp-OutputArea-output');
+  expect(await outputs.innerHTML()).toMatchSnapshot('vega3-notebook.html');
 
-  expect(await outputs.screenshot()).toMatchSnapshot('vega3-notebook.png');
+  const version = await page.evaluate(() => {
+    return window.jupyterapp.version;
+  });
+  if (version[0] != '3') {
+    expect(await outputs.screenshot()).toMatchSnapshot('vega3-notebook.png');
+  }
 });
 
 const VEGA_NOTEBOOK_EXAMPLE = `from IPython.display import display

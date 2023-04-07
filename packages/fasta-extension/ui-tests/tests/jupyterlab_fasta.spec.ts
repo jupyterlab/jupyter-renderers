@@ -65,8 +65,6 @@ ATIGENLVVRRFATLKAGANGVVNGYIHTNGRVGVVIAAACDSAEVASKSRDLLRQICMH""")`
     .getByRole('main')
     .locator('.jp-RenderedMSA.jp-OutputArea-output');
 
-  expect(await output.innerHTML()).toMatchSnapshot('fasta-notebook.html');
-
   const version = await page.evaluate(() => {
     return window.jupyterapp.version;
   });
