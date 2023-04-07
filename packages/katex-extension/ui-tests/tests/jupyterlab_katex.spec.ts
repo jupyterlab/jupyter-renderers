@@ -54,9 +54,9 @@ $$`
   expect
     .soft(await outputs.nth(2).innerHTML())
     .toMatchSnapshot('katex-notebook-3.html');
-  expect.soft(await outputs.nth(3).innerHTML()).toMatchSnapshot(
-    'katex-notebook-4.html'
-  );
+  expect
+    .soft(await outputs.nth(3).innerHTML())
+    .toMatchSnapshot('katex-notebook-4.html');
 
   const version = await page.evaluate(() => {
     return window.jupyterapp.version;
