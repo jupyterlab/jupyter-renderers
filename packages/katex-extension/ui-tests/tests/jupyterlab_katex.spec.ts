@@ -45,17 +45,23 @@ $$`
     .getByRole('main')
     .locator('.jp-RenderedMarkdown.jp-MarkdownOutput');
 
+  while (
+    (await page.getByRole('main').locator('.katex-display').count()) !== 4
+  ) {
+    await page.waitForTimeout(100);
+  }
+
   expect
-    .soft(await outputs.nth(0).innerHTML())
+    .soft((await outputs.nth(0).innerHTML()).replace(/style=""/g, ''))
     .toMatchSnapshot('katex-notebook-1.html');
   expect
-    .soft(await outputs.nth(1).innerHTML())
+    .soft((await outputs.nth(1).innerHTML()).replace(/style=""/g, ''))
     .toMatchSnapshot('katex-notebook-2.html');
   expect
-    .soft(await outputs.nth(2).innerHTML())
+    .soft((await outputs.nth(2).innerHTML()).replace(/style=""/g, ''))
     .toMatchSnapshot('katex-notebook-3.html');
   expect
-    .soft(await outputs.nth(3).innerHTML())
+    .soft((await outputs.nth(3).innerHTML()).replace(/style=""/g, ''))
     .toMatchSnapshot('katex-notebook-4.html');
 
   const version = await page.evaluate(() => {

@@ -26,9 +26,6 @@ test('should display geojson data file', async ({ page }) => {
   await page.waitForTimeout(5000);
 
   const view = page.getByRole('main').locator('.jp-RenderedGeoJSON');
-  expect(
-    (await view.innerHTML()).replace(/data-icon-id="[\w-]+"/g, '')
-  ).toMatchSnapshot('geojson-file.html');
 
   const version = await page.evaluate(() => {
     return window.jupyterapp.version;

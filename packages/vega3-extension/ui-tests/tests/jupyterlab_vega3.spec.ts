@@ -108,7 +108,8 @@ test('should display vega data file', async ({ page }) => {
 
   await page
     .getByRole('region', { name: 'side panel content' })
-    .getByText(filename)
+    // The extension may be hidden as too long to be fully displayed
+    .getByText(new RegExp('^' + filename.replace('json', '')))
     .click({ button: 'right' });
 
   await page.getByText('Open With').click();
