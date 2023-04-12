@@ -57,7 +57,7 @@ function splitAtDelimiters(
         finalData.push({
           type: 'text',
           data: text.slice(0, currIndex),
-          display,
+          display
         });
         lookingForLeft = false;
       }
@@ -73,7 +73,7 @@ function splitAtDelimiters(
           finalData.push({
             type: 'text',
             data: text.slice(currIndex, nextIndex),
-            display,
+            display
           });
 
           currIndex = nextIndex;
@@ -91,7 +91,7 @@ function splitAtDelimiters(
             type: 'math',
             data: text.slice(currIndex + leftDelim.length, nextIndex),
             rawData: text.slice(currIndex, nextIndex + rightDelim.length),
-            display: display,
+            display: display
           });
 
           currIndex = nextIndex + rightDelim.length;
@@ -103,7 +103,7 @@ function splitAtDelimiters(
       finalData.push({
         type: 'text',
         data: text.slice(currIndex),
-        display,
+        display
       });
     } else {
       finalData.push(startData[i]);
@@ -145,7 +145,10 @@ function renderMathInText(text: string, optionsCopy: IAutoRenderOptions) {
       try {
         katex.render(math, span, optionsCopy);
       } catch (err) {
-        fragment.appendChild(document.createTextNode(data[i].rawData));
+        console.error(
+          `Failed to render mathematical expression with Katex:\n${err}`
+        );
+        fragment.appendChild(document.createTextNode(data[i].rawData ?? ''));
         continue;
       }
       fragment.appendChild(span);
@@ -159,7 +162,7 @@ function renderElem(elem: Node, optionsCopy: IAutoRenderOptions) {
     const childNode = elem.childNodes[i];
     if (childNode.nodeType === 3) {
       // Text node
-      const frag = renderMathInText(childNode.textContent, optionsCopy);
+      const frag = renderMathInText(childNode.textContent ?? '', optionsCopy);
       i += frag.childNodes.length - 1;
       elem.replaceChild(frag, childNode);
     } else if (childNode.nodeType === 1) {
@@ -199,12 +202,12 @@ const defaultAutoRenderOptions: IAutoRenderOptions = {
     { left: '\\[', right: '\\]', display: true },
     { left: '\\(', right: '\\)', display: false },
     { left: '$', right: '$', display: false },
-    { left: '\\begin{equation}', right: '\\end{equation}', display: true },
+    { left: '\\begin{equation}', right: '\\end{equation}', display: true }
   ],
 
   ignoredTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
   errorColor: '#CC0000',
-  throwOnError: false,
+  throwOnError: false
 };
 
 export function renderMathInElement(

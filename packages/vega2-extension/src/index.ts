@@ -3,18 +3,11 @@
 | Distributed under the terms of the Modified BSD License.
 |----------------------------------------------------------------------------*/
 
-import { JSONObject, ReadonlyJSONObject, JSONValue } from '@lumino/coreutils';
-
-import { Widget } from '@lumino/widgets';
-
 import { IRenderMime } from '@jupyterlab/rendermime-interfaces';
 
-/**
- * Import vega-embed in this manner due to how it is exported.
- */
-import embed from 'vega-embed-v2';
+import { JSONObject, ReadonlyJSONObject } from '@lumino/coreutils';
 
-import '../style/index.css';
+import { Widget } from '@lumino/widgets';
 
 /**
  * The CSS class to add to the Vega and Vega-Lite widget.
@@ -72,7 +65,7 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
   /**
    * Render Vega/Vega-Lite into this widget's node.
    */
-  renderModel(model: IRenderMime.IMimeModel): Promise<void> {
+  async renderModel(model: IRenderMime.IMimeModel): Promise<void> {
     const data = model.data[this._mimeType] as ReadonlyJSONObject;
     let updatedData: JSONObject;
     if (this._mode === 'vega-lite') {
@@ -83,28 +76,18 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
 
     const embedSpec = {
       mode: this._mode,
-      spec: updatedData,
+      spec: updatedData
     };
 
-    return Private.ensureMod().then((embedFunc) => {
-      return new Promise<void>((resolve, reject) => {
-        embedFunc(this.node, embedSpec, (error: any, result: any): any => {
-          if (error) {
-            return reject(error);
-          }
-
-          // Save png data in MIME bundle along with original MIME data.
-          if (!model.data['image/png']) {
-            const imageData = result.view
-              .toImageURL()
-              .split(',')[1] as JSONValue;
-            const newData = { ...model.data, 'image/png': imageData };
-            model.setData({ data: newData });
-          }
-          resolve(undefined);
-        });
-      });
-    });
+    const embedFunc = await import('vega-embed-v2');
+    const result = await embedFunc.default(this.node, embedSpec);
+    if (!model.data['image/png']) {
+      const imageData = ((await result.view.toImageURL('png')) as string).split(
+        ','
+      )[1];
+      const newData = { ...model.data, 'image/png': imageData };
+      model.setData({ data: newData });
+    }
   }
 
   private _mimeType: string;
@@ -117,7 +100,7 @@ export class RenderedVega extends Widget implements IRenderMime.IRenderer {
 export const rendererFactory: IRenderMime.IRendererFactory = {
   safe: true,
   mimeTypes: [VEGA_MIME_TYPE, VEGALITE_MIME_TYPE],
-  createRenderer: (options) => new RenderedVega(options),
+  createRenderer: options => new RenderedVega(options)
 };
 
 const extension: IRenderMime.IExtension = {
@@ -130,29 +113,29 @@ const extension: IRenderMime.IExtension = {
       name: 'Vega 2',
       primaryFileType: 'vega2',
       fileTypes: ['vega2', 'json'],
-      defaultFor: ['vega2'],
+      defaultFor: ['vega2']
     },
     {
       name: 'Vega-Lite 1',
       primaryFileType: 'vega-lite1',
       fileTypes: ['vega-lite1', 'json'],
-      defaultFor: ['vega-lite1'],
-    },
+      defaultFor: ['vega-lite1']
+    }
   ],
   fileTypes: [
     {
       mimeTypes: [VEGA_MIME_TYPE],
       name: 'vega2',
       extensions: ['.vg', '.vg.json', '.vega'],
-      iconClass: 'jp-MaterialIcon jp-VegaIcon',
+      iconClass: 'jp-MaterialIcon jp-VegaIcon'
     },
     {
       mimeTypes: [VEGALITE_MIME_TYPE],
       name: 'vega-lite1',
       extensions: ['.vl', '.vl.json', '.vegalite'],
-      iconClass: 'jp-MaterialIcon jp-VegaIcon',
-    },
-  ],
+      iconClass: 'jp-MaterialIcon jp-VegaIcon'
+    }
+  ]
 };
 
 export default extension;
@@ -166,36 +149,8 @@ namespace Private {
    */
   const defaultCellConfig: JSONObject = {
     width: 400,
-    height: 400 / 1.5,
+    height: 400 / 1.5
   };
-
-  /**
-   * The embed module import.
-   */
-  let mod: typeof embed;
-
-  /**
-   * Initialize the vega-embed module.
-   */
-  export function ensureMod(): Promise<typeof embed> {
-    return new Promise((resolve, reject) => {
-      if (mod !== undefined) {
-        resolve(mod);
-        return;
-      }
-      (require as any).ensure(
-        ['vega-embed-v2'],
-        (require: NodeRequire) => {
-          mod = require('vega-embed-v2');
-          resolve(mod);
-        },
-        (err: any) => {
-          reject(err);
-        },
-        'vega2'
-      );
-    });
-  }
 
   /**
    * Apply the default cell config to the spec in place.
@@ -214,14 +169,14 @@ namespace Private {
       return {
         ...{
           config: { ...{ cell: { ...defaultCellConfig, ...cell } } },
-          ...config,
+          ...config
         },
-        ...spec,
+        ...spec
       };
     } else {
       return {
         ...{ config: { ...{ cell: { ...defaultCellConfig } } }, ...config },
-        ...spec,
+        ...spec
       };
     }
   }

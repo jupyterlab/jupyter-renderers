@@ -1,9 +1,11 @@
-/*-----------------------------------------------------------------------------
+/* -----------------------------------------------------------------------------
 | Copyright (c) Jupyter Development Team.
 | Distributed under the terms of the Modified BSD License.
-|----------------------------------------------------------------------------*/
+|---------------------------------------------------------------------------- */
 
-@import url('~katex/dist/katex.css');
+@import '~katex/dist/katex.css';
+
+/* stylelint-disable selector-class-pattern */
 
 /**
  * Note: the KaTeX CSS doesn't apply a height property

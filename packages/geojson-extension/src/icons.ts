@@ -4,10 +4,10 @@ import mapSvgstr from '../style/icons/geojson.svg';
 
 export const layersIcon = new LabIcon({
   name: '@jupyterlab/geojson-extension:layers',
-  svgstr: layersSvgstr,
+  svgstr: layersSvgstr
 });
 
 export const mapIcon = new LabIcon({
   name: '@jupyterlab/geojson-extension:map',
-  svgstr: mapSvgstr,
+  svgstr: mapSvgstr
 });
