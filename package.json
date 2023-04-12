@@ -5,7 +5,7 @@
   ],
   "scripts": {
     "build": "lerna run --parallel build",
-    "build-py": "rimraf dist && mkdir -p dist && lerna run --parallel clean:all && lerna exec --concurrency 4 -- python -m build && lerna exec --concurrency 4 -- mv dist/* ../../dist/",
+    "build-py": "rimraf dist && mkdir -p dist && lerna run --parallel clean:all && lerna exec --concurrency 4 -- python -m build && lerna exec --concurrency 4 -- mv ./dist/jupyterlab* ../../dist/",
     "build:prod": "lerna run --parallel build:prod",
     "eslint": "eslint . --ext .ts,.tsx --fix",
     "eslint:check": "eslint . --ext .ts,.tsx",
