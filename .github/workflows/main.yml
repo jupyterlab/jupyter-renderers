@@ -80,6 +80,8 @@ jobs:
           - "3.6"
           - 4.0.0b0
         exclude:
+          - extension: katex
+            jupyterlab: "3.6"
           - extension: mathjax2
             jupyterlab: "3.6"
 

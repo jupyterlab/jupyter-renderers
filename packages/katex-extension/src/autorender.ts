@@ -145,6 +145,9 @@ function renderMathInText(text: string, optionsCopy: IAutoRenderOptions) {
       try {
         katex.render(math, span, optionsCopy);
       } catch (err) {
+        console.error(
+          `Failed to render mathematical expression with Katex:\n${err}`
+        );
         fragment.appendChild(document.createTextNode(data[i].rawData ?? ''));
         continue;
       }

@@ -94,7 +94,8 @@
     "outputDir": "jupyterlab_katex/labextension",
     "schemaDir": "schema",
     "disabledExtensions": [
-      "@jupyterlab/mathjax-extension:plugin"
+      "@jupyterlab/mathjax-extension:plugin",
+      "@jupyterlab/mathjax2-extension:plugin"
     ]
   },
   "styleModule": "style/index.js"
