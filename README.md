@@ -14,8 +14,7 @@ consists of [JupyterLab](https://github.com/jupyterlab/jupyterlab) _mimerender e
 | [fasta-extension](packages/fasta-extension)       | `application/vnd.fasta.fasta`                                      | `.fasta`                                                   | [![Version](https://img.shields.io/pypi/v/jupyterlab-fasta?style=flat-square)](https://pypi.org/project/jupyterlab-fasta/)      |
 | [geojson-extension](packages/geojson-extension)   | `application/geo+json`                                             | `.geojson`, `.geo.json`                                    | [![Version](https://img.shields.io/pypi/v/jupyterlab-geojson?style=flat-square)](https://pypi.org/project/jupyterlab-geojson)   |
 | [katex-extension](packages/katex-extension)       | N/A                                                                | N/A                                                        | [![Version](https://img.shields.io/pypi/v/jupyterlab-katex?style=flat-square)](https://pypi.org/project/jupyterlab-katex)       |
-| [mathjax3-extension](packages/mathjax3-extension) | N/A                                                                | N/A                                                        | [![Version](https://img.shields.io/pypi/v/jupyterlab-mathjax3?style=flat-square)](https://pypi.org/project/jupyterlab-mathjax3) |
-| [vega2-extension](packages/vega2-extension)       | `application/vnd.vega.v2+json`, `application/vnd.vegalite.v1+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/pypi/v/jupyterlab-vega2?style=flat-square)](https://pypi.org/project/jupyterlab-vega2)       |
+| [mathjax2-extension](packages/mathjax2-extension) | N/A                                                                | N/A                                                        | [![Version](https://img.shields.io/pypi/v/jupyterlab-mathjax2?style=flat-square)](https://pypi.org/project/jupyterlab-mathjax2) |
 | [vega3-extension](packages/vega3-extension)       | `application/vnd.vega.v3+json`, `application/vnd.vegalite.v2+json` | `.vg`, `.vl`, `.vg.json`, `.vl.json`, `.vega`, `.vegalite` | [![Version](https://img.shields.io/pypi/v/jupyterlab-vega3?style=flat-square)](https://pypi.org/project/jupyterlab-vega3)       |
 
 ## Looking for plotly-extension?
@@ -24,28 +23,15 @@ consists of [JupyterLab](https://github.com/jupyterlab/jupyterlab) _mimerender e
 
 ## Install
 
-With JupyterLab 3.0, it is possible to install the prebuilt extensions with `pip`:
+With JupyterLab 3.0 and above, it is possible to install the prebuilt extensions with `pip`:
 
 ```bash
 pip install jupyterlab-fasta
 pip install jupyterlab-geojson
 pip install jupyterlab-katex
-pip install jupyterlab-mathjax3
-pip install jupyterlab-vega2
+pip install jupyterlab-mathjax2
 pip install jupyterlab-vega3
 ```
-
-<details><summary>For versions prior to JupyterLab v3.0,</summary>
-it is also possible to install the extension from source using the `jupyter labextension install` command:
-
-- fasta-extension: `jupyter labextension install @jupyterlab/fasta-extension`
-- geojson-extension: `jupyter labextension install @jupyterlab/geojson-extension`
-- katex-extension: `jupyter labextension install @jupyterlab/katex-extension`
-- mathjax3-extension: `jupyter labextension install @jupyterlab/mathjax3-extension`
-- vega2-extension: `jupyter labextension install @jupyterlab/vega2-extension`
-- vega3-extension: `jupyter labextension install @jupyterlab/vega3-extension`
-
-</details>
 
 ## Contributing
 
@@ -55,7 +41,7 @@ JupyterLab follows the official [Jupyter Code of Conduct](https://github.com/jup
 
 ## Requirements
 
-- Node.js >= 4 (see [Installing Node.js and jlpm](https://github.com/jupyterlab/jupyterlab/blob/master/CONTRIBUTING.md#installing-nodejs-and-jlpm) in the JupyterLab docs)
+- Node.js >= 18 (see [Installing Node.js and jlpm](https://github.com/jupyterlab/jupyterlab/blob/master/CONTRIBUTING.md#installing-nodejs-and-jlpm) in the JupyterLab docs)
 
 ### Install
 
@@ -107,10 +93,12 @@ jupyter lab
 
 ### Publishing packages
 
-```bash
-jlpm run publish
-# If publishing a package for the first time
-npm access public @jupyterlab/<extension name>
+Build all Python packages:
+
+```
+rm -rf dist/*
+jlpm build-py
+twine upload dist/jupyterlab*
 ```
 
 ### Creating icons
