@@ -17,7 +17,6 @@ jobs:
           - geojson
           - katex
           - mathjax2
-          - vega2
           - vega3
 
     steps:
@@ -29,7 +28,7 @@ jobs:
       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
     - name: Install dependencies
-      run: python -m pip install -U "jupyterlab>=4.0.0b0,<5"
+      run: python -m pip install -U "jupyterlab>=4.0.0,<5"
 
     - name: Lint the extension
       run: |
@@ -78,7 +77,7 @@ jobs:
           - vega3
         jupyterlab:
           - "3.6"
-          - 4.0.0b0
+          - 4.0.0
         exclude:
           - extension: katex
             jupyterlab: "3.6"
@@ -111,7 +110,7 @@ jobs:
         PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       run: |
         if [[ "${{ matrix.jupyterlab }}" == "3.6" ]]; then
-          sed -i s/5.0.0-beta.1/4.0.0/ package.json
+          sed -i s/5.0.0/4.0.0/ package.json
         fi
         jlpm install
 

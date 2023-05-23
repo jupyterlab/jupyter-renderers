@@ -5,7 +5,7 @@ A MathJax Typesetting provider for JupyterLab
 
 ## Requirements
 
-- JupyterLab >= 4.0.0b0
+- JupyterLab >= 4.0.0
 
 ## Install
 

@@ -1,4 +1,4 @@
-jupyterlab>=4.0.0b0
+jupyterlab>=4.0.0
 traitlets>=4.3.1
 ipython
 pandas
