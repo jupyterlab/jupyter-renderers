@@ -34,6 +34,7 @@
     ],
     "scripts": {
         "build": "jlpm build:lib && jlpm build:labextension:dev",
+        "build:prod": "jlpm clean && jlpm build:lib:prod && jlpm build:labextension",
         "build:labextension": "jupyter labextension build .",
         "build:labextension:dev": "jupyter labextension build --development True .",
         "build:lib": "tsc --sourceMap",
@@ -53,7 +54,6 @@
         "prettier:check": "jlpm prettier:base --check",
         "stylelint": "jlpm stylelint:check --fix",
         "stylelint:check": "stylelint --cache \"style/**/*.css\"",
-        "test": "jest --coverage",
         "watch": "run-p watch:src watch:labextension",
         "watch:src": "tsc -w --sourceMap",
         "watch:labextension": "jupyter labextension watch ."
@@ -69,7 +69,6 @@
     },
     "devDependencies": {
         "@jupyterlab/builder": "^4.0.0",
-        "@types/jest": "^29.2.0",
         "@types/json-schema": "^7.0.11",
         "@types/leaflet": "^1.4.0",
         "@typescript-eslint/eslint-plugin": "^6.1.0",
@@ -91,7 +90,7 @@
         "yjs": "^13.5.40"
     },
     "resolutions": {
-      "@types/node": "^18.0.0"
+        "@types/node": "^18.0.0"
     },
     "jupyterlab": {
         "mimeExtension": true,
