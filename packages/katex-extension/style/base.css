@@ -3,7 +3,7 @@
 | Distributed under the terms of the Modified BSD License.
 |---------------------------------------------------------------------------- */
 
-@import '~katex/dist/katex.css';
+@import url('~katex/dist/katex.css');
 
 /* stylelint-disable selector-class-pattern */
 

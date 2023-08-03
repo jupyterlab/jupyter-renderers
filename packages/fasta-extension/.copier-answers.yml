@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v4.0.5
+_commit: v4.1.0
 _src_path: https://github.com/jupyterlab/extension-template
 author_email: jupyter@googlegroups.com
 author_name: Project Jupyter
@@ -13,7 +13,7 @@ mimetype: ''
 mimetype_name: ''
 project_short_description: Fasta renderer for JupyterLab
 python_name: jupyterlab_fasta
-repository: https://github.com/jupyterlab/jupyter-renderers.git
+repository: https://github.com/jupyterlab/jupyter-renderers
 test: true
 viewer_name: ''
 
