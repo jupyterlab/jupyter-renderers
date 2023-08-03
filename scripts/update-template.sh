@@ -5,7 +5,7 @@ git commit -am "Update extension template"
 for directory in ./packages/*/
 do
     pushd ${directory}
-    copier update -o inline
+    copier update --trust -o inline
     git add --all .
     git commit --amend -m "Update extension template"
     popd

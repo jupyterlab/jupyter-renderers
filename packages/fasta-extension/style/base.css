@@ -3,7 +3,7 @@
   Distributed under the terms of the Modified BSD License.
 */
 
-@import 'msa.css';
+@import url('msa.css');
 
 /* Add CSS variables to :root */
 :root {
