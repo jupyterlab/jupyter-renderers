@@ -90,6 +90,9 @@
         "typescript": "~5.0.2",
         "yjs": "^13.5.40"
     },
+    "resolutions": {
+      "@types/node": "^18.0.0"
+    },
     "jupyterlab": {
         "mimeExtension": true,
         "outputDir": "jupyterlab_geojson/labextension"
