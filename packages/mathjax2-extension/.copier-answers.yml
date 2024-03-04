@@ -13,7 +13,7 @@ mimetype: ''
 mimetype_name: ''
 project_short_description: A MathJax Typesetting provider for JupyterLab 4 and above
 python_name: jupyterlab_mathjax2
-repository: https://github.com/jupyterlab/jupyter-renderers.git.git
+repository: https://github.com/jupyterlab/jupyter-renderers.git
 test: true
 viewer_name: ''
 
