@@ -28,7 +28,7 @@ jobs:
       uses: jupyterlab/maintainer-tools/.github/actions/base-setup@v1
 
     - name: Install dependencies
-      run: python -m pip install -U "jupyterlab>=4.0.0,<5"
+      run: python -m pip install -U "jupyterlab~=4.0"
 
     - name: Lint the extension
       run: |
@@ -77,7 +77,7 @@ jobs:
           - vega3
         jupyterlab:
           - "3.6"
-          - 4.0.0
+          - "4.0"
         exclude:
           - extension: katex
             jupyterlab: "3.6"
